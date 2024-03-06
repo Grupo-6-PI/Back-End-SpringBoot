@@ -1,51 +1,53 @@
 package com.example.v1backtfg
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/usuario")
 class UsuarioController {
     val listaUsuarios: MutableList<Usuario> = mutableListOf()
-    //val listaUsuarios = mutableListOf<Usuario>()
 
     @GetMapping("/buscar_usuario/{id}")
-    fun PegaUsuarioPorId(@PathVariable id:Int):Usuario?{
+    fun PegaUsuarioPorId(@PathVariable id:Int):ResponseEntity<Usuario>{
         if(temUsuario(id)){
-        return listaUsuarios[id]
+            return ResponseEntity.status(200).body(listaUsuarios[id])
         }
-        return null
+            return ResponseEntity.status(404).build()
     }
 
     @PostMapping
-    fun cadastrarUsuario(@RequestBody usuario:Usuario):Boolean{
-        if(temUsuario(usuario.id)){
-            return false
+    fun cadastrarUsuario(@RequestBody usuario:Usuario):ResponseEntity<String>{
+        if(usuario.verificacaoCadastro(usuario)){
+            if(temUsuario(usuario.id)){
+                return ResponseEntity.status(400).build()
+            }
         }
 
         listaUsuarios.add(usuario)
 
-        return true
+        return ResponseEntity.status(201).body("Usuário ${usuario.nome} cadastro com sucesso!")
     }
 
     @PutMapping("/{id}")
     fun atualizarUsuarioPorId(
         @PathVariable id:Int,
         @RequestBody usuario:Usuario
-        ):Usuario?{
+        ):ResponseEntity<Usuario>{
             if (temUsuario(id)){
                 listaUsuarios.set(id,usuario)
-                return listaUsuarios[id]
+                return ResponseEntity.status(200).body(listaUsuarios[id])
             }
-                return null
+                return ResponseEntity.status(404).build()
     }
 
     @DeleteMapping("/{id}")
-    fun removerUsuarioPorId(@PathVariable id:Int):Boolean{
+    fun removerUsuarioPorId(@PathVariable id:Int):ResponseEntity<String>{
         if(temUsuario(id)){
             listaUsuarios.removeAt(id)
-            return true
+            return ResponseEntity.status(200).body("Usuario deletado com sucesso!")
         }
-            return false
+            return ResponseEntity.status(404).build()
     }
 
     fun temUsuario(id:Int):Boolean{
