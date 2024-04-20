@@ -1,6 +1,6 @@
-package BackEndTFG.Login_LogOff.Repository
+package school.sptech.projetotfg.repository
 
-import BackEndTFG.Login_LogOff.Dominio.AuthUser
+import school.sptech.projetotfg.domain.AuthUser
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface AuthRepository : JpaRepository<AuthUser, Long> {
