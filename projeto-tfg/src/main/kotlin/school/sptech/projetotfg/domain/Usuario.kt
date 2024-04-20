@@ -1,4 +1,4 @@
-package com.example.projeto
+package school.sptech.projetotfg.domain
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*

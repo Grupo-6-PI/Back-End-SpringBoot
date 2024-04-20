@@ -1,4 +1,4 @@
-package BackEndTFG.Login_LogOff.Dominio
+package school.sptech.projetotfg.domain
 
 import jakarta.persistence.*
 
