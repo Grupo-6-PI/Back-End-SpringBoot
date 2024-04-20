@@ -1,7 +1,9 @@
 package com.example.v1backtfg
 
+import com.example.projeto.Usuario
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+
 
 @RestController
 @RequestMapping("/usuario")
@@ -19,14 +21,12 @@ class UsuarioController {
     @PostMapping
     fun cadastrarUsuario(@RequestBody usuario:Usuario):ResponseEntity<String>{
         if(usuario.verificacaoCadastro(usuario)){
-            if(temUsuario(usuario.id)){
-                return ResponseEntity.status(400).build()
+            if(!temUsuario(usuario.id_usuario)){
+                listaUsuarios.add(usuario)
+                return ResponseEntity.status(201).body("Usuário ${usuario.nome} cadastro com sucesso!")
             }
         }
-
-        listaUsuarios.add(usuario)
-
-        return ResponseEntity.status(201).body("Usuário ${usuario.nome} cadastro com sucesso!")
+        return ResponseEntity.status(400).build()
     }
 
     @PutMapping("/{id}")
@@ -51,6 +51,6 @@ class UsuarioController {
     }
 
     fun temUsuario(id:Int):Boolean{
-        return id >= 0 && id < listaUsuarios.size
+        return id > 0 && id < listaUsuarios.size //valida se id já existe
     }
 }
