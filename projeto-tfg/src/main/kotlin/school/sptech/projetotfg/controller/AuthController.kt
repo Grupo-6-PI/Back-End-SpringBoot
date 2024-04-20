@@ -1,9 +1,9 @@
-package BackEndTFG.Login_LogOff.Controller
+package school.sptech.projetotfg.controller
 
-import BackEndTFG.Login_LogOff.Dominio.AuthUser
-import BackEndTFG.Login_LogOff.Repository.AuthRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import school.sptech.projetotfg.domain.AuthUser
+import school.sptech.projetotfg.repository.AuthRepository
 
 @RestController
 @RequestMapping("/auth")

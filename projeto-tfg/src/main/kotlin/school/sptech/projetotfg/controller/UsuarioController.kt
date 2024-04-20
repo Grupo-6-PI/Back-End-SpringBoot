@@ -1,18 +1,19 @@
-package com.example.v1backtfg
+package school.sptech.projetotfg.controller
 
-import com.example.projeto.Usuario
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import school.sptech.projetotfg.domain.Usuario
 import school.sptech.projetotfg.repository.UsuarioRepository
 
 
 @RestController
 @RequestMapping("/usuario")
-class UsuarioController(private val usuarioRepository: UsuarioRepository) {
+class UsuarioController(private val repository: UsuarioRepository) {
+
 
     @GetMapping("/listar_usuarios")
     fun listaUsuariosCadastrados():ResponseEntity<List<Usuario>>{
-        val listaUsuarios = usuarioRepository.findAll()
+        val listaUsuarios = repository.findAll()
         if(listaUsuarios.isNotEmpty()){
             return ResponseEntity.status(200).body(listaUsuarios)
         }
@@ -21,8 +22,8 @@ class UsuarioController(private val usuarioRepository: UsuarioRepository) {
 
     @GetMapping("/buscar_usuario/{id}")
     fun pegaUsuarioPorId(@PathVariable id:Int):ResponseEntity<Usuario>{
-        if(usuarioRepository.existsById(id)){
-            val usuario = usuarioRepository.findById(id).get()
+        if(repository.existsById(id)){
+            val usuario = repository.findById(id).get()
             return ResponseEntity.status(200).body(usuario)
         }
             return ResponseEntity.status(404).build()
@@ -30,8 +31,8 @@ class UsuarioController(private val usuarioRepository: UsuarioRepository) {
 
     @PostMapping
     fun cadastrarUsuario(@RequestBody usuario:Usuario):ResponseEntity<Usuario>{
-            if(!usuarioRepository.existsById(usuario.idUsuario)){
-                usuarioRepository.save(usuario)
+            if(!repository.existsById(usuario.idUsuario)){
+                repository.save(usuario)
                 return ResponseEntity.status(201).body(usuario)
             }
                 return ResponseEntity.status(400).build()
@@ -39,13 +40,13 @@ class UsuarioController(private val usuarioRepository: UsuarioRepository) {
 
     @PutMapping("/alterar_dados")
     fun atualizaUsuarioPorId(@RequestBody usuarioAtualizado:Usuario):ResponseEntity<Usuario>{
-            if (usuarioRepository.existsById(usuarioAtualizado.idUsuario)){
-                val usuario = usuarioRepository.findById(usuarioAtualizado.idUsuario).get()
+            if (repository.existsById(usuarioAtualizado.idUsuario)){
+                val usuario = repository.findById(usuarioAtualizado.idUsuario).get()
                 usuario.nome = usuarioAtualizado.nome
                 usuario.email = usuarioAtualizado.email
                 usuario.informacoesAdicionais = usuarioAtualizado.informacoesAdicionais
                 usuario.situacao = usuarioAtualizado.situacao
-                usuarioRepository.save(usuario)
+                repository.save(usuario)
                 return ResponseEntity.status(200).body(usuario)
             }
                 return ResponseEntity.status(404).build()
@@ -53,10 +54,11 @@ class UsuarioController(private val usuarioRepository: UsuarioRepository) {
 
     @DeleteMapping("/{id}")
     fun removeUsuarioPorId(@PathVariable id:Int):ResponseEntity<String>{
-        if(usuarioRepository.existsById(id)){
-            usuarioRepository.deleteById(id)
+        if(repository.existsById(id)){
+            repository.deleteById(id)
             return ResponseEntity.status(200).body("Usuario removido com sucesso!")
         }
             return ResponseEntity.status(404).build()
     }
+
 }
