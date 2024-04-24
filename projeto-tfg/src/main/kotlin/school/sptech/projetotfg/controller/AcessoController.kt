@@ -1,23 +1,14 @@
 package school.sptech.projetotfg.controller
 
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import school.sptech.projetotfg.domain.AuthUser
-import school.sptech.projetotfg.repository.AuthRepository
 
 @RestController
 @RequestMapping("/auth")
-class AuthController(private val authRepository: AuthRepository) {
-
-    @PostMapping("/register")
-    fun register(@RequestParam email: String, @RequestParam senha: String) {
-        val newUser = AuthUser(email = email, senha = senha)
-        authRepository.save(newUser)
-    }
+class AcessoController(private val AcessoRepository: acessoRepository) {
 
     @PostMapping("/login")
     fun login(@RequestParam email: String, @RequestParam password: String): String {
-        val user = authRepository.findByEmail(email)
+        val user = acessoRepository.findByEmail(email)
         return if (user != null && user.senha == password) {
             "Login feito com sucesso"
         } else {
