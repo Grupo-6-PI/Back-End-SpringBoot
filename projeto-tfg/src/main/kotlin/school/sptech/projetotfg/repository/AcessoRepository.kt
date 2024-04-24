@@ -1,10 +1,12 @@
 package school.sptech.projetotfg.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import school.sptech.projetotfg.domain.AcessoUser
+import org.springframework.data.jpa.repository.Query
+import school.sptech.projetotfg.domain.Acesso
 
-interface AcessoRepository : JpaRepository<AcessoUser, Int> {
-    fun logout(): String {
-        return("Logout executado!")
+interface AcessoRepository : JpaRepository<Acesso, Int> {
+    @Query("SELECT situacao FROM Acesso WHERE id = 1")
+    fun logout(id: Int): String {
+            return("Logout executado!")
     }
 }

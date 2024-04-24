@@ -22,8 +22,10 @@ class AcessoController(private val AcessoRepository: AcessoRepository, private v
     @PostMapping("/logout")
     fun logout(): ResponseEntity<String> {
         return try {
-            AcessoRepository.logout()
+            val id = 1
+            AcessoRepository.logout(id)
             ResponseEntity.ok("Logout successful")
+
         } catch (e: Exception) {
             ResponseEntity.status(404).body("Logout failed: ${e.message}")
         }
