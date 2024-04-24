@@ -5,13 +5,13 @@ import jakarta.validation.constraints.*
 import java.time.LocalDate
 
 @Entity
-class AcessoUser(
+class Acesso(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id_acesso: Int = 0,
     @field: NotNull @field: NotBlank
     val data_acesso: LocalDate,
     @field: NotNull @field: NotBlank @ManyToOne
-    val situacao: Int,
+    val situacao: Situacao,
     @field: NotNull @field: NotBlank @ManyToOne
-    val usuario: Int
+    val usuario: Usuario
 )
