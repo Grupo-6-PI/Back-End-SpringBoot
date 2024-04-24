@@ -2,22 +2,16 @@ package school.sptech.projetotfg.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import school.sptech.projetotfg.domain.AuthUser
-import school.sptech.projetotfg.repository.AuthRepository
+import school.sptech.projetotfg.repository.AcessoRepository
+import school.sptech.projetotfg.repository.UsuarioRepository
 
 @RestController
-@RequestMapping("/auth")
-class AuthController(private val authRepository: AuthRepository) {
-
-    @PostMapping("/register")
-    fun register(@RequestParam email: String, @RequestParam senha: String) {
-        val newUser = AuthUser(email = email, senha = senha)
-        authRepository.save(newUser)
-    }
+@RequestMapping("/acesso")
+class AcessoController(private val AcessoRepository: AcessoRepository, private val UsuarioRepository: UsuarioRepository) {
 
     @PostMapping("/login")
     fun login(@RequestParam email: String, @RequestParam password: String): String {
-        val user = authRepository.findByEmail(email)
+        val user = UsuarioRepository.findByEmail(email)
         return if (user != null && user.senha == password) {
             "Login feito com sucesso"
         } else {
@@ -25,13 +19,13 @@ class AuthController(private val authRepository: AuthRepository) {
         }
     }
 
-    /*@PostMapping("/logout")
+    @PostMapping("/logout")
     fun logout(): ResponseEntity<String> {
         return try {
-            authService.logout()
+            AcessoRepository.logout()
             ResponseEntity.ok("Logout successful")
         } catch (e: Exception) {
             ResponseEntity.status(404).body("Logout failed: ${e.message}")
         }
-    }*/
+    }
 }
