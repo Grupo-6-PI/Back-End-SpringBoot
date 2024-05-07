@@ -11,7 +11,7 @@ class Usuario(
     @field:NotBlank var nome:String,
     @field:Email var email:String,
     @field:NotBlank var senha:String,
-    @OneToOne var informacoesAdicionais:InformacoesAdicionais,
+    @OneToOne  var informacoesAdicionais:InformacoesAdicionais,
     @ManyToOne var situacao: Situacao,
     @ManyToOne var nivelAcesso: NivelAcesso
 ) {
