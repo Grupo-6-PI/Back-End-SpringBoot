@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity
 class InformacoesAdicionais (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idInformacoesAddicionais:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idInformacoesAdicionais:Int,
     @field:CPF var cpf:String,
     @field:Past var dataNascimento:Date,
     @OneToOne var endereco:Endereco,
