@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 @Entity
 class Acesso(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @field: Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id_acesso: Int = 0,
     @field: NotNull @field: NotBlank
     val data_acesso: LocalDate,

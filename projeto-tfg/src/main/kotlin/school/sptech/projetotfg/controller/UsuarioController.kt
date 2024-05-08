@@ -1,14 +1,16 @@
 package school.sptech.projetotfg.controller
 
+import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.Usuario
 import school.sptech.projetotfg.repository.UsuarioRepository
+import school.sptech.projetotfg.dto.cadastrarUsuarioResponse;
 
 
 @RestController
 @RequestMapping("/usuario")
-class UsuarioController(private val repository: UsuarioRepository) {
+class UsuarioController(private val repository: UsuarioRepository, val mapper: ModelMapper= ModelMapper()) {
 
 
     @GetMapping("/listar_usuarios")
@@ -30,12 +32,11 @@ class UsuarioController(private val repository: UsuarioRepository) {
     }
 
     @PostMapping
-    fun cadastrarUsuario(@RequestBody usuario:Usuario):ResponseEntity<Usuario>{
-            if(!repository.existsById(usuario.idUsuario)){
-                repository.save(usuario)
-                return ResponseEntity.status(201).body(usuario)
-            }
-                return ResponseEntity.status(400).build()
+    fun cadastrarUsuario(@RequestBody usuario:cadastrarUsuarioResponse):ResponseEntity<Usuario>{
+
+        var usuarioNovo:Usuario = mapper.map(usuario,Usuario::class.java)
+
+        return ResponseEntity.status(201).body(usuarioNovo)
     }
 
     @PutMapping("/alterar_dados")
