@@ -18,28 +18,26 @@ class AcessoController(
     val mapper: ModelMapper= ModelMapper()
 ) {
 
-    var status :Boolean = false
+    var status: Boolean = false
 
     @PostMapping("/login")
     fun login(@RequestBody usuario: LoginAcessoResponse): ResponseEntity<String> {
-        var usuarioLogado: Usuario = mapper.map(usuario,Usuario::class.java)
+        var usuarioLogado: Usuario = mapper.map(usuario, Usuario::class.java)
 
-         return ResponseEntity.status(201).body("Login feito")
+        return ResponseEntity.status(201).body("Login feito")
         status = true
     }
 
     @PostMapping("/logout")
-    fun logout(): ResponseEntity<String> {
-        if(status){
-            return try {
-                val id = 1
-                AcessoRepository.logout(id)
-                ResponseEntity.ok("Logout successful")
-
-            } catch (e: Exception) {
-                ResponseEntity.status(404).body("Logout failed: ${e.message}")
-            }
+    fun logout(): ResponseEntity<String>  {
+        if (status) {
+            AcessoRepository.logout()
+            ResponseEntity.ok("Logout successful")
+        } else {
+             ResponseEntity.status(405).body("Logout failed: Usuário não realizou logIn")
         }
-        return ResponseEntity.status(405).body("Logout failed: Usuário não realizou logIn")
+         return ResponseEntity.status(201).body("Logout feito")
+        status = false
     }
+
 }
