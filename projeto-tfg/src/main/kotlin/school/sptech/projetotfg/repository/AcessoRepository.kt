@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.Query
 import school.sptech.projetotfg.domain.Acesso
 
 interface AcessoRepository : JpaRepository<Acesso, Int> {
-    @Query("SELECT situacao FROM Acesso WHERE id = 1")
-    fun logout(id: Int): String {
+    @Query("SELECT situacao FROM Acesso WHERE id = 0")
+    fun logout(): String {
 
             return("Logout executado!")
     }
