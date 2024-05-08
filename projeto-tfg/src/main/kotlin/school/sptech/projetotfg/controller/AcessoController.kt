@@ -30,14 +30,15 @@ class AcessoController(
 
     @PostMapping("/logout")
     fun logout(): ResponseEntity<String>  {
-        if (status) {
-            AcessoRepository.logout()
-            ResponseEntity.ok("Logout successful")
-        } else {
-             ResponseEntity.status(405).body("Logout failed: Usuário não realizou logIn")
+        var liberacao = true
+        if (!liberacao) {
+            return ResponseEntity.status(405).body("Logout failed: Usuário não realizou logIn")
         }
-         return ResponseEntity.status(201).body("Logout feito")
-        status = false
+
+        liberacao = false
+
+        return ResponseEntity.status(201).body("O sistema apresentou: Logout Feito")
+
     }
 
 }
