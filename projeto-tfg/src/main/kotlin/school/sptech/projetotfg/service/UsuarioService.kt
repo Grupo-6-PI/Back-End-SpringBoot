@@ -13,7 +13,7 @@ class UsuarioService(
     val mapper: ModelMapper = ModelMapper()
 ) {
 
-    fun cadastrarUsuario(@RequestBody usuario: Usuario): ResponseEntity<Usuario> {
+    fun postUsuario(@RequestBody usuario: Usuario): ResponseEntity<Usuario> {
         if(!usuarioRepository.existsById(usuario.idUsuario)){
             usuarioRepository.save(usuario)
             return ResponseEntity.status(201).body(usuario)

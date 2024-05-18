@@ -5,8 +5,26 @@ import jakarta.validation.constraints.Min
 
 @Entity
 class RendaFamiliar(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idRendaFamiliar:Int,
-    @field:Min(0) var renda:Double,
-    @ManyToOne var situacao: Situacao
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRendaFamiliar:Int,
+    @field:Min(0) private var renda:Double,
+    @ManyToOne private var situacao: Situacao
 ) {
+    fun getId():Int{
+        return idRendaFamiliar
+    }
+    fun setId(novoId:Int){
+        idRendaFamiliar = novoId
+    }
+    fun getRenda():Double{
+        return renda
+    }
+    fun setRenda(novaRenda:Double){
+        renda = novaRenda
+    }
+    fun getSituacao():Situacao{
+        return situacao
+    }
+    fun setSituacao(novaSituacao: Situacao){
+        situacao = novaSituacao
+    }
 }

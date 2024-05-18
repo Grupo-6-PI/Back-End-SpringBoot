@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.Usuario
 import school.sptech.projetotfg.repository.UsuarioRepository
-import school.sptech.projetotfg.dto.cadastrarUsuarioResponse;
+import school.sptech.projetotfg.dto.CadastrarUsuarioResponse;
 
 
 @RestController
@@ -14,25 +14,25 @@ class UsuarioController(private val repository: UsuarioRepository, val mapper: M
 
 
     @GetMapping("/listar_usuarios")
-    fun listaUsuariosCadastrados():ResponseEntity<List<Usuario>>{
-        val listaUsuarios = repository.findAll()
-        if(listaUsuarios.isNotEmpty()){
-            return ResponseEntity.status(200).body(listaUsuarios)
+    fun getListaUsuariosCadastrados():ResponseEntity<List<Usuario>>{
+        val listaUsuariosCadastrados = repository.findAll()
+        if(listaUsuariosCadastrados.isNotEmpty()){
+            return ResponseEntity.status(200).body(listaUsuariosCadastrados)
         }
             return ResponseEntity.status(204).build()
     }
 
     @GetMapping("/buscar_usuario/{id}")
-    fun pegaUsuarioPorId(@PathVariable id:Int):ResponseEntity<Usuario>{
+    fun getUsuarioPorId(@PathVariable id:Int):ResponseEntity<Usuario>{
         if(repository.existsById(id)){
-            val usuario = repository.findById(id).get()
-            return ResponseEntity.status(200).body(usuario)
+            val usuarioEncontrado = repository.findById(id).get()
+            return ResponseEntity.status(200).body(usuarioEncontrado)
         }
             return ResponseEntity.status(404).build()
     }
 
     @PostMapping
-    fun cadastrarUsuario(@RequestBody usuario:cadastrarUsuarioResponse):ResponseEntity<Usuario>{
+    fun postUsuario(@RequestBody usuario:CadastrarUsuarioResponse):ResponseEntity<Usuario>{
 
         var usuarioNovo:Usuario = mapper.map(usuario,Usuario::class.java)
 
@@ -40,13 +40,13 @@ class UsuarioController(private val repository: UsuarioRepository, val mapper: M
     }
 
     @PutMapping("/alterar_dados")
-    fun atualizaUsuarioPorId(@RequestBody usuarioAtualizado:Usuario):ResponseEntity<Usuario>{
-            if (repository.existsById(usuarioAtualizado.idUsuario)){
-                val usuario = repository.findById(usuarioAtualizado.idUsuario).get()
-                usuario.nome = usuarioAtualizado.nome
-                usuario.email = usuarioAtualizado.email
-                usuario.informacoesAdicionais = usuarioAtualizado.informacoesAdicionais
-                usuario.situacao = usuarioAtualizado.situacao
+    fun putUsuarioPorId(@RequestBody dadosNovosDoUsuario:Usuario):ResponseEntity<Usuario>{
+            if (repository.existsById(dadosNovosDoUsuario.idUsuario)){
+                val usuario:Usuario = repository.findById(dadosNovosDoUsuario.idUsuario).get()
+                usuario.setNome(dadosNovosDoUsuario.getNome())
+                usuario.email = dadosNovosDoUsuario.email
+                usuario.informacoesAdicionais = dadosNovosDoUsuario.informacoesAdicionais
+                usuario.situacao = dadosNovosDoUsuario.situacao
                 repository.save(usuario)
                 return ResponseEntity.status(200).body(usuario)
             }
@@ -54,7 +54,7 @@ class UsuarioController(private val repository: UsuarioRepository, val mapper: M
     }
 
     @DeleteMapping("/{id}")
-    fun removeUsuarioPorId(@PathVariable id:Int):ResponseEntity<String>{
+    fun deleteUsuarioPorId(@PathVariable id:Int):ResponseEntity<String>{
         if(repository.existsById(id)){
             repository.deleteById(id)
             return ResponseEntity.status(200).body("Usuario removido com sucesso!")

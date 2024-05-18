@@ -7,12 +7,55 @@ import java.time.LocalDateTime
 
 @Entity
 class QuantidadeCriancas(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idQuantidadeCrianças:Int,
-    @field:NotNull var quantidade:Int,
-    @OneToOne var familia:Familia,
-    @ManyToOne var situacao: Situacao,
-    @field:PastOrPresent var dataCriacao: LocalDateTime,
-    @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150) var emailModificador:String
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadeCrianças:Int,
+    @field:NotNull private var quantidade:Int,
+    @OneToOne private var familia:Familia,
+    @ManyToOne private var situacao: Situacao,
+    @field:PastOrPresent private var dataCriacao: LocalDateTime,
+    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
+    @field:Email @field:Size(max = 150)
+    private var emailModificador:String
 ) {
+    fun getId():Int{
+        return idQuantidadeCrianças
+    }
+    fun setId(novoId:Int){
+        idQuantidadeCrianças = novoId
+    }
+    fun getQuantidade():Int{
+        return quantidade
+    }
+    fun setQuantidade(novaQuantidade: Int){
+        quantidade = novaQuantidade
+    }
+    fun getFamilia():Familia{
+        return familia
+    }
+    fun setFamilia(novaFamilia:Familia){
+        familia = novaFamilia
+    }
+    fun getDataCriacao():LocalDateTime{
+        return dataCriacao
+    }
+    fun setDataCriacao(novaDataCriacao:LocalDateTime){
+        dataCriacao = novaDataCriacao
+    }
+    fun getDataUltimaAtualizacao():LocalDateTime{
+        return dataUltimaAtualizacao
+    }
+    fun setDataUltimaAtualizacao(dataDeAtualizacao:LocalDateTime){
+        dataUltimaAtualizacao = dataDeAtualizacao
+    }
+    fun getEmailModificador():String{
+        return emailModificador
+    }
+    fun setEmailModificador(emailDeModificacao:String){
+        emailModificador = emailDeModificacao
+    }
+    fun getSituacao():Situacao{
+        return situacao
+    }
+    fun setSituacao(novaSituacao: Situacao){
+        situacao = novaSituacao
+    }
 }

@@ -3,11 +3,9 @@ package school.sptech.projetotfg.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.Usuario
-import school.sptech.projetotfg.dto.cadastrarUsuarioResponse
 import school.sptech.projetotfg.repository.AcessoRepository
 import school.sptech.projetotfg.repository.UsuarioRepository
 import org.modelmapper.ModelMapper
-import school.sptech.projetotfg.domain.Acesso
 import school.sptech.projetotfg.dto.LoginAcessoResponse
 
 @RestController
