@@ -10,43 +10,43 @@ import school.sptech.projetotfg.repository.FamiliaRepository
 class FamiliaController (val familiaRepository: FamiliaRepository){
 
     @GetMapping("/listar_familias")
-    fun listaFamiliasCadastradas():ResponseEntity<List<Familia>>{
-        val listaFamilias = familiaRepository.findAll()
-        if(listaFamilias.isNotEmpty()){
-            return ResponseEntity.status(200).body(listaFamilias)
+    fun getListaFamiliasCadastradas():ResponseEntity<List<Familia>>{
+        val listaFamiliasCadastradas:List<Familia> = familiaRepository.findAll()
+        if(listaFamiliasCadastradas.isNotEmpty()){
+            return ResponseEntity.status(200).body(listaFamiliasCadastradas)
         }
             return  ResponseEntity.status(204).build()
     }
 
     @GetMapping("/buscar_familia/{id}")
-    fun buscaFamiliaPorId(@PathVariable id:Int):ResponseEntity<Familia>{
+    fun getFamiliaPorId(@PathVariable id:Int):ResponseEntity<Familia>{
         if(familiaRepository.existsById(id)){
-            val familiaPesquisada = familiaRepository.findById(id).get()
-            return ResponseEntity.status(200).body(familiaPesquisada)
+            val familiaEncontrada = familiaRepository.findById(id).get()
+            return ResponseEntity.status(200).body(familiaEncontrada)
         }
             return ResponseEntity.status(404).build()
     }
 
     @PostMapping
-    fun cadastrarFamilia(@RequestBody familia: Familia):ResponseEntity<Familia>{
-        if(!familiaRepository.existsById(familia.idFamilia)){
-            familiaRepository.save(familia)
-            return ResponseEntity.status(201).body(familia)
+    fun postFamilia(@RequestBody familiaNova: Familia):ResponseEntity<Familia>{
+        if(!familiaRepository.existsById(familiaNova.idFamilia)){
+            familiaRepository.save(familiaNova)
+            return ResponseEntity.status(201).body(familiaNova)
         }
             return ResponseEntity.status(400).build()
     }
 
     @PutMapping("/alterar_dados")
-    fun atualizaFamiliaPorId(@RequestBody familiaAtualizada:Familia):ResponseEntity<Familia> {
-        val familia = familiaRepository.findById(familiaAtualizada.idFamilia).get()
-        if (familiaRepository.existsById(familiaAtualizada.idFamilia)) {
-            familia.pessoaDeficiencia = familiaAtualizada.pessoaDeficiencia
-            familia.quantidadePessoas = familiaAtualizada.quantidadePessoas
-            familia.rendaFamiliar = familiaAtualizada.rendaFamiliar
-            familia.situacao = familiaAtualizada.situacao
-            familia.rendaFamiliar = familiaAtualizada.rendaFamiliar
-            familia.urgenciaFamiliar = familiaAtualizada.urgenciaFamiliar
-            familia.dataUltimaAtualizacao = familiaAtualizada.dataUltimaAtualizacao
+    fun putFamiliaPorId(@RequestBody dadosNovosDaFamilia:Familia):ResponseEntity<Familia> {
+        val familia = familiaRepository.findById(dadosNovosDaFamilia.idFamilia).get()
+        if (familiaRepository.existsById(dadosNovosDaFamilia.idFamilia)) {
+            familia.pessoaDeficiencia = dadosNovosDaFamilia.pessoaDeficiencia
+            familia.quantidadePessoas = dadosNovosDaFamilia.quantidadePessoas
+            familia.rendaFamiliar = dadosNovosDaFamilia.rendaFamiliar
+            familia.situacao = dadosNovosDaFamilia.situacao
+            familia.rendaFamiliar = dadosNovosDaFamilia.rendaFamiliar
+            familia.urgenciaFamiliar = dadosNovosDaFamilia.urgenciaFamiliar
+            familia.dataUltimaAtualizacao = dadosNovosDaFamilia.dataUltimaAtualizacao
             familiaRepository.save(familia)
             return ResponseEntity.status(200).body(familia)
         }
@@ -54,7 +54,7 @@ class FamiliaController (val familiaRepository: FamiliaRepository){
     }
 
     @DeleteMapping("/{id}")
-    fun deletaFamiliaPorId(@PathVariable id:Int):ResponseEntity<String>{
+    fun deleteFamiliaPorId(@PathVariable id:Int):ResponseEntity<String>{
         if(familiaRepository.existsById(id)){
             familiaRepository.deleteById(id)
             return ResponseEntity.status(200).body("Família removida com sucesso")
