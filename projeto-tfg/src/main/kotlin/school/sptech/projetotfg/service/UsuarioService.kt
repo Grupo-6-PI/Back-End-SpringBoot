@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.Acesso
-import school.sptech.projetotfg.domain.Situacao
 import school.sptech.projetotfg.domain.Usuario
 import school.sptech.projetotfg.dto.LoginRequestDTO
 import school.sptech.projetotfg.dto.UsuarioResponseDTO
@@ -36,7 +35,7 @@ class UsuarioService(
             .orElseThrow { ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Logado' não encontrada") }
 
         val acesso = Acesso(
-            data_acesso = LocalDate.now(),
+            dataAcesso = LocalDate.now(),
             situacao = situacaoLogado,
             usuario = usuario
         )
@@ -65,7 +64,7 @@ class UsuarioService(
             .orElseThrow { ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Deslogado' não encontrada") }
 
         val novoAcesso = Acesso(
-            data_acesso = LocalDate.now(),
+            dataAcesso = LocalDate.now(),
             situacao = situacaoDeslogado,
             usuario = usuario
         )
