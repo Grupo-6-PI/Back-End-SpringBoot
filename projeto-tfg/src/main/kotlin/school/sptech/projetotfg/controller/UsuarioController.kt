@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.Usuario
 import school.sptech.projetotfg.repository.UsuarioRepository
-import school.sptech.projetotfg.dto.cadastrarUsuarioResponse;
 
 
 @RestController
