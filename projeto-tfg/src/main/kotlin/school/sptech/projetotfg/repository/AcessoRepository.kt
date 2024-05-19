@@ -3,11 +3,11 @@ package school.sptech.projetotfg.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import school.sptech.projetotfg.domain.Acesso
+import school.sptech.projetotfg.domain.Usuario
+import java.util.*
 
 interface AcessoRepository : JpaRepository<Acesso, Int> {
-    @Query("SELECT situacao FROM Acesso WHERE id = 0")
-    fun logout(): String {
-            return("Logout executado!")
-    }
+        fun findFirstByUsuarioOrderByDataAcessoDesc(usuario: Usuario): Optional<Acesso>
+
 
 }
