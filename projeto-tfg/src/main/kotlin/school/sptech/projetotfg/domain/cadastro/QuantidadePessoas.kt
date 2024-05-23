@@ -1,7 +1,8 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class QuantidadePessoas(
@@ -28,7 +29,7 @@ class QuantidadePessoas(
     fun setMaximo(novoMaximo:Int){
         maximo = novoMaximo
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

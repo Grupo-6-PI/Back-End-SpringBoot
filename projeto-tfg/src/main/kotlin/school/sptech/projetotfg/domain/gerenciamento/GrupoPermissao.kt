@@ -1,4 +1,4 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.gerenciamento
 
 import jakarta.persistence.*
 import jakarta.persistence.ManyToOne
@@ -6,8 +6,8 @@ import jakarta.persistence.ManyToOne
 @Entity
 class GrupoPermissao (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idGrupoPermissao:Int,
-    @ManyToOne private var permissao:Permissao,
-    @ManyToOne private var nivelAcesso:NivelAcesso
+    @ManyToOne private var permissao: Permissao,
+    @ManyToOne private var nivelAcesso: NivelAcesso
 ){
     fun getId():Int{
         return idGrupoPermissao
@@ -15,16 +15,16 @@ class GrupoPermissao (
     fun setId(novoId:Int){
         idGrupoPermissao = novoId
     }
-    fun getPermissao():Permissao{
+    fun getPermissao(): Permissao {
         return permissao
     }
-    fun setPermissao(novaPermissao:Permissao){
+    fun setPermissao(novaPermissao: Permissao){
         permissao = novaPermissao
     }
-    fun getNivelAcesso():NivelAcesso{
+    fun getNivelAcesso(): NivelAcesso {
         return nivelAcesso
     }
-    fun setNivelAcesso(novoNivelAcesso:NivelAcesso){
+    fun setNivelAcesso(novoNivelAcesso: NivelAcesso){
         nivelAcesso = novoNivelAcesso
     }
 

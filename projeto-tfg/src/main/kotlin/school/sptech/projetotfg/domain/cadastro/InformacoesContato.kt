@@ -1,38 +1,38 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Max
 import org.jetbrains.annotations.NotNull
-import kotlin.math.log
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class InformacoesContato (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesContato:Int,
     @field:Max(150) @field:NotNull private var contato:String,
-    @ManyToOne private var tipoContato:TipoContato,
-    @ManyToOne private var logContato:Contato,
+    @ManyToOne private var tipoContato: TipoContato,
+    @ManyToOne private var logContato: Contato,
     @ManyToOne private var situacao: Situacao,
 
-){
+    ){
     fun getId():Int{
         return idInformacoesContato
     }
     fun setId(novoId:Int){
         idInformacoesContato = novoId
     }
-    fun getTipoContato():TipoContato{
+    fun getTipoContato(): TipoContato {
         return tipoContato
     }
-    fun setTipoContato(novoTipoContato:TipoContato){
+    fun setTipoContato(novoTipoContato: TipoContato){
         tipoContato = novoTipoContato
     }
-    fun getLogContato():Contato{
+    fun getLogContato(): Contato {
         return logContato
     }
     fun setLogContato(novoContato: Contato){
         logContato = novoContato
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

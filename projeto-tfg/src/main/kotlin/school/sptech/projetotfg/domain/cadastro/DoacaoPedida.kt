@@ -1,13 +1,14 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import java.time.LocalDateTime
 
 @Entity
 class DoacaoPedida(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDoacaoPedida:Int,
-    @ManyToOne private var tipoDoacao:TipoDoacao,
+    @ManyToOne private var tipoDoacao: TipoDoacao,
     @ManyToOne private var familia: Familia,
     @ManyToOne private var situacao: Situacao,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
@@ -20,19 +21,19 @@ class DoacaoPedida(
     fun setId(novoId:Int){
         idDoacaoPedida = novoId
     }
-    fun getTipoDoacao():TipoDoacao{
+    fun getTipoDoacao(): TipoDoacao {
         return tipoDoacao
     }
-    fun setTipoDoacao(novoTipoDoacao:TipoDoacao){
+    fun setTipoDoacao(novoTipoDoacao: TipoDoacao){
         tipoDoacao = novoTipoDoacao
     }
-    fun getFamilia():Familia{
+    fun getFamilia(): Familia {
         return familia
     }
-    fun setFamilia(novaFamilia:Familia){
+    fun setFamilia(novaFamilia: Familia){
         familia = novaFamilia
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

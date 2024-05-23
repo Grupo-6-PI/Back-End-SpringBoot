@@ -1,4 +1,4 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

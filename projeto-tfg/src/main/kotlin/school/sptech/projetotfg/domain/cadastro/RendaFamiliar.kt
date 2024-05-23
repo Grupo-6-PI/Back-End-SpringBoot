@@ -1,7 +1,8 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Min
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class RendaFamiliar(
@@ -21,7 +22,7 @@ class RendaFamiliar(
     fun setRenda(novaRenda:Double){
         renda = novaRenda
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){
