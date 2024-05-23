@@ -1,4 +1,4 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*
 class Bairro(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idBairro:Int,
     @field:NotBlank @field:Max(100) private var nome:String,
-    @ManyToOne private var cidade:Cidade
+    @ManyToOne private var cidade: Cidade
 ) {
     fun getId():Int{
         return idBairro
@@ -21,7 +21,7 @@ class Bairro(
     fun setNome(novoNome:String){
         nome = novoNome
     }
-    fun getCidade():Cidade{
+    fun getCidade(): Cidade {
         return cidade
     }
 }

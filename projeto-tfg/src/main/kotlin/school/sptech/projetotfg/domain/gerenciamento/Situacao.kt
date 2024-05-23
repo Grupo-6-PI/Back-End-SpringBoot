@@ -1,4 +1,4 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.gerenciamento
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Max
@@ -22,10 +22,10 @@ class Situacao(
     fun setSituacao(novaSituacao: String){
         situacao = novaSituacao
     }
-    fun getTipoSituacao():TipoSituacao{
+    fun getTipoSituacao(): TipoSituacao {
         return tipoSituacao
     }
-    fun setTipoSituacao(novoTipoSituacao:TipoSituacao){
+    fun setTipoSituacao(novoTipoSituacao: TipoSituacao){
         tipoSituacao = novoTipoSituacao
     }
 }

@@ -3,7 +3,7 @@ package school.sptech.projetotfg.controller
 import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import school.sptech.projetotfg.domain.Usuario
+import school.sptech.projetotfg.domain.cadastro.Usuario
 import school.sptech.projetotfg.repository.UsuarioRepository
 
 
@@ -34,15 +34,15 @@ class UsuarioController(private val repository: UsuarioRepository, val mapper: M
     @PostMapping
     fun postUsuario(@RequestBody usuario:CadastrarUsuarioResponse):ResponseEntity<Usuario>{
 
-        var usuarioNovo:Usuario = mapper.map(usuario,Usuario::class.java)
+        var usuarioNovo: Usuario = mapper.map(usuario, Usuario::class.java)
 
         return ResponseEntity.status(201).body(usuarioNovo)
     }
 
     @PutMapping("/alterar_dados")
-    fun putUsuarioPorId(@RequestBody dadosNovosDoUsuario:Usuario):ResponseEntity<Usuario>{
+    fun putUsuarioPorId(@RequestBody dadosNovosDoUsuario: Usuario):ResponseEntity<Usuario>{
             if (repository.existsById(dadosNovosDoUsuario.idUsuario)){
-                val usuario:Usuario = repository.findById(dadosNovosDoUsuario.idUsuario).get()
+                val usuario: Usuario = repository.findById(dadosNovosDoUsuario.idUsuario).get()
                 usuario.setNome(dadosNovosDoUsuario.getNome())
                 usuario.email = dadosNovosDoUsuario.email
                 usuario.informacoesAdicionais = dadosNovosDoUsuario.informacoesAdicionais

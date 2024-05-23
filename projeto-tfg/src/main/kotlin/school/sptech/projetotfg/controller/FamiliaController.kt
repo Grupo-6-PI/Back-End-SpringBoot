@@ -2,7 +2,7 @@ package school.sptech.projetotfg.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import school.sptech.projetotfg.domain.Familia
+import school.sptech.projetotfg.domain.cadastro.Familia
 import school.sptech.projetotfg.repository.FamiliaRepository
 
 @RestController
@@ -37,7 +37,7 @@ class FamiliaController (val familiaRepository: FamiliaRepository){
     }
 
     @PutMapping("/alterar_dados")
-    fun putFamiliaPorId(@RequestBody dadosNovosDaFamilia:Familia):ResponseEntity<Familia> {
+    fun putFamiliaPorId(@RequestBody dadosNovosDaFamilia: Familia):ResponseEntity<Familia> {
         val familia = familiaRepository.findById(dadosNovosDaFamilia.idFamilia).get()
         if (familiaRepository.existsById(dadosNovosDaFamilia.idFamilia)) {
             familia.pessoaDeficiencia = dadosNovosDaFamilia.pessoaDeficiencia

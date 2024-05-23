@@ -1,7 +1,8 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Max
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 
@@ -22,7 +23,7 @@ class TipoContato (
     fun setTipoContato(novoTipoContato:String){
         tipoContato = novoTipoContato
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

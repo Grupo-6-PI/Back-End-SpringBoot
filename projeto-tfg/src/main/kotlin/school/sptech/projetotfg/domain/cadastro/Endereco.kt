@@ -1,7 +1,9 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
+import school.sptech.projetotfg.domain.cadastro.Bairro
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 
 @Entity
@@ -38,13 +40,13 @@ class Endereco (
     fun setCep(novoCep:String){
         cep = novoCep
     }
-    fun getBairro():Bairro{
+    fun getBairro(): Bairro {
         return bairro
     }
-    fun setBairro(novoBairro:Bairro){
+    fun setBairro(novoBairro: Bairro){
         bairro = novoBairro
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

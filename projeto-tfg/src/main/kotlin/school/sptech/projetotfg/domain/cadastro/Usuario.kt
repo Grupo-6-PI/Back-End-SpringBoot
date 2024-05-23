@@ -1,8 +1,10 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
-import school.sptech.projetotfg.domain.*
+import school.sptech.projetotfg.domain.cadastro.InformacoesAdicionais
+import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class Usuario(
@@ -11,7 +13,7 @@ class Usuario(
     @field:NotBlank private var nome:String,
     @field:Email private var email:String,
     @field:NotBlank var senha:String,
-    @OneToOne  private var informacoesAdicionais:InformacoesAdicionais,
+    @OneToOne  private var informacoesAdicionais: InformacoesAdicionais,
     @ManyToOne private var situacao: Situacao,
     @ManyToOne private var nivelAcesso: NivelAcesso
 ) {
@@ -51,19 +53,19 @@ class Usuario(
         informacoesAdicionais = novasInformacoesAdicionais
     }
 
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
 
-    fun setSituacao(novaSitucao:Situacao){
+    fun setSituacao(novaSitucao: Situacao){
         situacao=novaSitucao
     }
 
-    fun getNivelAcesso():NivelAcesso{
+    fun getNivelAcesso(): NivelAcesso {
         return nivelAcesso
     }
 
-    fun setNivelAcesso(novoNivelAcesso:NivelAcesso){
+    fun setNivelAcesso(novoNivelAcesso: NivelAcesso){
         nivelAcesso=novoNivelAcesso
     }
 }

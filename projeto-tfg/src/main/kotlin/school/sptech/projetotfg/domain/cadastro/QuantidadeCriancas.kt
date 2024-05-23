@@ -1,15 +1,17 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
 import org.jetbrains.annotations.NotNull
+import school.sptech.projetotfg.domain.cadastro.Familia
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import java.time.LocalDateTime
 
 @Entity
 class QuantidadeCriancas(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadeCrianças:Int,
     @field:NotNull private var quantidade:Int,
-    @OneToOne private var familia:Familia,
+    @OneToOne private var familia: Familia,
     @ManyToOne private var situacao: Situacao,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
@@ -28,10 +30,10 @@ class QuantidadeCriancas(
     fun setQuantidade(novaQuantidade: Int){
         quantidade = novaQuantidade
     }
-    fun getFamilia():Familia{
+    fun getFamilia(): Familia {
         return familia
     }
-    fun setFamilia(novaFamilia:Familia){
+    fun setFamilia(novaFamilia: Familia){
         familia = novaFamilia
     }
     fun getDataCriacao():LocalDateTime{
@@ -52,7 +54,7 @@ class QuantidadeCriancas(
     fun setEmailModificador(emailDeModificacao:String){
         emailModificador = emailDeModificacao
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){

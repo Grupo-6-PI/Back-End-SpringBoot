@@ -1,7 +1,8 @@
-package school.sptech.projetotfg.domain
+package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
+import school.sptech.projetotfg.domain.Situacao
 import java.time.LocalDate
 
 @Entity
@@ -26,13 +27,13 @@ class Acesso(
     fun setDataAcesso(novaDataAcesso:LocalDate){
         dataAcesso = novaDataAcesso
     }
-    fun getSituacao():Situacao{
+    fun getSituacao(): Situacao {
         return situacao
     }
     fun setSituacao(novaSituacao: Situacao){
         situacao = novaSituacao
     }
-    fun getUsuario():Usuario{
+    fun getUsuario(): Usuario {
         return usuario
     }
     fun setUsuario(novoUsuario: Usuario){
