@@ -2,14 +2,13 @@ package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
-import school.sptech.projetotfg.domain.cadastro.InformacoesAdicionais
 import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idUsuario: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idUsuario: Int,
     @field:NotBlank private var nome:String,
     @field:Email private var email:String,
     @field:NotBlank var senha:String,

@@ -2,7 +2,7 @@ package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
-import school.sptech.projetotfg.domain.Situacao
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import java.time.LocalDate
 
 @Entity
