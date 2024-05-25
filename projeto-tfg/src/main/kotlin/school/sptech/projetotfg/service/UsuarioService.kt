@@ -72,11 +72,5 @@ class UsuarioService(
         acessoRepository.save(novoAcesso)
     }
 
-    fun cadastrarUsuario(@RequestBody usuario: Usuario): ResponseEntity<Usuario> {
-        if (!usuarioRepository.existsById(usuario.idUsuario)) {
-            usuarioRepository.save(usuario)
-            return ResponseEntity.status(201).body(usuario)
-        }
-        return ResponseEntity.status(400).build()
-    }
+
 }

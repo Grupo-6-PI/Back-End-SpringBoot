@@ -1,8 +1,8 @@
 package school.sptech.projetotfg.dto
 
 import school.sptech.projetotfg.domain.cadastro.InformacoesAdicionais
-import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
+import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 
 data class UsuarioResponseDTO(
     val idUsuario: Int,
