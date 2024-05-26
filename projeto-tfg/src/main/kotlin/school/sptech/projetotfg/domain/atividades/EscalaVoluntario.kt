@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 @Entity
 class EscalaVoluntario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEscalaVoluntario: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEscalaVoluntario: Int = 0,
     @ManyToOne private var usuario: Usuario,
     @ManyToOne private var atividade: Atividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,

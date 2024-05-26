@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Positive
 @Entity
 class Dia(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDia: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDia: Int = 0,
     @field:Positive @field:Max(2) @field:Min(1) private var dia:Int
 ) {
     fun getId():Int{

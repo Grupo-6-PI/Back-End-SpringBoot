@@ -6,7 +6,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class TipoDoacao(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoDoacao:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoDoacao:Int = 0,
     @field:Max(100) private var doacao:String,
     @ManyToOne private var situacao: Situacao
 ) {

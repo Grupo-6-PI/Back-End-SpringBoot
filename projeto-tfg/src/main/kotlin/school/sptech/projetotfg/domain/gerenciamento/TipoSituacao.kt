@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable_.id
 
 @Entity
 class TipoSituacao (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoSituacao:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoSituacao:Int = 0,
     @field:Max(60) private var tipo:String
 ){
     fun getId():Int{

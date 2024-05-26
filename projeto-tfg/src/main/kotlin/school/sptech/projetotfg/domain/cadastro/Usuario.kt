@@ -8,9 +8,9 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @Entity
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idUsuario: Int,
-    @field:NotBlank private var nome:String,
-    @field:Email private var email:String,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idUsuario: Int = 0,
+    @field:NotBlank var nome:String,
+    @field:Email var email:String,
     @field:NotBlank var senha:String,
     @OneToOne  private var informacoesAdicionais: InformacoesAdicionais,
     @ManyToOne private var situacao: Situacao,

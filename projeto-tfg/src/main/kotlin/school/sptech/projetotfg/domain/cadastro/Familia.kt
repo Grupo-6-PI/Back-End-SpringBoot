@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 
 @Entity
 class Familia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idFamilia:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idFamilia:Int = 0,
     @OneToOne private var quantidadePessoas: QuantidadePessoas,
     @OneToOne private var pessoaDeficiencia: PessoaDeficiencia,
     @OneToOne private var urgenciaFamiliar: UrgenciaFamiliar,

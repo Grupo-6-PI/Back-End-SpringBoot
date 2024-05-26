@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 @Entity
 class Requisicoes (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRequisicao: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRequisicao: Int = 0,
     @ManyToOne private var assuntoRequisicao: AssuntoRequisicao,
     @ManyToOne private var nivelUrgencia: NivelUrgencia,
     @field:PastOrPresent private var dataAbertura:LocalDateTime,

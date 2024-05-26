@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class Ano(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAno: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAno: Int = 0,
     @field:NotBlank @field:Max(60) private var ano:String
 ) {
     fun getId():Int{

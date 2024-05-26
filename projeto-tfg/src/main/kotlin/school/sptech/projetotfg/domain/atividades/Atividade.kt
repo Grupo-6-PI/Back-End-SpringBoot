@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 @Entity
 class Atividade (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAtividade: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAtividade: Int = 0,
     @field:PastOrPresent private var comeco:LocalDateTime,
     @field:PastOrPresent private var final:LocalDateTime,
     @field:NotBlank @field:Max(150) private var descricao:String,

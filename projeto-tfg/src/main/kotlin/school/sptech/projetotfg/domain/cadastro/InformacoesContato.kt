@@ -7,7 +7,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class InformacoesContato (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesContato:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesContato:Int = 0,
     @field:Max(150) @field:NotNull private var contato:String,
     @ManyToOne private var tipoContato: TipoContato,
     @ManyToOne private var logContato: Contato,

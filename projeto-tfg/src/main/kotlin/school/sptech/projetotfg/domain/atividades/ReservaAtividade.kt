@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @Entity
 class ReservaAtividade(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idReservaAtividade: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idReservaAtividade: Int = 0,
     @ManyToOne private var calendario: Calendario,
     @ManyToOne private var atividade: Atividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,

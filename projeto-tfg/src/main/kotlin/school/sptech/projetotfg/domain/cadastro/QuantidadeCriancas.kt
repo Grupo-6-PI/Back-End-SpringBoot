@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 @Entity
 class QuantidadeCriancas(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadeCrianças:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadeCrianças:Int = 0,
     @field:NotNull private var quantidade:Int,
     @OneToOne private var familia: Familia,
     @ManyToOne private var situacao: Situacao,
