@@ -2,7 +2,9 @@ package school.sptech.projetotfg.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import school.sptech.projetotfg.domain.*
 import school.sptech.projetotfg.domain.cadastro.*
+import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
@@ -12,54 +14,111 @@ class BeneficiarioService(
     private val usuarioRepository: UsuarioRepository,
     private val informacoesAdicionaisRepository: InformacoesAdicionaisRepository,
     private val enderecoRepository: EnderecoRepository,
+    private val bairroRepository: BairroRepository,
+    private val cidadeRepository: CidadeRepository,
     private val contatoRepository: ContatoRepository,
     private val identificadorRepository: IdentificadorRepository,
     private val familiaRepository: FamiliaRepository,
-    private val criancaRepository: CriancaRepository
+    private val criancaRepository: CriancaRepository,
+    private val pessoaDeficienciaRepository: PessoaDeficienciaRepository,
+    private val tipoIdentificadorRepository: TipoIdentificadorRepository,
+    private val deficienciaRepository: DeficienciaRepository,
+    private val tipoContatoRepository: TipoContatoRepository,
+    private val situacaoRepository: SituacaoRepository,
+    private val nivelAcessoRepository: NivelAcessoRepository
 ) {
 
     @Transactional
     fun cadastrarBeneficiario(dto: BeneficiarioInputDTO): BeneficiarioResponseDTO {
-        // Mapeia EnderecoDTO para Endereco
+        // Salvamento de Cidade e Bairro
+        val cidade = cidadeRepository.findByName(dto.endereco.cidade)
+            ?: cidadeRepository.save(Cidade(nome = dto.endereco.cidade))
+
+        val bairro = bairroRepository.findByNameAndCidade(dto.endereco.bairro, cidade)
+            ?: bairroRepository.save(Bairro(nome = dto.endereco.bairro, cidade = cidade))
+
+        // Recuperando situação ativa
+        val situacaoAtiva = situacaoRepository.findBySituacao("Ativo")
+            .orElseThrow { IllegalArgumentException("Situacao 'Ativo' não encontrada") }
+
+        // Salvamento de Endereço
         val endereco = Endereco(
-            rua = dto.endereco.rua,
+            logradouro = dto.endereco.logradouro,
             numero = dto.endereco.numero,
-            bairro = dto.endereco.bairro,
-            cidade = dto.endereco.cidade,
-            estado = dto.endereco.estado,
-            cep = dto.endereco.cep
+            cep = dto.endereco.cep,
+            bairro = bairro,
+            situacao = situacaoAtiva
         )
         enderecoRepository.save(endereco)
 
-        // Mapeia ContatoDTO para Contato
+        // Salvamento de Contato
         val contato = Contato(
-            telefone = dto.contato.telefone,
-            celular = dto.contato.celular
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = dto.emailModificador
         )
         contatoRepository.save(contato)
 
-        // Mapeia IdentificadorDTO para Identificador
+        // Salvamento de Identificador
+        val tipoIdentificador = tipoIdentificadorRepository.findByTipo(dto.identificador.tipo)
+            ?: tipoIdentificadorRepository.save(
+                TipoIdentificador(
+                    tipo = dto.identificador.tipo,
+                    situacao = situacaoAtiva
+                )
+            )
+
+
         val identificador = Identificador(
-            tipo = dto.identificador.tipo,
-            numero = dto.identificador.numero
+            numeracao = dto.identificador.numero,
+            tipoIdentificador = tipoIdentificador,
+            situacao = situacaoAtiva
         )
         identificadorRepository.save(identificador)
 
-        // Mapeia FamiliaDTO para Familia
+        // Salvamento de PessoaDeficiencia
+        val deficiencia = deficienciaRepository.findByNomeDeficiencia(dto.pessoaDeficiencia.deficienciaNome)
+            ?: deficienciaRepository.save(Deficiencia(nomeDeficiencia = dto.pessoaDeficiencia.deficienciaNome))
+
+        val pessoaDeficiencia = PessoaDeficiencia(
+            verificacao = dto.pessoaDeficiencia.verificacao,
+            deficiencia = deficiencia,
+            dataCriacao = dto.pessoaDeficiencia.dataCriacao,
+            dataUltimaAtualizacao = dto.pessoaDeficiencia.dataUltimaAtualizacao,
+            emailModificador = dto.pessoaDeficiencia.emailModificador
+        )
+        pessoaDeficienciaRepository.save(pessoaDeficiencia)
+
+        // Salvamento de Familia e componentes
+        val quantidadePessoas = QuantidadePessoas(
+            minimo = dto.quantidadePessoas,
+            maximo = dto.quantidadePessoas,
+            situacao = situacaoAtiva
+        )
+
+        val rendaFamiliar = RendaFamiliar(
+            renda = dto.rendaFamiliar,
+            situacao = situacaoAtiva
+        )
+
+        val urgenciaFamiliar = UrgenciaFamiliar(
+            descricao = dto.urgenciaFamiliar,
+            situacao = situacaoAtiva
+        )
+
         val familia = Familia(
-            nomeResponsavel = dto.familia.nomeResponsavel,
-            parentesco = dto.familia.parentesco
+            quantidadePessoas = quantidadePessoas,
+            pessoaDeficiencia = pessoaDeficiencia,
+            urgenciaFamiliar = urgenciaFamiliar,
+            rendaFamiliar = rendaFamiliar,
+            situacao = situacaoAtiva,
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = dto.emailModificador
         )
         familiaRepository.save(familia)
 
-        // Mapeia CriancaDTO para Crianca
-        val crianca = Crianca(
-            nome = dto.crianca.nome,
-            dataNascimento = dto.crianca.dataNascimento
-        )
-        criancaRepository.save(crianca)
-
-        // Mapeia BeneficiarioInputDTO para InformacoesAdicionais
+        // Salvamento de Informações Adicionais
         val informacoesAdicionais = InformacoesAdicionais(
             cpf = dto.cpf,
             dataNascimento = dto.dataNascimento,
@@ -67,28 +126,60 @@ class BeneficiarioService(
             contato = contato,
             identificador = identificador,
             familia = familia,
-            situacao = null, // Adicione a lógica para setar a situação correta
-            dataCriacao = dto.dataCriacao,
-            dataUltimaAtualizacao = dto.dataUltimaAtualizacao,
+            situacao = situacaoAtiva,
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
             emailModificador = dto.emailModificador
         )
         informacoesAdicionaisRepository.save(informacoesAdicionais)
 
-        // Mapeia BeneficiarioInputDTO para Usuario
+        // Salvamento do Usuário
         val usuario = Usuario(
             nome = dto.nome,
             email = dto.email,
             senha = dto.senha,
             informacoesAdicionais = informacoesAdicionais,
-            situacao = null, // Adicione a lógica para setar a situação correta
-            nivelAcesso = null // Adicione a lógica para setar o nível de acesso correto
+            situacao = situacaoAtiva,
+            nivelAcesso = nivelAcessoRepository.findByApelido("Usuário")
+                ?: nivelAcessoRepository.save(NivelAcesso(apelido = "Usuário"))
         )
-        val usuarioSalvo = usuarioRepository.save(usuario)
+        usuarioRepository.save(usuario)
 
         return BeneficiarioResponseDTO(
-            idUsuario = usuarioSalvo.getId(),
-            nome = usuarioSalvo.getNome(),
-            email = usuarioSalvo.getEmail()
+            idUsuario = usuario.idUsuario,
+            nome = usuario.nome,
+            email = usuario.email
         )
+    }
+
+    fun obterBeneficiarioPorId(id: Int): Usuario? {
+        return usuarioRepository.findById(id).orElse(null)
+    }
+
+    // Método para atualizar informações de um beneficiário
+    @Transactional
+    fun atualizarBeneficiario(id: Int, novoDTO: BeneficiarioInputDTO): BeneficiarioResponseDTO? {
+        val beneficiarioExistente = usuarioRepository.findById(id).orElse(null) ?: return null
+
+        // Atualize as informações do beneficiário existente com base nos novos dados fornecidos em novoDTO
+        // ...
+
+        // Salve as alterações
+        val beneficiarioAtualizado = usuarioRepository.save(beneficiarioExistente)
+
+        return BeneficiarioResponseDTO(
+            idUsuario = beneficiarioAtualizado.idUsuario,
+            nome = beneficiarioAtualizado.nome,
+            email = beneficiarioAtualizado.email
+        )
+    }
+
+    // Método para excluir um beneficiário
+    fun excluirBeneficiario(id: Int): Boolean {
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id)
+            return true
+        }
+        return false
     }
 }

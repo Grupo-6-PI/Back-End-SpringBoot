@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 @Entity
 class PessoaDeficiencia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idPessoaDeficiencia:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idPessoaDeficiencia:Int = 0,
     @field:Max(255) private var verificacao:Int, //255 é o valor maximo de TINYINT
     @ManyToOne private var deficiencia: Deficiencia,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,

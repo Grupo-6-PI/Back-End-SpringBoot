@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne
 @Entity
 class Calendario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idCalendario: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idCalendario: Int = 0,
     @ManyToOne private var dia: Dia,
     @ManyToOne private var ano: Ano,
     @ManyToOne private var mes: Mes,

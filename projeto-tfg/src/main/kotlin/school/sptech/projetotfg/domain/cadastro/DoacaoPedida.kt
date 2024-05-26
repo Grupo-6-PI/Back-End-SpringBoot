@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Entity
 class DoacaoPedida(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDoacaoPedida:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDoacaoPedida:Int = 0,
     @ManyToOne private var tipoDoacao: TipoDoacao,
     @ManyToOne private var familia: Familia,
     @ManyToOne private var situacao: Situacao,

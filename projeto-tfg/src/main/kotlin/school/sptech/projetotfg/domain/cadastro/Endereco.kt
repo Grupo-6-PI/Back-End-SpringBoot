@@ -8,7 +8,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class Endereco (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEndereco:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEndereco:Int = 0,
     @field:Max(100) private var logradouro:String,
     @field:Positive private var numero: Int,
     @field:Size(min = 8, max = 8) private var cep:String,

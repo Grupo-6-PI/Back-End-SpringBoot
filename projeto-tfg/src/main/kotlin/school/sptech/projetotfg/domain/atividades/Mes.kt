@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class Mes(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idMes: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idMes: Int = 0,
     @field:NotBlank @field:Max(60) private var mes:String
 ) {
     fun getId():Int{

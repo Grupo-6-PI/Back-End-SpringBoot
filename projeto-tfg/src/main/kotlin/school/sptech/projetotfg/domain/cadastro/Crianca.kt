@@ -12,7 +12,7 @@ import java.time.LocalDate
 
 @Entity
 class Crianca(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idCriancas:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)  var idCriancas:Int = 0,
     @field:Max(60) private var genero:String,
     @field:Past private var dataNascimento:LocalDate,
     @ManyToOne private var quantidadeCriancas: QuantidadeCriancas,

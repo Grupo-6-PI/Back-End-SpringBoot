@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class DiaSemana(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDiaSemana: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDiaSemana: Int = 0,
     @field:NotBlank @field:Max(60) private var diaSemana:String
 ) {
     fun getId():Int{

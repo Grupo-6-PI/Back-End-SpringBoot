@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class AssuntoRequisicao(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAssuntoRequisicao: Int,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAssuntoRequisicao: Int = 0,
     @field:NotBlank @field:Max(150) private var assunto:String
 ) {
 

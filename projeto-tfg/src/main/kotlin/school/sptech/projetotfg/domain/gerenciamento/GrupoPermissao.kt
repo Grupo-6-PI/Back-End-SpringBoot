@@ -5,7 +5,7 @@ import jakarta.persistence.ManyToOne
 
 @Entity
 class GrupoPermissao (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idGrupoPermissao:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idGrupoPermissao:Int = 0,
     @ManyToOne private var permissao: Permissao,
     @ManyToOne private var nivelAcesso: NivelAcesso
 ){

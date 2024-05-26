@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class Permissao(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idPermissao:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idPermissao:Int = 0,
     @field:Max(30) private var permissao:String
 ) {
     fun getId():Int{

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 
 @Entity
 class Deficiencia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDeficiencia:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDeficiencia:Int = 0,
     @field:NotBlank @field:Max(150) private var nomeDeficiencia:String
 ) {
     fun getId():Int{

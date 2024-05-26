@@ -1,4 +1,9 @@
 package school.sptech.projetotfg.dto
 
-class IdentificadorDTO {
+import jakarta.validation.constraints.NotBlank
+
+data class IdentificadorDTO(
+    @field:NotBlank val tipo: String,
+    @field:NotBlank val numero: String
+) {
 }

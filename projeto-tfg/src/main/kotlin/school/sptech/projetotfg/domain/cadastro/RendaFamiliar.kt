@@ -6,7 +6,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class RendaFamiliar(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRendaFamiliar:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRendaFamiliar:Int = 0,
     @field:Min(0) private var renda:Double,
     @ManyToOne private var situacao: Situacao
 ) {

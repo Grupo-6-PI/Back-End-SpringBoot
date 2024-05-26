@@ -8,7 +8,7 @@ import java.time.*
 
 @Entity
 class InformacoesAdicionais (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesAdicionais:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesAdicionais:Int = 0,
     @field:CPF private var cpf:String,
     @field:Past private var dataNascimento:LocalDate,
     @OneToOne private var endereco: Endereco,
