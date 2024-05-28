@@ -12,18 +12,18 @@ import java.time.LocalDateTime
 @Entity
 class ReservaAtividade(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idReservaAtividade: Int = 0,
-    @ManyToOne private var calendario: Calendario,
-    @ManyToOne private var atividade: Atividade,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idReservaAtividade: Long = 0,
+    @field:ManyToOne private var calendario: Calendario,
+    @field:ManyToOne private var atividade: Atividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150)
     private var emailModificador:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idReservaAtividade
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idReservaAtividade = novoId
     }
     fun getCalendario():Calendario{

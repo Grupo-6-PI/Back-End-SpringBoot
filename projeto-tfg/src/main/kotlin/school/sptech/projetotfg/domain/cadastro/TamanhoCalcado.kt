@@ -5,13 +5,13 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class TamanhoCalcado(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTamanhoCalcado:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTamanhoCalcado:Long = 0,
     @field:Max(10) private var tamanho:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idTamanhoCalcado
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idTamanhoCalcado = novoId
     }
     fun getTamanho():String{

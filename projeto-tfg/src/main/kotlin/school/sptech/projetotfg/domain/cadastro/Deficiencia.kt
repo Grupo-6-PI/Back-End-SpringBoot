@@ -9,13 +9,13 @@ import jakarta.validation.constraints.NotBlank
 
 @Entity
 class Deficiencia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDeficiencia:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDeficiencia:Long = 0,
     @field:NotBlank @field:Max(150) private var nomeDeficiencia:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idDeficiencia
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idDeficiencia = novoId
     }
     fun getNomeDeficiencia():String{

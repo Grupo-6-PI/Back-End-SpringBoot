@@ -7,18 +7,18 @@ import java.time.LocalDateTime
 
 @Entity
 class DoacaoPedida(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDoacaoPedida:Int = 0,
-    @ManyToOne private var tipoDoacao: TipoDoacao,
-    @ManyToOne private var familia: Familia,
-    @ManyToOne private var situacao: Situacao,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDoacaoPedida:Long = 0,
+    @field:ManyToOne private var tipoDoacao: TipoDoacao,
+    @field:ManyToOne private var familia: Familia,
+    @field:ManyToOne private var situacao: Situacao,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150) private var emailModificador:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idDoacaoPedida
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idDoacaoPedida = novoId
     }
     fun getTipoDoacao(): TipoDoacao {

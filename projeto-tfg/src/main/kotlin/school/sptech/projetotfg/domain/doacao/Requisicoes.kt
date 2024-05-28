@@ -14,21 +14,21 @@ import java.time.LocalDateTime
 @Entity
 class Requisicoes (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRequisicao: Int = 0,
-    @ManyToOne private var assuntoRequisicao: AssuntoRequisicao,
-    @ManyToOne private var nivelUrgencia: NivelUrgencia,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idRequisicao: Long = 0,
+    @field:ManyToOne private var assuntoRequisicao: AssuntoRequisicao,
+    @field:ManyToOne private var nivelUrgencia: NivelUrgencia,
     @field:PastOrPresent private var dataAbertura:LocalDateTime,
     @field:PastOrPresent private var dataFechamento:LocalDateTime,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150)
     private var emailModificador:String,
-    @ManyToOne private var usuario: Usuario
+    @field:ManyToOne private var usuario: Usuario
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idRequisicao
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idRequisicao = novoId
     }
     fun getAssunto():AssuntoRequisicao{

@@ -14,20 +14,20 @@ import java.time.LocalDateTime
 
 @Entity
 class Familia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idFamilia:Int = 0,
-    @OneToOne private var quantidadePessoas: QuantidadePessoas,
-    @OneToOne private var pessoaDeficiencia: PessoaDeficiencia,
-    @OneToOne private var urgenciaFamiliar: UrgenciaFamiliar,
-    @OneToOne private var rendaFamiliar: RendaFamiliar,
-    @ManyToOne private var situacao: Situacao,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idFamilia:Long = 0,
+    @field:OneToOne private var quantidadePessoas: QuantidadePessoas,
+    @field:OneToOne private var pessoaDeficiencia: PessoaDeficiencia,
+    @field:OneToOne private var urgenciaFamiliar: UrgenciaFamiliar,
+    @field:OneToOne private var rendaFamiliar: RendaFamiliar,
+    @field:ManyToOne private var situacao: Situacao,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150) private var emailModificador:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idFamilia
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idFamilia = novoId
     }
     fun getQuatidadePessoas(): QuantidadePessoas {

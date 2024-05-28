@@ -6,14 +6,14 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class TipoIdentificador(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoIdentificador:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoIdentificador:Long = 0,
     @field:Max(50) private var tipo:String,
-    @ManyToOne private var situacao: Situacao
+    @field:ManyToOne private var situacao: Situacao
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idTipoIdentificador
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idTipoIdentificador = novoId
     }
     fun getTipo():String{

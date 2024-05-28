@@ -12,18 +12,18 @@ import java.time.LocalDate
 
 @Entity
 class Crianca(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)  var idCriancas:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)  var idCriancas:Long = 0,
     @field:Max(60) private var genero:String,
     @field:Past private var dataNascimento:LocalDate,
-    @ManyToOne private var quantidadeCriancas: QuantidadeCriancas,
-    @ManyToOne private var tamanhoRoupa: TamanhoRoupa,
-    @ManyToOne private var tamanhoCalcado: TamanhoCalcado,
-    @ManyToOne private var situacao: Situacao
+    @field:ManyToOne private var quantidadeCriancas: QuantidadeCriancas,
+    @field:ManyToOne private var tamanhoRoupa: TamanhoRoupa,
+    @field:ManyToOne private var tamanhoCalcado: TamanhoCalcado,
+    @field:ManyToOne private var situacao: Situacao
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idCriancas
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idCriancas = novoId
     }
     fun getGenero():String{

@@ -10,20 +10,20 @@ import java.time.LocalDateTime
 @Entity
 class Atividade (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAtividade: Int = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAtividade: Long = 0,
     @field:PastOrPresent private var comeco:LocalDateTime,
     @field:PastOrPresent private var final:LocalDateTime,
     @field:NotBlank @field:Max(150) private var descricao:String,
-    @ManyToOne private var tipoAtividade: TipoAtividade,
+    @field:ManyToOne private var tipoAtividade: TipoAtividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150)
     private var emailModificador:String
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idAtividade
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idAtividade = novoId
     }
     fun getComeco():LocalDateTime{

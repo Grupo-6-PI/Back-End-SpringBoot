@@ -11,19 +11,19 @@ import jakarta.validation.constraints.Positive
 @Entity
 class Dia(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDia: Int = 0,
-    @field:Positive @field:Max(2) @field:Min(1) private var dia:Int
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idDia: Long = 0,
+    @field:Positive @field:Max(2) @field:Min(1) private var dia:Long
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idDia
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idDia = novoId
     }
-    fun getDia():Int{
+    fun getDia():Long{
         return dia
     }
-    fun setDia(novoDia:Int){
+    fun setDia(novoDia:Long){
         dia = novoDia
     }
 }

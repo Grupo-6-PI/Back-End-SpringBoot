@@ -5,14 +5,14 @@ import jakarta.validation.constraints.*
 
 @Entity
 class Bairro(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idBairro:Int = 0 ,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idBairro:Long = 0 ,
     @field:NotBlank @field:Max(100) private var nome:String,
-    @ManyToOne private var cidade: Cidade
+    @field:ManyToOne private var cidade: Cidade
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idBairro
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idBairro = novoId
     }
     fun getNome():String{

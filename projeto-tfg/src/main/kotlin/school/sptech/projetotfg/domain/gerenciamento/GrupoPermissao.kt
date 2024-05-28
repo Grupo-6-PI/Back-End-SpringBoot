@@ -5,14 +5,14 @@ import jakarta.persistence.ManyToOne
 
 @Entity
 class GrupoPermissao (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idGrupoPermissao:Int = 0,
-    @ManyToOne private var permissao: Permissao,
-    @ManyToOne private var nivelAcesso: NivelAcesso
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idGrupoPermissao:Long = 0,
+    @field:ManyToOne private var permissao: Permissao,
+    @field:ManyToOne private var nivelAcesso: NivelAcesso
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idGrupoPermissao
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idGrupoPermissao = novoId
     }
     fun getPermissao(): Permissao {

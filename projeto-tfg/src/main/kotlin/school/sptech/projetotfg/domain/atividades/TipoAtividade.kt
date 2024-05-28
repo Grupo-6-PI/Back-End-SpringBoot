@@ -9,13 +9,13 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class TipoAtividade(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoAtividade: Int = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoAtividade: Long = 0,
     @field:NotBlank @field:Max(100) private var tipo:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idTipoAtividade
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idTipoAtividade = novoId
     }
     fun getTipo():String{

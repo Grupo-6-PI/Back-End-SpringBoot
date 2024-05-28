@@ -8,23 +8,23 @@ import java.time.*
 
 @Entity
 class InformacoesAdicionais (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesAdicionais:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idInformacoesAdicionais:Long = 0,
     @field:CPF private var cpf:String,
     @field:Past private var dataNascimento:LocalDate,
-    @OneToOne private var endereco: Endereco,
-    @OneToOne private var familia: Familia,
-    @OneToOne private var identificador: Identificador,
-    @OneToOne private var contato: Contato,
-    @ManyToOne private var situacao: Situacao,
+    @field:OneToOne private var endereco: Endereco,
+    @field:OneToOne private var familia: Familia,
+    @field:OneToOne private var identificador: Identificador,
+    @field:OneToOne private var contato: Contato,
+    @field:ManyToOne private var situacao: Situacao,
     @field:PastOrPresent private var dataCriacao:LocalDateTime,
     @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime,
     @field:Email @field:Size(max = 100)
     private var emailModificador:String
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idInformacoesAdicionais
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idInformacoesAdicionais = novoId
     }
     fun getCpf():String{

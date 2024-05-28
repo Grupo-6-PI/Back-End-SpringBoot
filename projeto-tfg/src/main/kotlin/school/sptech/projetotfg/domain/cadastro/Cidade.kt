@@ -5,13 +5,13 @@ import jakarta.validation.constraints.Max
 @Entity
 class Cidade(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idCidade:Int = 0,
+    var idCidade:Long = 0,
     @field:Max(100) private var nome:String
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idCidade
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idCidade = novoId
     }
     fun getNome():String{

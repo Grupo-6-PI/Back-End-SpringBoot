@@ -8,18 +8,18 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @Entity
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idUsuario: Int = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idUsuario: Long = 0,
     @field:NotBlank var nome:String,
     @field:Email var email:String,
     @field:NotBlank var senha:String,
-    @OneToOne  private var informacoesAdicionais: InformacoesAdicionais,
-    @ManyToOne private var situacao: Situacao,
-    @ManyToOne private var nivelAcesso: NivelAcesso
+    @field:OneToOne  private var informacoesAdicionais: InformacoesAdicionais,
+    @field:ManyToOne private var situacao: Situacao,
+    @field:ManyToOne private var nivelAcesso: NivelAcesso
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idUsuario
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idUsuario = novoId
     }
 

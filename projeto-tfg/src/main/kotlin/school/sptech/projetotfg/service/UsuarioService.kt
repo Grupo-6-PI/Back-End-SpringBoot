@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 @Service
 @RestController
-@RequestMapping("/Acesso")
+@RequestMapping("/acesso")
 class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val acessoRepository: AcessoRepository,
