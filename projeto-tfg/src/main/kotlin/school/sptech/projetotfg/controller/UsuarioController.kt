@@ -13,15 +13,7 @@ import school.sptech.projetotfg.service.BeneficiarioService
 class UsuarioController(
     private val beneficiarioService: BeneficiarioService
 ){
-        @PostMapping
-        fun cadastrarBeneficiario(@Validated @RequestBody dto: BeneficiarioInputDTO): ResponseEntity<BeneficiarioResponseDTO> {
-            return try {
-                val responseDTO = beneficiarioService.cadastrarBeneficiario(dto)
-                ResponseEntity(responseDTO, HttpStatus.OK)
-            } catch (e: Exception) {
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
-            }
-        }
+
     }
 
 

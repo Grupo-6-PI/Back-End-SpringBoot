@@ -9,10 +9,10 @@ class Situacao(
     @field:Max(100) private var situacao:String,
     @ManyToOne private var tipoSituacao: TipoSituacao
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idSituacao
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idSituacao = novoId
     }
     fun getSituacao():String{

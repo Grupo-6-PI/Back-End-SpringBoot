@@ -10,14 +10,14 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class NivelUrgencia (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idNivelUrgencia: Int = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idNivelUrgencia: Long = 0,
     @field:NotBlank @field:Max(60) private var nivel:String
 )
     {
-    fun getId():Int{
+    fun getId():Long{
         return idNivelUrgencia
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idNivelUrgencia = novoId
     }
     fun getAssunto():String{

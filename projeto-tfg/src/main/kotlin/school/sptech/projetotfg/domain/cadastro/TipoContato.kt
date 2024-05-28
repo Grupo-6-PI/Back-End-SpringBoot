@@ -7,14 +7,14 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @Entity
 
 class TipoContato (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoContato:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idTipoContato:Long = 0,
     @field:Max(30) private var tipoContato:String,
-    @ManyToOne private var situacao: Situacao
+    @field:ManyToOne private var situacao: Situacao
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idTipoContato
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idTipoContato = novoId
     }
     fun getTipoContato():String{

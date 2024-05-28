@@ -8,16 +8,16 @@ import jakarta.persistence.ManyToOne
 @Entity
 class Calendario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idCalendario: Int = 0,
-    @ManyToOne private var dia: Dia,
-    @ManyToOne private var ano: Ano,
-    @ManyToOne private var mes: Mes,
-    @ManyToOne private var diaSemana: DiaSemana
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idCalendario: Long = 0,
+    @field:ManyToOne private var dia: Dia,
+    @field:ManyToOne private var ano: Ano,
+    @field:ManyToOne private var mes: Mes,
+    @field:ManyToOne private var diaSemana: DiaSemana
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idCalendario
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idCalendario = novoId
     }
     fun getDia():Dia{

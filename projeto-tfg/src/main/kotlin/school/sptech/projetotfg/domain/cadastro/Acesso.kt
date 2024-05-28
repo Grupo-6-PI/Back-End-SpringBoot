@@ -7,18 +7,18 @@ import java.time.LocalDate
 
 @Entity
 class Acesso(
-    @field: Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var idAcesso: Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    private var idAcesso: Long = 0,
     @field: NotNull @field: NotBlank
     private var dataAcesso: LocalDate,
     @field:NotNull @field:NotBlank @field:ManyToOne private var situacao: Situacao,
-    @field: NotNull @field: NotBlank @ManyToOne
+    @field: NotNull @field: NotBlank @field:ManyToOne
     private var usuario: Usuario
 ){
-    fun getId():Int{
+    fun getId():Long{
         return idAcesso
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idAcesso = novoId
     }
     fun getDataAcesso():LocalDate{

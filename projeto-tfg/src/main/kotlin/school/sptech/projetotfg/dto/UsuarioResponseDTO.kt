@@ -5,7 +5,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 
 data class UsuarioResponseDTO(
-    val idUsuario: Int,
+    val idUsuario: Long,
     val nome: String,
     val email: String,
     val informacoesAdicionais: InformacoesAdicionais,

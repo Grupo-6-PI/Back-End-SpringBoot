@@ -6,27 +6,27 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class QuantidadePessoas(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadePessoas:Int = 0,
-    @field:NotNull private var minimo:Int,
-    @field:NotNull private var maximo:Int,
-    @ManyToOne private var situacao: Situacao
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadePessoas:Long = 0,
+    @field:NotNull private var minimo: Int,
+    @field:NotNull private var maximo: Int,
+    @field:ManyToOne private var situacao: Situacao
     ) {
-    fun getId():Int{
+    fun getId():Long{
         return idQuantidadePessoas
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idQuantidadePessoas = novoId
     }
-    fun getMinimo():Int{
+    fun getMinimo():Long{
         return minimo
     }
-    fun setMinimo(novoMinimo:Int){
+    fun setMinimo(novoMinimo:Long){
         minimo = novoMinimo
     }
-    fun getMaximo():Int{
+    fun getMaximo():Long{
         return maximo
     }
-    fun setMaximo(novoMaximo:Int){
+    fun setMaximo(novoMaximo:Long){
         maximo = novoMaximo
     }
     fun getSituacao(): Situacao {

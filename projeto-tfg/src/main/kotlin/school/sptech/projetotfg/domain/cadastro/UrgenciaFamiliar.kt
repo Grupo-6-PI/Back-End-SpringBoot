@@ -6,14 +6,14 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class UrgenciaFamiliar(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idUrgenciaFamiliar:Int = 0,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idUrgenciaFamiliar:Long = 0,
     @field:Max(150) private var descricao:String,
-    @ManyToOne private var situacao: Situacao
+    @field:ManyToOne private var situacao: Situacao
 ) {
-    fun getId():Int{
+    fun getId():Long{
         return idUrgenciaFamiliar
     }
-    fun setId(novoId:Int){
+    fun setId(novoId:Long){
         idUrgenciaFamiliar = novoId
     }
     fun getDescricao():String{
