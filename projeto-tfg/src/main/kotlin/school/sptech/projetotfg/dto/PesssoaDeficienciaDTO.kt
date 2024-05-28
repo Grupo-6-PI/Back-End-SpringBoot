@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 data class PessoaDeficienciaDTO(
     val verificacao: Int,
-    val deficienciaNome: String, // Nome da deficiência
+    val deficienciaNome: String,
     val dataCriacao: LocalDateTime,
     val dataUltimaAtualizacao: LocalDateTime,
     val emailModificador: String

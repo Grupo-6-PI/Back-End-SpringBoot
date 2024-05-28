@@ -2,7 +2,9 @@ package school.sptech.projetotfg.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import school.sptech.projetotfg.domain.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import school.sptech.projetotfg.domain.cadastro.*
 import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 import school.sptech.projetotfg.dto.*
@@ -29,12 +31,13 @@ class BeneficiarioService(
 ) {
 
     @Transactional
+    @PostMapping
     fun cadastrarBeneficiario(dto: BeneficiarioInputDTO): BeneficiarioResponseDTO {
         // Salvamento de Cidade e Bairro
-        val cidade = cidadeRepository.findByName(dto.endereco.cidade)
+        val cidade = cidadeRepository.findByNome(dto.endereco.cidade)
             ?: cidadeRepository.save(Cidade(nome = dto.endereco.cidade))
 
-        val bairro = bairroRepository.findByNameAndCidade(dto.endereco.bairro, cidade)
+        val bairro = bairroRepository.findByNomeAndCidade(dto.endereco.bairro, cidade)
             ?: bairroRepository.save(Bairro(nome = dto.endereco.bairro, cidade = cidade))
 
         // Recuperando situação ativa
@@ -152,11 +155,13 @@ class BeneficiarioService(
         )
     }
 
+    @GetMapping
     fun obterBeneficiarioPorId(id: Int): Usuario? {
         return usuarioRepository.findById(id).orElse(null)
     }
 
     // Método para atualizar informações de um beneficiário
+    @PostMapping
     @Transactional
     fun atualizarBeneficiario(id: Int, novoDTO: BeneficiarioInputDTO): BeneficiarioResponseDTO? {
         val beneficiarioExistente = usuarioRepository.findById(id).orElse(null) ?: return null
@@ -175,6 +180,7 @@ class BeneficiarioService(
     }
 
     // Método para excluir um beneficiário
+    @DeleteMapping
     fun excluirBeneficiario(id: Int): Boolean {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id)
