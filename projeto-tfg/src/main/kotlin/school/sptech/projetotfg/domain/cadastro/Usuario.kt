@@ -22,27 +22,6 @@ class Usuario(
     fun setId(novoId:Int){
         idUsuario = novoId
     }
-    fun getNome():String{
-        return nome;
-    }
-
-    fun setNome(novoNome:String){
-        nome = novoNome;
-    }
-    fun getEmail():String{
-        return email;
-    }
-
-    fun setEmail(novoEmail:String){
-        nome = novoEmail;
-    }
-    fun getSenha():String{
-        return nome;
-    }
-
-    fun setSenha(novaSenha:String){
-        senha = novaSenha;
-    }
 
     fun getInformacoesAdicionais(): InformacoesAdicionais {
         return informacoesAdicionais

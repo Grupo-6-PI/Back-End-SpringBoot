@@ -16,17 +16,5 @@ class Situacao(
     fun setId(novoId:Int){
         idSituacao = novoId
     }
-    fun getSituacao():String{
-        return situacao
-    }
-    fun setSituacao(novaSituacao: String){
-        situacao = novaSituacao
-    }
-    fun getTipoSituacao(): TipoSituacao {
-        return tipoSituacao
-    }
-    fun setTipoSituacao(novoTipoSituacao: TipoSituacao){
-        tipoSituacao = novoTipoSituacao
-    }
 }
 

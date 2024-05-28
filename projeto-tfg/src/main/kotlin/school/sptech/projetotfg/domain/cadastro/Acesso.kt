@@ -11,7 +11,7 @@ class Acesso(
     private var idAcesso: Int = 0,
     @field: NotNull @field: NotBlank
     private var dataAcesso: LocalDate,
-    @field: NotNull @field: NotBlank @ManyToOne var situacao: Situacao,
+    @field:NotNull @field:NotBlank @field:ManyToOne private var situacao: Situacao,
     @field: NotNull @field: NotBlank @ManyToOne
     private var usuario: Usuario
 ){
@@ -27,16 +27,15 @@ class Acesso(
     fun setDataAcesso(novaDataAcesso:LocalDate){
         dataAcesso = novaDataAcesso
     }
-    fun getSituacao(): Situacao {
-        return situacao
-    }
-    fun setSituacao(novaSituacao: Situacao){
-        situacao = novaSituacao
-    }
     fun getUsuario(): Usuario {
         return usuario
     }
     fun setUsuario(novoUsuario: Usuario){
         usuario = novoUsuario
     }
+
+    fun getSituacao():Situacao{
+        return situacao
+    }
+
 }
