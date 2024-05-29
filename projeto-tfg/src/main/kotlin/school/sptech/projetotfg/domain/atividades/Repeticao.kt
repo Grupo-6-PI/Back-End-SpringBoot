@@ -1,22 +1,20 @@
 package school.sptech.projetotfg.domain.atividades
+
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Positive
 
 @Entity
-class Calendario(
+class Repeticao (
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:Positive private var ano: Long,
-    @field:Positive @field:Min(1) @field:Max(2) private var mesNumeracao: String,
-    @field:NotBlank private var mesNomeacao:String,
-    @field:Positive @field:Min(1) @field:Max(2) private var diaNumeracao: String,
-    @field:NotBlank private var diaNomeacao: String
-) {
+    @field:Positive private var quantidade:Long,
+    @field:NotBlank @field:Max(45) private var escolhaRepeticao:String,
+    @field:ManyToOne private var disponibilidadeVoluntario:Long
+){
 }

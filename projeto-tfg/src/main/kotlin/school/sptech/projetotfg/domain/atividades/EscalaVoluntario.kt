@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 @Entity
 class EscalaVoluntario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEscalaVoluntario: Long = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
     @field:ManyToOne private var usuario: Usuario,
     @field:ManyToOne private var atividade: Atividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
@@ -23,37 +23,4 @@ class EscalaVoluntario(
     @field:Email @field:Size(max = 150)
     private var emailModificador:String
 ) {
-    fun getId():Long{
-        return idEscalaVoluntario
-    }
-    fun setId(novoId:Long){
-        idEscalaVoluntario = novoId
-    }
-    fun getUsuario():Usuario{
-        return usuario
-    }
-    fun setUsuario(novoUsuario: Usuario){
-        usuario = novoUsuario
-    }
-    fun getAtividade():Atividade{
-        return atividade
-    }
-    fun setAtividade(novaAtividade:Atividade){
-        atividade = novaAtividade
-    }
-    fun setDataCriacao(novaDataCriacao:LocalDateTime){
-        dataCriacao = novaDataCriacao
-    }
-    fun getDataUltimaAtualizacao():LocalDateTime{
-        return dataUltimaAtualizacao
-    }
-    fun setDataUltimaAtualizacao(dataDeAtualizacao:LocalDateTime){
-        dataUltimaAtualizacao = dataDeAtualizacao
-    }
-    fun getEmailModificador():String{
-        return emailModificador
-    }
-    fun setEmailModificador(emailDeModificacao:String){
-        emailModificador = emailDeModificacao
-    }
 }
