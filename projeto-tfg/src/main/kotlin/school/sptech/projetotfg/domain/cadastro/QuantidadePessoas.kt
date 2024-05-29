@@ -7,8 +7,8 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @Entity
 class QuantidadePessoas(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadePessoas:Long = 0,
-    @field:NotNull private var minimo: Int,
-    @field:NotNull private var maximo: Int,
+    @field:NotNull private var minimo: Long,
+    @field:NotNull private var maximo: Long,
     @field:ManyToOne private var situacao: Situacao
     ) {
     fun getId():Long{
