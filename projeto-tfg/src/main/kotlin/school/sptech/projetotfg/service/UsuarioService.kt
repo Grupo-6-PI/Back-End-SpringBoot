@@ -2,15 +2,9 @@ package school.sptech.projetotfg.service
 
 import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.cadastro.Acesso
-import school.sptech.projetotfg.domain.cadastro.Usuario
 import school.sptech.projetotfg.dto.LoginRequestDTO
 import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.repository.AcessoRepository
@@ -19,8 +13,6 @@ import school.sptech.projetotfg.repository.UsuarioRepository
 import java.time.LocalDate
 
 @Service
-@RestController
-@RequestMapping("/acesso")
 class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val acessoRepository: AcessoRepository,
@@ -28,7 +20,6 @@ class UsuarioService(
     private val mapper: ModelMapper = ModelMapper()
 ) {
 
-    @PostMapping("/login")
     fun login(dto: LoginRequestDTO): UsuarioResponseDTO {
         val usuario = usuarioRepository.findByEmail(dto.email)
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") }
@@ -55,8 +46,7 @@ class UsuarioService(
         return mapper.map(usuario, UsuarioResponseDTO::class.java)
     }
 
-    @PostMapping("/logoff")
-    fun logoff(usuarioId: Int) {
+    fun logoff(usuarioId: Long) {
         val usuario = usuarioRepository.findById(usuarioId)
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") }
 

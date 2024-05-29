@@ -5,7 +5,7 @@ import school.sptech.projetotfg.domain.cadastro.Acesso
 import school.sptech.projetotfg.domain.cadastro.Usuario
 import java.util.*
 
-interface AcessoRepository : JpaRepository<Acesso, Int> {
+interface AcessoRepository : JpaRepository<Acesso, Long> {
         fun findFirstByUsuarioOrderByDataAcessoDesc(usuario: Usuario): Optional<Acesso>
 
 

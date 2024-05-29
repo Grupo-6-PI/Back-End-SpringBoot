@@ -11,6 +11,7 @@ import school.sptech.projetotfg.dto.LoginAcessoResponse
 @RestController
 @RequestMapping("/acesso")
 class AcessoController(
+    private val usuarioService: UsuarioService
 ) {
 
     var status: Boolean = false
@@ -36,5 +37,10 @@ class AcessoController(
 
     }
 
+    @PostMapping("/logoff")
+    fun logoff(usuarioId: Int): ResponseEntity<Unit> {
+        val deslogar = usuarioService.logoff(usuarioId.toLong())
+        return ResponseEntity.status(200).body(deslogar)
+    }
 
 }
