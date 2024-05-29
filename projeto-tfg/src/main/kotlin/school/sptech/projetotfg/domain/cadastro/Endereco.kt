@@ -9,7 +9,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 class Endereco(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idEndereco:Long = 0,
     @field:Max(100) private var logradouro:String,
-    @field:Positive private var numero: Int,
+    @field:Positive private var numero: Long,
     @field:Size(min = 8, max = 8) private var cep:String,
     //tamanho 8 supõe que não será armazenado o traço "-"
     @field:ManyToOne private var bairro: Bairro,
