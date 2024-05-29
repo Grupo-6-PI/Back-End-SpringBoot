@@ -29,7 +29,6 @@ class BeneficiarioService(
 ) {
 
     @Transactional
-    @PostMapping("/cadastrar")
     fun cadastrarBeneficiario(dto: BeneficiarioInputDTO): BeneficiarioResponseDTO {
         // Salvamento de Cidade e Bairro
         val cidade = cidadeRepository.findByNome(dto.endereco.cidade)
@@ -153,13 +152,12 @@ class BeneficiarioService(
         )
     }
 
-    @GetMapping("/obterUsuario")
     fun obterBeneficiarioPorId(id: Int): Usuario? {
         return usuarioRepository.findById(id).orElse(null)
     }
 
     // Método para atualizar informações de um beneficiário
-    @PostMapping("/atualiazarCadastro")
+
     @Transactional
     fun atualizarBeneficiario(id: Int, novoDTO: BeneficiarioInputDTO): BeneficiarioResponseDTO? {
         val beneficiarioExistente = usuarioRepository.findById(id).orElse(null) ?: return null
@@ -178,7 +176,7 @@ class BeneficiarioService(
     }
 
     // Método para excluir um beneficiário
-    @DeleteMapping("/excluirUsuario")
+
     fun excluirBeneficiario(id: Int): Boolean {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id)
