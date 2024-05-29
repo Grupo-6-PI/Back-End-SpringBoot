@@ -22,10 +22,10 @@ class PessoaDeficiencia(
     fun setId(novoId:Long){
         idPessoaDeficiencia = novoId
     }
-    fun getVerificacao():Long{
+    fun getVerificacao():Int{
         return verificacao
     }
-    fun setVerificacao(novaVerificacao:Long){
+    fun setVerificacao(novaVerificacao:Int){
         verificacao = novaVerificacao
     }
     fun getDeficiencia(): Deficiencia {
