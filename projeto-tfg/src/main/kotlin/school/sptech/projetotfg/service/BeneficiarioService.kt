@@ -92,8 +92,8 @@ class BeneficiarioService(
 
         // Salvamento de Familia e componentes
         val quantidadePessoas = QuantidadePessoas(
-            minimo = dto.quantidadePessoas,
-            maximo = dto.quantidadePessoas,
+            minimo = dto.quantidadePessoas.toLong(),
+            maximo = dto.quantidadePessoas.toLong(),
             situacao = situacaoAtiva
         )
 
