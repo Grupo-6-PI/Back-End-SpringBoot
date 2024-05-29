@@ -152,14 +152,14 @@ class BeneficiarioService(
         )
     }
 
-    fun obterBeneficiarioPorId(id: Int): Usuario? {
+    fun obterBeneficiarioPorId(id: Long): Usuario? {
         return usuarioRepository.findById(id).orElse(null)
     }
 
     // Método para atualizar informações de um beneficiário
 
     @Transactional
-    fun atualizarBeneficiario(id: Int, novoDTO: BeneficiarioInputDTO): BeneficiarioResponseDTO? {
+    fun atualizarBeneficiario(id: Long, novoDTO: BeneficiarioInputDTO): BeneficiarioResponseDTO? {
         val beneficiarioExistente = usuarioRepository.findById(id).orElse(null) ?: return null
 
         // Atualize as informações do beneficiário existente com base nos novos dados fornecidos em novoDTO
@@ -177,7 +177,7 @@ class BeneficiarioService(
 
     // Método para excluir um beneficiário
 
-    fun excluirBeneficiario(id: Int): Boolean {
+    fun excluirBeneficiario(id: Long): Boolean {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id)
             return true
