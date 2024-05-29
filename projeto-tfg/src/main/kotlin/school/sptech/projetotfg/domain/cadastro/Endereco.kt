@@ -27,10 +27,10 @@ class Endereco(
     fun setLogradouro(novoLogradouro:String){
         logradouro = novoLogradouro
     }
-    fun getNumero():Int{
+    fun getNumero():Long{
         return numero
     }
-    fun setNumero(novoNumero:Int){
+    fun setNumero(novoNumero:Long){
         numero = novoNumero
     }
     fun getCep():String{
