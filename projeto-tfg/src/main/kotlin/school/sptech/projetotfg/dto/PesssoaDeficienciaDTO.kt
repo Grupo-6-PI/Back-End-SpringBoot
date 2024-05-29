@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 
 data class PessoaDeficienciaDTO(
-    val verificacao: Int,
+    val verificacao: Long,
     val deficienciaNome: String,
     val dataCriacao: LocalDateTime,
     val dataUltimaAtualizacao: LocalDateTime,
