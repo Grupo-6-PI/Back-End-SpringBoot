@@ -17,16 +17,16 @@ class QuantidadePessoas(
     fun setId(novoId:Long){
         idQuantidadePessoas = novoId
     }
-    fun getMinimo():Int{
+    fun getMinimo():Long{
         return minimo
     }
-    fun setMinimo(novoMinimo:Int){
+    fun setMinimo(novoMinimo:Long){
         minimo = novoMinimo
     }
-    fun getMaximo():Int{
+    fun getMaximo():Long{
         return maximo
     }
-    fun setMaximo(novoMaximo:Int){
+    fun setMaximo(novoMaximo:Long){
         maximo = novoMaximo
     }
     fun getSituacao(): Situacao {
