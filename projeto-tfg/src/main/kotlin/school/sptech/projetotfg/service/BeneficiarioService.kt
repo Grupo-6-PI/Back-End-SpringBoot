@@ -10,8 +10,6 @@ import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
 
 @Service
-@RestController
-@RequestMapping("/cadastro")
 class BeneficiarioService(
     private val usuarioRepository: UsuarioRepository,
     private val informacoesAdicionaisRepository: InformacoesAdicionaisRepository,
