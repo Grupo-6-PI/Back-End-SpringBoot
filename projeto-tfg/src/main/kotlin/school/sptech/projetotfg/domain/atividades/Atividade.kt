@@ -10,9 +10,10 @@ import java.time.LocalDateTime
 @Entity
 class Atividade (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idAtividade: Long = 0,
-    @field:PastOrPresent private var comeco:LocalDateTime,
-    @field:PastOrPresent private var final:LocalDateTime,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
+    @field:NotBlank @field:Max(100) private var nome:String,
+    @field:PastOrPresent private var horaComeco:LocalDateTime,
+    @field:PastOrPresent private var horaFinal:LocalDateTime,
     @field:NotBlank @field:Max(150) private var descricao:String,
     @field:ManyToOne private var tipoAtividade: TipoAtividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
@@ -20,49 +21,4 @@ class Atividade (
     @field:Email @field:Size(max = 150)
     private var emailModificador:String
 ){
-    fun getId():Long{
-        return idAtividade
-    }
-    fun setId(novoId:Long){
-        idAtividade = novoId
-    }
-    fun getComeco():LocalDateTime{
-        return comeco
-    }
-    fun setComeco(novoComeco:LocalDateTime){
-        comeco = novoComeco
-    }
-    fun getFinal():LocalDateTime{
-        return final
-    }
-    fun setFinal(novoFinal:LocalDateTime){
-        final = novoFinal
-    }
-    fun getDescricao():String{
-        return descricao
-    }
-    fun setDescricao(novaDescricao:String){
-        descricao = novaDescricao
-    }
-    fun getTipoAtividade():TipoAtividade{
-        return tipoAtividade
-    }
-    fun setTipoAtividade(novoTipoAtividade: TipoAtividade){
-        tipoAtividade = novoTipoAtividade
-    }
-    fun setDataCriacao(novaDataCriacao:LocalDateTime){
-        dataCriacao = novaDataCriacao
-    }
-    fun getDataUltimaAtualizacao():LocalDateTime{
-        return dataUltimaAtualizacao
-    }
-    fun setDataUltimaAtualizacao(dataDeAtualizacao:LocalDateTime){
-        dataUltimaAtualizacao = dataDeAtualizacao
-    }
-    fun getEmailModificador():String{
-        return emailModificador
-    }
-    fun setEmailModificador(emailDeModificacao:String){
-        emailModificador = emailDeModificacao
-    }
 }
