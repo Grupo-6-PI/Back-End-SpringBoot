@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.domain.cadastro.Acesso
+import school.sptech.projetotfg.domain.gerenciamento.Acesso
 import school.sptech.projetotfg.dto.LoginRequestDTO
 import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.repository.AcessoRepository

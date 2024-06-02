@@ -1,7 +1,7 @@
 package school.sptech.projetotfg.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import school.sptech.projetotfg.domain.cadastro.Acesso
+import school.sptech.projetotfg.domain.gerenciamento.Acesso
 import school.sptech.projetotfg.domain.cadastro.Usuario
 import java.util.*
 

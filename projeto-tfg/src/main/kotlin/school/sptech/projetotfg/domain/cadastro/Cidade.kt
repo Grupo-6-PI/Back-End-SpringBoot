@@ -4,20 +4,8 @@ import jakarta.persistence.*
 import jakarta.validation.constraints.Max
 @Entity
 class Cidade(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idCidade:Long = 0,
-    @field:Max(100) private var nome:String
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id:Long = 0,
+    @field:Max(100) private var nome:String,
+    @ManyToOne private var estado: Estado
 ) {
-    fun getId():Long{
-        return idCidade
-    }
-    fun setId(novoId:Long){
-        idCidade = novoId
-    }
-    fun getNome():String{
-        return nome
-    }
-    fun setNome(novoNome:String){
-        nome = novoNome
-    }
 }
