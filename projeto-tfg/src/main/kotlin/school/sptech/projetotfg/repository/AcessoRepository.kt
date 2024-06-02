@@ -1,12 +1,9 @@
 package school.sptech.projetotfg.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import school.sptech.projetotfg.domain.gerenciamento.Acesso
 import school.sptech.projetotfg.domain.cadastro.Usuario
-import java.util.*
+import school.sptech.projetotfg.domain.gerenciamento.Acesso
 
 interface AcessoRepository : JpaRepository<Acesso, Long> {
-        fun findFirstByUsuarioOrderByDataAcessoDesc(usuario: Usuario): Optional<Acesso>
-
-
+        fun findTopByUsuarioOrderByIdDesc(usuario: Usuario): Acesso?
 }

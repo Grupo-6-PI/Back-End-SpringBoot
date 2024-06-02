@@ -9,7 +9,7 @@ import java.time.LocalDate
 class Acesso(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
     @field: NotNull @field: NotBlank private var dataAcesso: LocalDate,
-    @field:NotNull @field:NotBlank @field:ManyToOne private var situacao: Situacao,
+    @field:NotNull @field:NotBlank @field:ManyToOne var situacao: Situacao,
     @field: NotNull @field: NotBlank @field:ManyToOne private var usuario: Usuario
 ){
 }
