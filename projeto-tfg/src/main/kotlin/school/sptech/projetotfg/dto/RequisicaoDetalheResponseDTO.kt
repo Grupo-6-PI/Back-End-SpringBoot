@@ -1,7 +1,5 @@
 package school.sptech.projetotfg.dto
 
-import school.sptech.projetotfg.domain.cadastro.RendaFamiliar
-import school.sptech.projetotfg.domain.cadastro.UrgenciaFamiliar
 import java.time.LocalDate
 
 data class RequisicaoDetalheResponseDTO(
