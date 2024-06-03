@@ -7,6 +7,6 @@ class HistoricoConversa(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
     @field:ManyToOne private var entradaUsuario: EntradaUsuario,
-    @field:OneToMany private var mensagemBot: MensagemBot
-) {
+    @field:ManyToOne private var mensagemBot: MensagemBot
+){
 }

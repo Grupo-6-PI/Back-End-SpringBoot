@@ -12,5 +12,5 @@ class MensagemBot(
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
     @field:ManyToOne private var tipoMensagem:TipoMensagem,
     @field:ManyToOne private var areasAtendimento: AreasAtendimento
-) {
+){
 }
