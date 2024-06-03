@@ -27,7 +27,7 @@ class AutenticacaoService(
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta")
         }
 
-        val situacaoLogado = situacaoRepository.findByNome("Logado")
+        val situacaoLogado = situacaoRepository.findBySituacao("Logado")
             ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Logado' não encontrada")
 
         val acesso = Acesso(
@@ -52,7 +52,7 @@ class AutenticacaoService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não está logado")
         }
 
-        val situacaoDeslogado = situacaoRepository.findByNome("Deslogado")
+        val situacaoDeslogado = situacaoRepository.findBySituacao("Deslogado")
             ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Deslogado' não encontrada")
 
         val novoAcesso = Acesso(
