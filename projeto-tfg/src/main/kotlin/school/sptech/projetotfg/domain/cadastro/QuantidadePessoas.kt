@@ -1,14 +1,15 @@
 package school.sptech.projetotfg.domain.cadastro
 
+
 import jakarta.persistence.*
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.Positive
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class QuantidadePessoas(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idQuantidadePessoas:Long = 0,
-    @field:NotNull private var minimo: Int,
-    @field:NotNull private var maximo: Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long = 0,
+    @field:Positive private var minimo: Long,
+    @field:Positive private var maximo: Long,
     @field:ManyToOne private var situacao: Situacao
     ) {
 }

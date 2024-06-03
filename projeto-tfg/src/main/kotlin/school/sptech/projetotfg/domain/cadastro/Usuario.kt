@@ -1,7 +1,8 @@
 package school.sptech.projetotfg.domain.cadastro
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.*
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
 import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
@@ -12,8 +13,8 @@ class Usuario(
     @field:NotBlank var nome:String,
     @field:Email var email:String,
     @field:NotBlank var senha:String,
-    @field:OneToOne  private var informacoesAdicionaisId: InformacoesAdicionais,
-    @field:ManyToOne private var usuarioSituacao: Situacao,
+    @field:OneToOne private var informacoesAdicionaisId: InformacoesAdicionais,
+    @field:ManyToOne private var situacao: Situacao,
     @field:ManyToOne private var nivelAcessoId: NivelAcesso
 ) {
 }
