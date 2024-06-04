@@ -20,7 +20,7 @@ class AutenticacaoService(
 ) {
 
     fun login(request: LoginRequestDTO): UsuarioResponseDTO {
-        val usuario = usuarioRepository.findByEmail(request.email)
+        val usuario = usuarioRepository.buscarEmail(request.email)
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado")
 
         if (usuario.senha != request.senha) {
