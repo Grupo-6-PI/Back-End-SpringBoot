@@ -8,9 +8,20 @@ import java.time.LocalDate
 
 @Entity
 class Acesso(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field: NotNull @field: NotBlank private var dataAcesso: LocalDate,
-    @field:NotNull @field:NotBlank @field:ManyToOne var situacao: Situacao,
-    @field: NotNull @field: NotBlank @field:ManyToOne private var usuario: Usuario
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = null,
+    @field:NotNull private var dataAcesso: LocalDate,
+    @field:NotNull @field:ManyToOne var situacao: Situacao,
+    @field:NotNull @field:ManyToOne private var usuario: Usuario
 ){
+
+    constructor(
+        paramdataAcesso: LocalDate,
+        paramsituacao: Situacao,
+        paramusuario: Usuario
+    ):this(
+        dataAcesso = paramdataAcesso,
+        situacao = paramsituacao,
+        usuario = paramusuario
+    )
+
 }
