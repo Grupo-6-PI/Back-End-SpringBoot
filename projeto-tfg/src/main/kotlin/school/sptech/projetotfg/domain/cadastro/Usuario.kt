@@ -15,9 +15,9 @@ class Usuario(
     @field:NotBlank var nome:String,
     @field:Email var email:String,
     @field:NotBlank var senha:String,
-    @field:OneToOne private var informacoesAdicionais: InformacoesAdicionais?,
-    @field:ManyToOne private var situacao: Situacao?,
-    @field:ManyToOne private var nivelAcesso: NivelAcesso?
+    @field:OneToOne var informacoesAdicionais: InformacoesAdicionais?,
+    @field:ManyToOne var situacao: Situacao?,
+    @field:ManyToOne var nivelAcesso: NivelAcesso?
 ) {
 
     constructor(
@@ -47,6 +47,24 @@ class Usuario(
         informacoesAdicionais = null,
         situacao = null,
         nivelAcesso = null
+    )
+
+    constructor(
+        paramId: Long,
+        paramNome:String,
+        paramEmail:String,
+        paramSenha:String,
+        paramInformacoesAdicionais: InformacoesAdicionais,
+        paramSituacao: Situacao,
+        paramNivelAcesso: NivelAcesso
+    ):this(
+        id = paramId,
+        nome = paramNome,
+        email = paramEmail,
+        senha = paramSenha,
+        informacoesAdicionais = paramInformacoesAdicionais,
+        situacao = paramSituacao,
+        nivelAcesso = paramNivelAcesso
     )
 
 }
