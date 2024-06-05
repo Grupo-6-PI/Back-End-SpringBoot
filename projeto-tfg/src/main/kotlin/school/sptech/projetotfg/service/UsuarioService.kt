@@ -1,5 +1,6 @@
 package school.sptech.projetotfg.service
 
+import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -10,7 +11,8 @@ import school.sptech.projetotfg.domain.cadastro.Usuario
 
 @Service
 class UsuarioService(
-    private val usuarioRepository: UsuarioRepository
+    private val usuarioRepository: UsuarioRepository,
+    private val mapper: ModelMapper
 ) {
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
         if (usuarioRepository.existsByEmail(usuarioInputDTO.email)) {
@@ -18,18 +20,19 @@ class UsuarioService(
         }
 
         val usuario = Usuario(
+            id = null,
             nome = usuarioInputDTO.nome,
             email = usuarioInputDTO.email,
             senha = usuarioInputDTO.senha,
-            informacoesAdicionaisId = null,
+            informacoesAdicionais = null,
             situacao = null,
-            nivelAcessoId = null
+            nivelAcesso = null
         )
 
         return try {
             val usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioResponseDTO(
-                id = usuarioSalvo.id,
+                id = usuarioSalvo.id!!,
                 nome = usuarioSalvo.nome,
                 email = usuarioSalvo.email
             )
@@ -49,7 +52,7 @@ class UsuarioService(
         return try {
             val usuarioAtualizado = usuarioRepository.save(usuarioExistente)
             UsuarioResponseDTO(
-                id = usuarioAtualizado.id,
+                id = usuarioAtualizado.id!!,
                 nome = usuarioAtualizado.nome,
                 email = usuarioAtualizado.email
             )
@@ -62,7 +65,7 @@ class UsuarioService(
         val usuarios = usuarioRepository.findAll()
         return usuarios.map { usuario ->
             UsuarioResponseDTO(
-                id = usuario.id,
+                id = usuario.id!!,
                 nome = usuario.nome,
                 email = usuario.email
             )
@@ -79,4 +82,23 @@ class UsuarioService(
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao excluir usuário: ${ex.message}")
         }
     }
+
+    fun encontrarUsuario(id: Long): UsuarioResponseDTO {
+        if (!usuarioRepository.existsById(id)) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado")
+        }
+        try {
+
+            var usuario = usuarioRepository.findById(id)
+            var resposta = mapper.map(
+                usuario,
+                UsuarioResponseDTO::class.java
+            )
+            return resposta
+
+        } catch (ex: Exception) {
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao encontrar o usuário: ${ex.message}")
+        }
+    }
+
 }

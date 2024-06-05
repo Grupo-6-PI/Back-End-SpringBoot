@@ -13,12 +13,16 @@ class UsuarioController(
     private val usuarioService: UsuarioService
 ) {
     @PostMapping("/cadastro")
-    fun cadastrarUsuario(@RequestBody usuarioInputDTO: UsuarioInputDTO): ResponseEntity<Any> {
-        return try {
+    fun cadastrarUsuario(@RequestBody usuarioInputDTO: UsuarioInputDTO): ResponseEntity<UsuarioResponseDTO> {
+        try {
+
             val usuarioResponseDTO = usuarioService.cadastrarUsuario(usuarioInputDTO)
-            ResponseEntity.ok(usuarioResponseDTO)
+            return ResponseEntity.status(201).body(usuarioResponseDTO)
+
         } catch (ex: ResponseStatusException) {
-            ResponseEntity.status(500).body("Erro interno ao cadastrar usuário")
+
+            return ResponseEntity.status(500).build()
+
         }
     }
 
@@ -26,12 +30,12 @@ class UsuarioController(
     fun atualizarUsuario(
         @PathVariable id: Long,
         @RequestBody usuarioInputDTO: UsuarioInputDTO
-    ): ResponseEntity<Any> {
-        return try {
+    ): ResponseEntity<UsuarioResponseDTO> {
+        try {
             val usuarioResponseDTO = usuarioService.atualizarUsuario(id, usuarioInputDTO)
-            ResponseEntity.ok(usuarioResponseDTO)
+            return ResponseEntity.status(200).body(usuarioResponseDTO)
         } catch (ex: ResponseStatusException) {
-            ResponseEntity.status(404).body("Usuário não encontrado")
+            return ResponseEntity.status(404).build()
         }
     }
 
@@ -43,11 +47,12 @@ class UsuarioController(
 
     @DeleteMapping("/{id}")
     fun excluirUsuario(@PathVariable id: Long): ResponseEntity<Any> {
-        return try {
+        try {
+            var usuarioResponseDTO = usuarioService.encontrarUsuario(id)
             usuarioService.excluirUsuario(id)
-            ResponseEntity.noContent().build()
+            return ResponseEntity.status(200).body(usuarioResponseDTO)
         } catch (ex: ResponseStatusException) {
-            ResponseEntity.status(404).body("Usuário não encontrado")
+            return ResponseEntity.status(404).body("Usuário não encontrado")
         }
     }
 }
