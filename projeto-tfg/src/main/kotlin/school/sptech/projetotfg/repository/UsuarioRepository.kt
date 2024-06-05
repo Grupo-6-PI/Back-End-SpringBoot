@@ -7,6 +7,6 @@ import school.sptech.projetotfg.domain.cadastro.Usuario
 interface UsuarioRepository : JpaRepository<Usuario, Long> {
         fun existsByEmail(email: String): Boolean
 
-        @Query("SELECT NEW Usuario(u.id,u.nome,u.email,CAST(AES_DECRYPT(u.senha,'chave') as STRING)) FROM Usuario u where u.email=:email")
+        @Query("SELECT NEW Usuario(l.id,l.nome,l.email,l.senha) FROM login l WHERE l.email = :email")
         fun buscarEmail(email: String): Usuario?
 }
