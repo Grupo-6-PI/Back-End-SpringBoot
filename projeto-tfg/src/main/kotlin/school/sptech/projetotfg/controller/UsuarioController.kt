@@ -3,6 +3,8 @@ package school.sptech.projetotfg.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import school.sptech.projetotfg.dto.UsuarioCompletoInputDTO
+import school.sptech.projetotfg.dto.UsuarioCompletoResponseDTO
 import school.sptech.projetotfg.dto.UsuarioInputDTO
 import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.service.UsuarioService
@@ -55,4 +57,38 @@ class UsuarioController(
             return ResponseEntity.status(404).body("Usuário não encontrado")
         }
     }
+
+    @PostMapping("/completo/cadastro")
+    fun cadastrarUsuarioCompleto(@RequestBody usuarioCompletoInputDTO: UsuarioCompletoInputDTO): ResponseEntity<UsuarioCompletoResponseDTO> {
+        try {
+
+            val usuarioCompletoResponseDTO = usuarioService.cadastrarUsuarioCompleto(usuarioCompletoInputDTO)
+            return ResponseEntity.status(201).body(usuarioCompletoResponseDTO)
+
+        } catch (ex: ResponseStatusException) {
+
+            return ResponseEntity.status(500).build()
+
+        }
+    }
+
+    @PutMapping("/completo/{id}")
+    fun atualizarUsuarioCompleto(
+        @PathVariable id: Long,
+        @RequestBody usuarioCompletoInputDTO: UsuarioCompletoInputDTO
+    ): ResponseEntity<UsuarioCompletoResponseDTO> {
+        try {
+            val usuarioCompletoResponseDTO = usuarioService.atualizarUsuarioCompleto(id, usuarioCompletoInputDTO)
+            return ResponseEntity.status(200).body(usuarioCompletoResponseDTO)
+        } catch (ex: ResponseStatusException) {
+            return ResponseEntity.status(404).build()
+        }
+    }
+
+    @GetMapping("/completo")
+    fun listarUsuariosCompletos(): ResponseEntity<List<UsuarioCompletoResponseDTO>> {
+        val usuarios = usuarioService.listarUsuariosCompletos()
+        return ResponseEntity.ok(usuarios)
+    }
+
 }
