@@ -11,16 +11,15 @@ import java.time.LocalTime
 @Entity
 class Atividade (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = 0,
-    @field:NotBlank @field:Max(100) private var nome:String?,
-    @field:PastOrPresent private var horaComeco: LocalTime?,
-    @field:PastOrPresent private var horaFinal:LocalTime?,
-    @field:NotBlank @field:Max(150) private var descricao:String?,
-    @field:ManyToOne private var tipoAtividade: TipoAtividade?,
-    @field:PastOrPresent private var dataCriacao: LocalDateTime?,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
-    @field:Email @field:Size(max = 150)
-    private var emailModificador:String?
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = 0,
+    @field:NotBlank @field:Max(100) var nome:String?,
+    @field:PastOrPresent var horaComeco: LocalTime?,
+    @field:PastOrPresent var horaFinal:LocalTime?,
+    @field:NotBlank @field:Max(150) var descricao:String?,
+    @field:ManyToOne var tipoAtividade: TipoAtividade?,
+    @field:PastOrPresent var dataCriacao: LocalDateTime?,
+    @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime?,
+    @field:Email @field:Size(max = 150) var emailModificador:String?
 ){
 
     fun getId():Long?{
