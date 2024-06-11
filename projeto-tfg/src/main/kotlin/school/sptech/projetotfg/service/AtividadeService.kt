@@ -23,7 +23,7 @@ class AtividadeService(
     }
 
     fun atividadePorId(id:Int):AtividadeResponseDTO{
-        val atividade = atividadeRepository.findById(id).get()
+        val atividade = atividadeRepository.findById(id.toLong()).get()
         if(!atividade.equals(null)){
             val atividadeDto:AtividadeResponseDTO = mapper.map(atividade, AtividadeResponseDTO::class.java)
             return atividadeDto
