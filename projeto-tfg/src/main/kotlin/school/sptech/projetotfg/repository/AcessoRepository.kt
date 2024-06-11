@@ -6,4 +6,6 @@ import school.sptech.projetotfg.domain.gerenciamento.Acesso
 
 interface AcessoRepository : JpaRepository<Acesso, Long> {
         fun findTopByUsuarioOrderByIdDesc(usuario: Usuario): Acesso?
+
+        fun findTopByUsuarioOrderByDataAcessoDesc(usuario: Usuario?): Acesso?
 }

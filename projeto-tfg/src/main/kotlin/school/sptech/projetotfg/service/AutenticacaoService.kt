@@ -27,6 +27,12 @@ class AutenticacaoService(
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta")
         }
 
+        val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
+        if (ultimoAcesso != null && ultimoAcesso.situacao.situacao == "Logado") {
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário já está logado")
+        }
+
+
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
             ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Logado' não encontrada")
 
@@ -63,4 +69,5 @@ class AutenticacaoService(
 
         acessoRepository.save(novoAcesso)
     }
+
 }
