@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import school.sptech.projetotfg.domain.atividades.Atividade
 import school.sptech.projetotfg.dto.AtividadeResponseDTO
 import school.sptech.projetotfg.service.AtividadeService
 
@@ -14,7 +15,7 @@ class AtividadeController (
     val atividadeService: AtividadeService
 ){
     @GetMapping("/lista-atividade")
-    fun listarAtividades():ResponseEntity<List<AtividadeResponseDTO>>{
+    fun listarAtividades():ResponseEntity<List<Atividade>>{
         val atividades = atividadeService.listarAtivadade()
         return ResponseEntity.status(200).body(atividades)
     }
