@@ -6,5 +6,5 @@ import school.sptech.projetotfg.domain.doacao.Requisicoes
 
 @Repository
 interface RequisicaoRepository:JpaRepository<Requisicoes,Long> {
-    fun countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(assunto:String, inicioTri:Int, fimTri:Int):Int
+    fun countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(assunto:String, situacao:Long, inicioTri:Long, fimTri:Long):Int
 }

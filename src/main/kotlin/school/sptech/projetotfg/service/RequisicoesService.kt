@@ -130,9 +130,9 @@ class RequisicoesService (
         val fimTri4: LocalDate = LocalDate.of(ano,12,31)
 
         var assunto:String
-        var inicioTri:Int
-        var fimTri:Int
-        var situacao:Int
+        var inicioTri:Long
+        var fimTri:Long
+        var situacao:Long
 
         lateinit var dto:RequisicaoDashDTO
 
@@ -144,12 +144,13 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
-                    if(situacao==5) dto.cesta_req.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
                 for(c in 2..3){
@@ -158,13 +159,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.vestuario_req.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
                 }
                 for(c in 4..5){
@@ -173,13 +175,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.saude_req.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
                 }
                 for(c in 6..7){
@@ -188,13 +191,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.outro_req.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
                 }
             }
@@ -205,12 +209,13 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
-                    if(situacao==5) dto.cesta_req.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
                 for(c in 2..3){
@@ -219,13 +224,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.vestuario_req.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
                 }
                 for(c in 4..5){
@@ -234,13 +240,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.saude_req.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
                 }
                 for(c in 6..7){
@@ -249,13 +256,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.outro_req.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
                 }
             }
@@ -266,12 +274,13 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
-                    if(situacao==5) dto.cesta_req.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
                 for(c in 2..3){
@@ -280,13 +289,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.vestuario_req.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
                 }
                 for(c in 4..5){
@@ -295,13 +305,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.saude_req.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
                 }
                 for(c in 6..7){
@@ -310,13 +321,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.outro_req.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
                 }
             }
@@ -327,12 +339,13 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
-                    if(situacao==5) dto.cesta_req.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
                 for(c in 2..3){
@@ -341,13 +354,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.vestuario_req.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
                 }
                 for(c in 4..5){
@@ -356,13 +370,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.saude_req.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
                 }
                 for(c in 6..7){
@@ -371,13 +386,14 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
                         assunto,
+                        situacao,
                         inicioTri,
                         fimTri
                     )
 
-                    if(situacao==5) dto.outro_req.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
                 }
             }
