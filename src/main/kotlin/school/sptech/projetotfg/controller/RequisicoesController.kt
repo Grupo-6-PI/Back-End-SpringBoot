@@ -12,7 +12,7 @@ import school.sptech.projetotfg.service.RequisicoesService
 @RestController
 @RequestMapping("/requisicoes")
 class RequisicoesController (
-    val requisicoesService: RequisicoesService
+    private val requisicoesService: RequisicoesService
 ){
 
     @GetMapping("/lista-requisicoes")

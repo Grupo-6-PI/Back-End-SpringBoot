@@ -13,8 +13,8 @@ import java.time.LocalDate
 
 @Service
 class RequisicoesService (
-    val requisicaoRepository: RequisicaoRepository,
-    val mapper: ModelMapper
+    private val requisicaoRepository: RequisicaoRepository,
+    private val mapper: ModelMapper
 ){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
 
@@ -144,7 +144,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
                     if(situacao==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
@@ -154,7 +158,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
@@ -165,7 +173,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
@@ -176,7 +188,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
@@ -189,7 +205,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
                     if(situacao==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
@@ -199,7 +219,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
@@ -210,7 +234,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
@@ -221,7 +249,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
@@ -234,7 +266,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
                     if(situacao==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
@@ -244,7 +280,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
@@ -255,7 +295,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
@@ -266,7 +310,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)
@@ -279,7 +327,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var cesta:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
                     if(situacao==5) dto.cesta_req.add(cesta)
                     else dto.cesta_cum.add(cesta)
                 }
@@ -289,7 +341,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var vestuario:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.vestuario_req.add(vestuario)
                     else dto.vestuario_cum.add(vestuario)
@@ -300,7 +356,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var saude:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.saude_req.add(saude)
                     else dto.saude_cum.add(saude)
@@ -311,7 +371,11 @@ class RequisicoesService (
                     fimTri = casos[c].fimTri
                     situacao = casos[c].situacao
 
-                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto,inicioTri,fimTri,situacao)
+                    var outro:Int = requisicaoRepository.countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(
+                        assunto,
+                        inicioTri,
+                        fimTri
+                    )
 
                     if(situacao==5) dto.outro_req.add(outro)
                     else dto.outro_cum.add(outro)

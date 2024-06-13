@@ -13,4 +13,9 @@ class AssuntoRequisicao(
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
     @field:NotBlank @field:Max(150) private var assunto:String
 ) {
+
+    fun getAssunto():String{
+        return assunto
+    }
+
 }

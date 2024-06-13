@@ -1,9 +1,10 @@
 package school.sptech.projetotfg.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.service.Caso
 
+@Repository
 interface RequisicaoRepository:JpaRepository<Requisicoes,Long> {
-    fun countByAssuntoRequisicaoAndCalendarioBetweenAndSituacao(assunto:String, inicioTri:Int, fimTri:Int, situacao:Int ):Int
+    fun countByAssuntoRequisicaoAssuntoAndCalendarioDiaNumeracaoBetween(assunto:String, inicioTri:Int, fimTri:Int):Int
 }
