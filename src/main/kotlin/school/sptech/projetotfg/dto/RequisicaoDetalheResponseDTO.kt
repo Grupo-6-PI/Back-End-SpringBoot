@@ -10,7 +10,7 @@ data class RequisicaoDetalheResponseDTO(
     val endereco: EnderecoDTO,
     val idFamilia:Long,
     val tipoDoacao:String,
-    //val descricaoDoacao:String,
+    val descricaoDoacao:String,
     val familia: FamiliaDTO,
     val qtdPessoas:Long,
     val temCrianca:Boolean,

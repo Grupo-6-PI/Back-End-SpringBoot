@@ -5,15 +5,15 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class Situacao(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var idSituacao:Int,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long,
     @field:Max(100) private var situacao:String,
     @ManyToOne private var tipoSituacao: TipoSituacao
 ){
     fun getId():Long{
-        return idSituacao
+        return id
     }
     fun setId(novoId:Long){
-        idSituacao = novoId
+        id = novoId
     }
     fun getSituacao():String{
         return situacao
