@@ -125,7 +125,7 @@ class RequisicoesService (
         val incioTri2: LocalDate = LocalDate.of(ano,4,1)
         val fimTri2: LocalDate = LocalDate.of(ano,6,30)
         val inicioTri3: LocalDate = LocalDate.of(ano,7,1)
-        val fimTri3: LocalDate = LocalDate.of(ano,9,31)
+        val fimTri3: LocalDate = LocalDate.of(ano,9,30)
         val inicioTri4: LocalDate = LocalDate.of(ano,10,1)
         val fimTri4: LocalDate = LocalDate.of(ano,12,31)
 

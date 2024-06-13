@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import school.sptech.projetotfg.dto.RequisicaoDashDTO
 import school.sptech.projetotfg.dto.RequisicaoDetalheResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
 import school.sptech.projetotfg.service.RequisicoesService
@@ -43,5 +44,11 @@ class RequisicoesController (
     fun getRequisicaoDetalhePorId(@RequestParam id:Long):RequisicaoDetalheResponseDTO{
         val requisicaoDetalhada = requisicoesService.getDetalhesRequisicao(id)
         return requisicaoDetalhada
+    }
+
+    @GetMapping("/dash_requisicao")
+    fun getRequisicaoDashPorTrimestreTipoESituacao():ResponseEntity<RequisicaoDashDTO>{
+        val response = requisicoesService.getRequisicoesTrimestreTipo()
+        return ResponseEntity.status(200).body(response)
     }
 }
