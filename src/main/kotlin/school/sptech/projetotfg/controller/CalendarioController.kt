@@ -12,14 +12,11 @@ import school.sptech.projetotfg.service.CalendarioService
 class CalendarioController(private val calendarioService: CalendarioService) {
 
     @PostMapping
-    fun createCalendarioComAtividade(
-        @RequestParam ano: Long,
-        @RequestParam mesNumeracao: Int,
-        @RequestParam diaNumeracao: Int,
+    fun createCAtividade(
         @RequestBody atividadeDTO: AtividadeDTO
     ): ResponseEntity<ReservaAtividade> {
-        val reservaAtividade = calendarioService.createCalendarioComAtividade(
-            ano, mesNumeracao, diaNumeracao, atividadeDTO
+        val reservaAtividade = calendarioService.createAtividade(
+            atividadeDTO
         )
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaAtividade)
     }

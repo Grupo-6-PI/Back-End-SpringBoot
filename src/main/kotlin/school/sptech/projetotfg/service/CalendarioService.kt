@@ -1,27 +1,24 @@
 package school.sptech.projetotfg.service
 
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.repository.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Service
 class CalendarioService(
     private val atividadeRepository: AtividadeRepository,
-    private val calendarioRepository: CalendarioRepository,
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository
 ) {
 
-    fun createCalendarioComAtividade(
-        ano: Long,
-        mesNumeracao: Int,
-        diaNumeracao: Int,
+    fun createAtividade(
         atividadeDTO: AtividadeDTO
     ): ReservaAtividade {
-        // Buscar ou criar TipoAtividade
+
         val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
 
@@ -38,19 +35,8 @@ class CalendarioService(
         )
         val savedAtividade = atividadeRepository.save(atividade)
 
-        // Criar Calendario
-        val calendario = Calendario(
-            ano = ano,
-            mesNumeracao = mesNumeracao,
-            mesNomeacao = LocalDate.of(ano.toInt(), mesNumeracao, diaNumeracao).month.name,
-            diaNumeracao = diaNumeracao,
-            diaNomeacao = LocalDate.of(ano.toInt(), mesNumeracao, diaNumeracao).dayOfWeek.name
-        )
-        val savedCalendario = calendarioRepository.save(calendario)
-
         // Criar ReservaAtividade
         val reservaAtividade = ReservaAtividade(
-            calendario = savedCalendario,
             atividade = savedAtividade,
             dataCriacao = LocalDateTime.now(),
             dataUltimaAtualizacao = LocalDateTime.now(),
@@ -91,12 +77,14 @@ class CalendarioService(
         return reservaAtividadeRepository.save(reservaAtividade)
     }
 
-    fun deleteReserva(id: Long): Boolean {
-        return if (reservaAtividadeRepository.existsById(id)) {
+    fun deleteReserva(id: Long) {
+        if (!reservaAtividadeRepository.existsById(id)) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Atividade não encontrada")
+        }
+        try {
             reservaAtividadeRepository.deleteById(id)
-            true
-        } else {
-            false
+        } catch (ex: Exception) {
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao excluir Atividade: ${ex.message}")
         }
     }
 }
