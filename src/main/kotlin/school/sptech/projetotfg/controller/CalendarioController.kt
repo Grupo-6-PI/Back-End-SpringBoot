@@ -3,6 +3,7 @@ package school.sptech.projetotfg.controller
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.service.CalendarioService
@@ -48,11 +49,13 @@ class CalendarioController(private val calendarioService: CalendarioService) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteReserva(@PathVariable id: Long): ResponseEntity<Void> {
-        return if (calendarioService.deleteReserva(id)) {
-            ResponseEntity(HttpStatus.NO_CONTENT)
-        } else {
-            ResponseEntity(HttpStatus.NOT_FOUND)
+    fun excluirUsuario(@PathVariable id: Long): ResponseEntity<Any> {
+        try {
+            var atividadeDTO = calendarioService.getReservaById(id)
+            calendarioService.deleteReserva(id)
+            return ResponseEntity.status(200).body(atividadeDTO)
+        } catch (ex: ResponseStatusException) {
+            return ResponseEntity.status(404).body("Usuário não encontrado")
         }
     }
 }
