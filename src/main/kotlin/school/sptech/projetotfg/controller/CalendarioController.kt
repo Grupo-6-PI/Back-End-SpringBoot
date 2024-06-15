@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
+import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.service.CalendarioService
 
 @RestController
-@RequestMapping("/calendarios")
+@RequestMapping("/calendario-atividades")
 class CalendarioController(private val calendarioService: CalendarioService) {
 
     @PostMapping
-    fun createCAtividade(
+    fun createAtividade(
         @RequestBody atividadeDTO: AtividadeDTO
     ): ResponseEntity<ReservaAtividade> {
         val reservaAtividade = calendarioService.createAtividade(
@@ -23,7 +24,10 @@ class CalendarioController(private val calendarioService: CalendarioService) {
     }
 
     @GetMapping
-    fun getAllReservas(): List<ReservaAtividade> = calendarioService.getAllReservas()
+    fun getAllReservas(): ResponseEntity<Map<String, List<ReservaAtividade>>> {
+        val atividades = calendarioService.getAllReservas()
+        return ResponseEntity.ok(atividades)
+    }
 
     @GetMapping("/{id}")
     fun getReservaById(@PathVariable id: Long): ResponseEntity<ReservaAtividade> {

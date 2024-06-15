@@ -3,10 +3,13 @@ package school.sptech.projetotfg.service
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.domain.atividades.*
+import school.sptech.projetotfg.domain.atividades.Atividade
+import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
+import java.time.format.TextStyle
+import java.util.*
 
 @Service
 class CalendarioService(
@@ -45,7 +48,13 @@ class CalendarioService(
         return reservaAtividadeRepository.save(reservaAtividade)
     }
 
-    fun getAllReservas(): List<ReservaAtividade> = reservaAtividadeRepository.findAll()
+    fun getAllReservas(): Map<String, List<ReservaAtividade>> {
+        val reservas = reservaAtividadeRepository.findAll()
+        return reservas.groupBy {
+            val data = it.getdataCriacao().toLocalDate()
+            "${data.year}-${data.month.value}-${data.dayOfMonth}"
+        }
+    }
 
     fun getReservaById(id: Long): ReservaAtividade? = reservaAtividadeRepository.findById(id).orElse(null)
 

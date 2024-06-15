@@ -18,4 +18,7 @@ class ReservaAtividade(
     @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime,
     @field:Email @field:Size(max = 150) var emailModificador: String
 ) {
+    fun getdataCriacao(): LocalDateTime {
+        return dataCriacao
+    }
 }
