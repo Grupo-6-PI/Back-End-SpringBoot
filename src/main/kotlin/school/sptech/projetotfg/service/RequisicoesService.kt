@@ -14,7 +14,7 @@ import java.time.LocalDate
 @Service
 class RequisicoesService (
     private val requisicaoRepository: RequisicaoRepository,
-    private val mapper: ModelMapper
+    private val mapper: ModelMapper,
 ){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
 
@@ -134,11 +134,14 @@ class RequisicoesService (
         var fimTri:Long
         var situacao:Long
 
-        lateinit var dto:RequisicaoDashDTO
+        var dto:RequisicaoDashDTO = RequisicaoDashDTO()
 
         for(i in 1..8){
+
             if(agora.isBefore(incioTri2)){
+
                 for(c in 0..1){
+
                     assunto = casos[c].assunto
                     inicioTri = casos[c].inicioTri
                     fimTri = casos[c].fimTri
@@ -150,8 +153,8 @@ class RequisicoesService (
                         inicioTri,
                         fimTri
                     )
-                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
-                    else dto.cesta_cum.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req[0] = cesta
+                    else dto.cesta_cum[0] = cesta
                 }
                 for(c in 2..3){
                     assunto = casos[c].assunto
@@ -166,8 +169,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
-                    else dto.vestuario_cum.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req[0] = vestuario
+                    else dto.vestuario_cum[0] = vestuario
                 }
                 for(c in 4..5){
                     assunto = casos[c].assunto
@@ -182,8 +185,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.saude_req.add(saude)
-                    else dto.saude_cum.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req[0] = saude
+                    else dto.saude_cum[0] = saude
                 }
                 for(c in 6..7){
                     assunto = casos[c].assunto
@@ -198,12 +201,13 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.outro_req.add(outro)
-                    else dto.outro_cum.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req[0] = outro
+                    else dto.outro_cum[0] = outro
                 }
             }
             else if(agora.isBefore(inicioTri3) && agora.isAfter(fimTri1)){
                 for(c in 0..1){
+
                     assunto = casos[c].assunto
                     inicioTri = casos[c].inicioTri
                     fimTri = casos[c].fimTri
@@ -215,8 +219,8 @@ class RequisicoesService (
                         inicioTri,
                         fimTri
                     )
-                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
-                    else dto.cesta_cum.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req[1] = cesta
+                    else dto.cesta_cum[1] = cesta
                 }
                 for(c in 2..3){
                     assunto = casos[c].assunto
@@ -231,8 +235,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
-                    else dto.vestuario_cum.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req[1] = vestuario
+                    else dto.vestuario_cum[1] = vestuario
                 }
                 for(c in 4..5){
                     assunto = casos[c].assunto
@@ -247,8 +251,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.saude_req.add(saude)
-                    else dto.saude_cum.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req[1] = saude
+                    else dto.saude_cum[1] = saude
                 }
                 for(c in 6..7){
                     assunto = casos[c].assunto
@@ -263,12 +267,13 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.outro_req.add(outro)
-                    else dto.outro_cum.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req[1] = outro
+                    else dto.outro_cum[1] = outro
                 }
             }
             else if(agora.isBefore(inicioTri4) && agora.isAfter(fimTri2)){
                 for(c in 0..1){
+
                     assunto = casos[c].assunto
                     inicioTri = casos[c].inicioTri
                     fimTri = casos[c].fimTri
@@ -280,8 +285,8 @@ class RequisicoesService (
                         inicioTri,
                         fimTri
                     )
-                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
-                    else dto.cesta_cum.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req[2] = cesta
+                    else dto.cesta_cum[2] = cesta
                 }
                 for(c in 2..3){
                     assunto = casos[c].assunto
@@ -296,8 +301,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
-                    else dto.vestuario_cum.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req[2] = vestuario
+                    else dto.vestuario_cum[2] = vestuario
                 }
                 for(c in 4..5){
                     assunto = casos[c].assunto
@@ -312,8 +317,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.saude_req.add(saude)
-                    else dto.saude_cum.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req[2] = saude
+                    else dto.saude_cum[2] = saude
                 }
                 for(c in 6..7){
                     assunto = casos[c].assunto
@@ -328,12 +333,13 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.outro_req.add(outro)
-                    else dto.outro_cum.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req[2] = outro
+                    else dto.outro_cum[2] = outro
                 }
             }
             else{
                 for(c in 0..1){
+
                     assunto = casos[c].assunto
                     inicioTri = casos[c].inicioTri
                     fimTri = casos[c].fimTri
@@ -345,8 +351,8 @@ class RequisicoesService (
                         inicioTri,
                         fimTri
                     )
-                    if(situacao.toInt()==5) dto.cesta_req.add(cesta)
-                    else dto.cesta_cum.add(cesta)
+                    if(situacao.toInt()==5) dto.cesta_req[3] = cesta
+                    else dto.cesta_cum[3] = cesta
                 }
                 for(c in 2..3){
                     assunto = casos[c].assunto
@@ -361,8 +367,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.vestuario_req.add(vestuario)
-                    else dto.vestuario_cum.add(vestuario)
+                    if(situacao.toInt()==5) dto.vestuario_req[3] = vestuario
+                    else dto.vestuario_cum[3] = vestuario
                 }
                 for(c in 4..5){
                     assunto = casos[c].assunto
@@ -377,8 +383,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.saude_req.add(saude)
-                    else dto.saude_cum.add(saude)
+                    if(situacao.toInt()==5) dto.saude_req[3] = saude
+                    else dto.saude_cum[3] = saude
                 }
                 for(c in 6..7){
                     assunto = casos[c].assunto
@@ -393,8 +399,8 @@ class RequisicoesService (
                         fimTri
                     )
 
-                    if(situacao.toInt()==5) dto.outro_req.add(outro)
-                    else dto.outro_cum.add(outro)
+                    if(situacao.toInt()==5) dto.outro_req[3] = outro
+                    else dto.outro_cum[3] = outro
                 }
             }
         }
