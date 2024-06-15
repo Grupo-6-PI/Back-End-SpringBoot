@@ -67,25 +67,25 @@ class CalendarioService(
 
             when(calendario.getDiaNomeacao()){
                 "Domingo" -> {
-                    dto.domingo.add(it.atividade)
+                    dto.domingo.add(it)
                 }
                 "Segunda-Feira" -> {
-                    dto.segunda.add(it.atividade)
+                    dto.segunda.add(it)
                 }
                 "Terça-Feira" -> {
-                    dto.terca.add(it.atividade)
+                    dto.terca.add(it)
                 }
                 "Quarta-Feira" -> {
-                    dto.quarta.add(it.atividade)
+                    dto.quarta.add(it)
                 }
                 "Quinta-Feira" -> {
-                    dto.quinta.add(it.atividade)
+                    dto.quinta.add(it)
                 }
                 "Sexta-Feira" -> {
-                    dto.sexta.add(it.atividade)
+                    dto.sexta.add(it)
                 }
                 "Sábado" -> {
-                    dto.sabado.add(it.atividade)
+                    dto.sabado.add(it)
                 }
                 else -> {
                     throw IllegalArgumentException("O Dia da Semana não existe")
