@@ -17,9 +17,18 @@ class Calendario(
     @field:NotBlank private var mesNomeacao:String,
     @field:Positive @field:Min(1) @field:Max(2) private var diaNumeracao: Int,
     @field:NotBlank private var diaNomeacao: String
-) {
+){
+
     fun getAno(): Long {
         return ano
+    }
+
+    fun getMesNomeacao(): String {
+        return mesNomeacao
+    }
+
+    fun getDiaNomeacao(): String {
+        return diaNomeacao
     }
 
     fun getMesNumeracao(): Int {
@@ -28,6 +37,10 @@ class Calendario(
 
     fun getDiaNumeracao(): Int {
         return diaNumeracao
+    }
+
+    fun getId():Long{
+        return id
     }
 
 }

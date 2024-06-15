@@ -6,8 +6,10 @@ import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
+import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
+import java.util.Objects
 
 @Service
 class CalendarioService(
@@ -54,21 +56,66 @@ class CalendarioService(
         return reservaAtividadeRepository.save(reservaAtividade)
     }
 
-    fun getAllReservas(calendarioFiltroDTO: CalendarioFiltroDTO): Map<String, List<ReservaAtividade>> {
-        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
-            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
-        )
+    fun getAllReserva():ReservaAtividadeResponseDTO{
 
-        if (calendario.isEmpty()) {
-            throw IllegalArgumentException("Nenhum calendário encontrado para a data fornecida")
+        var dto = ReservaAtividadeResponseDTO()
+
+        val reservaAtividade = reservaAtividadeRepository.findAll()
+
+        reservaAtividade.map {
+            val calendario = it.getCalendario()
+
+            when(calendario.getDiaNomeacao()){
+                "Domingo" -> {
+                    dto.domingo.add(it.atividade)
+                }
+                "Segunda-Feira" -> {
+                    dto.segunda.add(it.atividade)
+                }
+                "Terça-Feira" -> {
+                    dto.terca.add(it.atividade)
+                }
+                "Quarta-Feira" -> {
+                    dto.quarta.add(it.atividade)
+                }
+                "Quinta-Feira" -> {
+                    dto.quinta.add(it.atividade)
+                }
+                "Sexta-Feira" -> {
+                    dto.sexta.add(it.atividade)
+                }
+                "Sábado" -> {
+                    dto.sabado.add(it.atividade)
+                }
+                else -> {
+                    throw IllegalArgumentException("O Dia da Semana não existe")
+                }
+            }
+
         }
 
-        val reservas = reservaAtividadeRepository.findAllByCalendario(calendario.get())
-        return reservas.groupBy {
-            val data = it.calendario
-            "${data.getAno()}-${data.getMesNumeracao()}-${data.getDiaNumeracao()}"
-        }
+        return dto
+
     }
+
+//    fun getAllReservas(calendarioFiltroDTO: CalendarioFiltroDTO): Map<String, List<ReservaAtividade>> {
+//        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
+//            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
+//        )
+//
+//        if(Objects.isNull(calendario)) {
+//            throw IllegalArgumentException("Nenhum calendário encontrado para a data fornecida")
+//        }
+//
+//        val reservas:List<ReservaAtividade> = reservaAtividadeRepository.findAll()
+//
+//
+//
+//        return reservas.groupBy {
+//            val data = it.getCalendario()
+//            "${data.getAno()}-${data.getMesNumeracao()}-${data.getDiaNumeracao()}"
+//        }
+//    }
 
     fun getReservaById(id: Long): ReservaAtividade? = reservaAtividadeRepository.findById(id).orElse(null)
 

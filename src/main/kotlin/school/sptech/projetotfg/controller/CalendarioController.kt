@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
+import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.service.CalendarioService
 
 @RestController
@@ -25,10 +26,16 @@ class CalendarioController(private val calendarioService: CalendarioService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaAtividade)
     }
 
+//    @GetMapping
+//    fun getAllReservas(@RequestParam ano: Int, @RequestParam mesNumeracao: Int, @RequestParam diaNumeracao: Int): ResponseEntity<Map<String, List<ReservaAtividade>>> {
+//        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
+//        val reservas = calendarioService.getAllReservas(filtro)
+//        return ResponseEntity.ok(reservas)
+//    }
+
     @GetMapping
-    fun getAllReservas(@RequestParam ano: Int, @RequestParam mesNumeracao: Int, @RequestParam diaNumeracao: Int): ResponseEntity<Map<String, List<ReservaAtividade>>> {
-        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
-        val reservas = calendarioService.getAllReservas(filtro)
+    fun getAllReservasDTO(): ResponseEntity<ReservaAtividadeResponseDTO> {
+        val reservas = calendarioService.getAllReserva()
         return ResponseEntity.ok(reservas)
     }
 
