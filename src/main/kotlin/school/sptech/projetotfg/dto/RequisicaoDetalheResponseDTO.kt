@@ -1,20 +1,20 @@
-package school.sptech.projetotfg.dto
+//package school.sptech.projetotfg.dto
 
-import java.time.LocalDate
+//import java.time.LocalDate
 
-data class RequisicaoDetalheResponseDTO(
-    val id:Long,
-    val nomeSolicitante: String,
-    val cpf:String,
-    val dataNascimento:LocalDate,
-    val endereco: EnderecoDTO,
-    val idFamilia:Long,
-    val tipoDoacao:String,
-    val descricaoDoacao:String,
-    val familia: FamiliaDTO,
-    val qtdPessoas:Long,
-    val temCrianca:Boolean,
-    val temPcd:Boolean,
-    val urgencia:UrgenciaResponseDTO,
-    val rendaFamiliar: RendaFamiliarResponseDTO
-)
+//data class RequisicaoDetalheResponseDTO(
+//    val id:Long,
+//    val nomeSolicitante: String,
+//    val cpf:String,
+//    val dataNascimento:LocalDate,
+//    val endereco: EnderecoDTO,
+//    val idFamilia:Long,
+//    val tipoDoacao:String,
+//    val descricaoDoacao:String,
+//    val familia: FamiliaDTO,
+//    val qtdPessoas:Long,
+//    val temCrianca:Boolean,
+//    val temPcd:Boolean,
+//    val urgencia:UrgenciaResponseDTO,
+//    val rendaFamiliar: RendaFamiliarResponseDTO
+//)

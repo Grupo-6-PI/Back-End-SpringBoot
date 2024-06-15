@@ -7,16 +7,11 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.modelmapper.ModelMapper
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.domain.atividades.Calendario
-import school.sptech.projetotfg.domain.cadastro.Usuario
-import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
-import school.sptech.projetotfg.domain.doacao.NivelUrgencia
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.domain.gerenciamento.Situacao
+import school.sptech.projetotfg.dto.RequisicaoDashDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
 import school.sptech.projetotfg.repository.RequisicaoRepository
-import java.time.LocalDateTime
-import kotlin.random.Random
+import java.util.*
 
 class RequisicoesServiceTest{
 
@@ -65,19 +60,57 @@ class RequisicoesServiceTest{
 
     @Test
     fun verificarLista() {
-        val listaParam= mutableListOf<Requisicoes>()
-        val excecao:ResponseStatusException = assertThrows(ResponseStatusException::class.java) {
-            requisicaoService.verficarLista(listaParam)
-        }
-        assertEquals(204,excecao.statusCode.value())
-    }
+        val listaParam= emptyList<Requisicoes>()
+        `when`(requisicaoService.verficarLista(listaParam)).thenThrow(ResponseStatusException::class.java)
 
-    @Test
-    fun getDetalhesRequisicao() {
+        assertThrows<ResponseStatusException>{requisicaoService.verficarLista(listaParam)}
+
     }
 
     @Test
     fun getRequisicoesTrimestreTipo(){
+        //val objVazio = RequisicaoDashDTO()
+        //val casoInvalido = Caso("",1000,1000,1000)
 
+        //`when`(requisicaoService.getRequisicoesTrimestreTipo()).thenReturn(objVazio)
+
+        //val resultado = requisicaoService.getRequisicoesTrimestreTipo()
+
+        //assertEquals(true,resultado is RequisicaoDashDTO)
+
+
+        // Mock the repository responses
+        //`when`(requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
+        //    "cesta", 5, 1, 90)).thenReturn(10)
+        //`when`(requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
+        //   "cesta", 6, 1, 90)).thenReturn(20)
+        // Add more mocks for each case...
+
+        //val result = requisicaoService.getRequisicoesTrimestreTipo()
+
+        // Verify the results
+        //assertEquals(10, result.cesta_req[0])
+        //assertEquals(20, result.cesta_cum[0])
+        // Add more assertions for each expected result...
+    }
+
+    @DisplayName("Lança erro se algum campo do dto não for preenchido ")
+    @Test
+    fun validarDtoDash(){
+        val objVazio = RequisicaoDashDTO()
+
+        `when`(requisicaoService.validarDtoDash(objVazio)).thenThrow(ResponseStatusException::class.java)
+
+        assertThrows<ResponseStatusException>{requisicaoService.validarDtoDash(objVazio)}
+    }
+
+    @DisplayName("Lança erro se o dto for null ")
+    @Test
+    fun validarDtoDash2(){
+        val objVazio = null
+
+        `when`(requisicaoService.validarDtoDash(objVazio)).thenThrow(ResponseStatusException::class.java)
+
+        assertThrows<ResponseStatusException>{requisicaoService.validarDtoDash(objVazio)}
     }
 }

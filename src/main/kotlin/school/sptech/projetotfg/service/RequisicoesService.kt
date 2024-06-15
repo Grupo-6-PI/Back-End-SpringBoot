@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicaoDashDTO
-import school.sptech.projetotfg.dto.RequisicaoDetalheResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
 import school.sptech.projetotfg.repository.RequisicaoRepository
 import java.time.LocalDate
@@ -34,25 +33,14 @@ class RequisicoesService (
         return listaDto
     }
 
-    fun verficarLista(listaRequisicoes:List<Requisicoes>){
+    fun verficarLista(listaRequisicoes:List<Requisicoes>):Boolean{
 
-        //if(!listaRequisicoes.isEmpty()){
-            //return true
-        //}
-         throw ResponseStatusException(HttpStatusCode.valueOf(204))
-    }
-
-    fun getDetalhesRequisicao(id:Long):RequisicaoDetalheResponseDTO{
-        val requisicao = requisicaoRepository.findById(id)
-
-        if(requisicao.isEmpty){
-            val dto = mapper.map(requisicao, RequisicaoDetalheResponseDTO::class.java)
-
-            return dto
+        if(listaRequisicoes.isEmpty()){
+            throw ResponseStatusException(HttpStatusCode.valueOf(204))
         }
-
-        throw ResponseStatusException(HttpStatusCode.valueOf(404))
+        return true
     }
+
 
     fun getRequisicoesTrimestreTipo():RequisicaoDashDTO{
         val casos : List<Caso> = listOf(
@@ -96,14 +84,14 @@ class RequisicoesService (
         val ano:Int = LocalDate.now().year
         val agora: LocalDate = LocalDate.now()
 
-        val inicioTri1: LocalDate = LocalDate.of(ano,1,1)
+        //val inicioTri1: LocalDate = LocalDate.of(ano,1,1)
         val fimTri1: LocalDate = LocalDate.of(ano,3,31)
         val incioTri2: LocalDate = LocalDate.of(ano,4,1)
         val fimTri2: LocalDate = LocalDate.of(ano,6,30)
         val inicioTri3: LocalDate = LocalDate.of(ano,7,1)
-        val fimTri3: LocalDate = LocalDate.of(ano,9,30)
+        //val fimTri3: LocalDate = LocalDate.of(ano,9,30)
         val inicioTri4: LocalDate = LocalDate.of(ano,10,1)
-        val fimTri4: LocalDate = LocalDate.of(ano,12,31)
+        //val fimTri4: LocalDate = LocalDate.of(ano,12,31)
 
         var assunto:String
         var inicioTri:Long
@@ -384,16 +372,31 @@ class RequisicoesService (
         return dto
     }
 
-    fun validarDtoDash(dto: RequisicaoDashDTO){
-        if(dto==null) throw error("objeto não populado")
-        if(dto.cesta_req.isEmpty()) throw error("cesta_req não populado")
-        if(dto.cesta_cum.isEmpty()) throw error("cesta_cum não populado")
-        if(dto.vestuario_req.isEmpty()) throw error("vestuario_req não populado")
-        if(dto.vestuario_cum.isEmpty()) throw error("vestuario_cum não populado")
-        if(dto.saude_req.isEmpty()) throw error("saude_req não populado")
-        if(dto.saude_cum.isEmpty()) throw error("saude_cum não populado")
-        if(dto.outro_req.isEmpty()) throw error("outro_req não populado")
-        if(dto.outro_cum.isEmpty()) throw error("outro_cum não populado")
+    fun validarDtoDash(dto: RequisicaoDashDTO?){
+        if(dto==null) throw ResponseStatusException(HttpStatusCode.valueOf(404))
+        if(dto.cesta_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.cesta_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.vestuario_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.vestuario_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.saude_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.saude_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.outro_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if(dto.outro_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
     }
 
+
+
+
+
+    //fun validarDtoDash(dto: RequisicaoDashDTO){
+    //if(dto==null) throw error("objeto não populado")
+    //if(dto.cesta_req.isEmpty()) throw error("cesta_req não populado")
+    //if(dto.cesta_cum.isEmpty()) throw error("cesta_cum não populado")
+    //if(dto.vestuario_req.isEmpty()) throw error("vestuario_req não populado")
+    //if(dto.vestuario_cum.isEmpty()) throw error("vestuario_cum não populado")
+    //if(dto.saude_req.isEmpty()) throw error("saude_req não populado")
+    //if(dto.saude_cum.isEmpty()) throw error("saude_cum não populado")
+    //if(dto.outro_req.isEmpty()) throw error("outro_req não populado")
+    //if(dto.outro_cum.isEmpty()) throw error("outro_cum não populado")
+    //}
 }
