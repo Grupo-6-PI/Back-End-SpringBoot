@@ -25,31 +25,6 @@ class RequisicoesService (
         return transformarListaEmDto(listaRequisicoes)
     }
 
-    fun listarRequisicoesAceitas():List<RequisicoesDoacaoResponseDTO>{
-
-        val listaRequisicoes = requisicaoRepository.findAll() // criar com nova modelagem um método na repositpry que busca baseado na requisição ter sido aceita ou não
-
-        verficarLista(listaRequisicoes)
-
-        return transformarListaEmDto(listaRequisicoes)
-    }
-
-    fun listarRequisicoesNegadas():List<RequisicoesDoacaoResponseDTO>{
-        val listaRequisicoes = requisicaoRepository.findAll()//criar consulta das negadas
-
-        verficarLista(listaRequisicoes)
-
-        return transformarListaEmDto(listaRequisicoes)
-    }
-
-    fun listarRequisicoesAbertas():List<RequisicoesDoacaoResponseDTO>{
-        val listaRequisicoes = requisicaoRepository.findAll()//criar consulta das negadas
-
-        verficarLista(listaRequisicoes)
-
-        return transformarListaEmDto(listaRequisicoes)
-    }
-
     fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>):List<RequisicoesDoacaoResponseDTO>{
 
         val listaDto:MutableList<RequisicoesDoacaoResponseDTO> = mutableListOf()
@@ -59,10 +34,11 @@ class RequisicoesService (
         return listaDto
     }
 
-    fun verficarLista(listaRequisicoes:List<Requisicoes>):Boolean{
-        if(!listaRequisicoes.isEmpty()){
-            return true
-        }
+    fun verficarLista(listaRequisicoes:List<Requisicoes>){
+
+        //if(!listaRequisicoes.isEmpty()){
+            //return true
+        //}
          throw ResponseStatusException(HttpStatusCode.valueOf(204))
     }
 
