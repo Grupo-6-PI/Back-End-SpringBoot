@@ -16,7 +16,8 @@ class ReservaAtividade(
     @field:ManyToOne var atividade: Atividade,
     @field:PastOrPresent private var dataCriacao: LocalDateTime,
     @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150) var emailModificador: String
+    @field:Email @field:Size(max = 150) var emailModificador: String,
+    @field:ManyToOne internal var calendario:Calendario
 ) {
     fun getdataCriacao(): LocalDateTime {
         return dataCriacao

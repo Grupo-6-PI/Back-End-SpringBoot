@@ -6,27 +6,30 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
-import school.sptech.projetotfg.dto.UsuarioResponseDTO
+import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.service.CalendarioService
 
 @RestController
-@RequestMapping("/calendario-atividades")
+@RequestMapping("/calendarios")
 class CalendarioController(private val calendarioService: CalendarioService) {
 
     @PostMapping
     fun createAtividade(
-        @RequestBody atividadeDTO: AtividadeDTO
+        @RequestBody atividadeDTO: AtividadeDTO,
+        @RequestParam ano: Int,
+        @RequestParam mesNumeracao: Int,
+        @RequestParam diaNumeracao: Int
     ): ResponseEntity<ReservaAtividade> {
-        val reservaAtividade = calendarioService.createAtividade(
-            atividadeDTO
-        )
+        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
+        val reservaAtividade = calendarioService.createAtividade(atividadeDTO, filtro)
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaAtividade)
     }
 
     @GetMapping
-    fun getAllReservas(): ResponseEntity<Map<String, List<ReservaAtividade>>> {
-        val atividades = calendarioService.getAllReservas()
-        return ResponseEntity.ok(atividades)
+    fun getAllReservas(@RequestParam ano: Int, @RequestParam mesNumeracao: Int, @RequestParam diaNumeracao: Int): ResponseEntity<Map<String, List<ReservaAtividade>>> {
+        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
+        val reservas = calendarioService.getAllReservas(filtro)
+        return ResponseEntity.ok(reservas)
     }
 
     @GetMapping("/{id}")
@@ -53,13 +56,12 @@ class CalendarioController(private val calendarioService: CalendarioService) {
     }
 
     @DeleteMapping("/{id}")
-    fun excluirUsuario(@PathVariable id: Long): ResponseEntity<Any> {
-        try {
-            var atividadeDTO = calendarioService.getReservaById(id)
+    fun deleteReserva(@PathVariable id: Long): ResponseEntity<Void> {
+        return try {
             calendarioService.deleteReserva(id)
-            return ResponseEntity.status(200).body(atividadeDTO)
+            ResponseEntity(HttpStatus.NO_CONTENT)
         } catch (ex: ResponseStatusException) {
-            return ResponseEntity.status(404).body("Usuário não encontrado")
+            return ResponseEntity.status(404).build()
         }
     }
 }

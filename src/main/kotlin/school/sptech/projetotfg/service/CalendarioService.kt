@@ -3,27 +3,32 @@ package school.sptech.projetotfg.service
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.domain.atividades.Atividade
-import school.sptech.projetotfg.domain.atividades.ReservaAtividade
+import school.sptech.projetotfg.domain.atividades.*
 import school.sptech.projetotfg.dto.AtividadeDTO
+import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
-import java.time.format.TextStyle
-import java.util.*
 
 @Service
 class CalendarioService(
     private val atividadeRepository: AtividadeRepository,
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
-    private val tipoAtividadeRepository: TipoAtividadeRepository
+    private val tipoAtividadeRepository: TipoAtividadeRepository,
+    private val calendarioRepository: CalendarioRepository // Novo repositório para Calendario
 ) {
 
     fun createAtividade(
-        atividadeDTO: AtividadeDTO
+        atividadeDTO: AtividadeDTO,
+        calendarioFiltroDTO: CalendarioFiltroDTO
     ): ReservaAtividade {
 
         val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
+
+        // Buscar o calendário existente
+        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
+            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
+        ).orElseThrow { IllegalArgumentException("Calendário não encontrado para a data fornecida") }
 
         // Criar Atividade
         val atividade = Atividade(
@@ -38,9 +43,10 @@ class CalendarioService(
         )
         val savedAtividade = atividadeRepository.save(atividade)
 
-        // Criar ReservaAtividade
+        // Criar ReservaAtividade com o calendário encontrado
         val reservaAtividade = ReservaAtividade(
             atividade = savedAtividade,
+            calendario = calendario,
             dataCriacao = LocalDateTime.now(),
             dataUltimaAtualizacao = LocalDateTime.now(),
             emailModificador = atividadeDTO.emailModificador
@@ -48,11 +54,19 @@ class CalendarioService(
         return reservaAtividadeRepository.save(reservaAtividade)
     }
 
-    fun getAllReservas(): Map<String, List<ReservaAtividade>> {
-        val reservas = reservaAtividadeRepository.findAll()
+    fun getAllReservas(calendarioFiltroDTO: CalendarioFiltroDTO): Map<String, List<ReservaAtividade>> {
+        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
+            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
+        )
+
+        if (calendario.isEmpty()) {
+            throw IllegalArgumentException("Nenhum calendário encontrado para a data fornecida")
+        }
+
+        val reservas = reservaAtividadeRepository.findAllByCalendario(calendario.get())
         return reservas.groupBy {
-            val data = it.getdataCriacao().toLocalDate()
-            "${data.year}-${data.month.value}-${data.dayOfMonth}"
+            val data = it.calendario
+            "${data.getAno()}-${data.getMesNumeracao()}-${data.getDiaNumeracao()}"
         }
     }
 
