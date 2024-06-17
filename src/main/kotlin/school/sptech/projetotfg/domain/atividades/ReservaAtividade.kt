@@ -27,4 +27,7 @@ class ReservaAtividade(
         return calendario
     }
 
+    fun getId(): Long {
+        return id
+    }
 }

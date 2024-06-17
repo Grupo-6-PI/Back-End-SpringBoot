@@ -9,7 +9,6 @@ import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
-import java.util.Objects
 
 @Service
 class CalendarioService(

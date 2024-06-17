@@ -67,4 +67,8 @@ class Usuario(
         nivelAcesso = paramNivelAcesso
     )
 
+    fun getId(): Long? {
+        return id
+    }
+
 }
