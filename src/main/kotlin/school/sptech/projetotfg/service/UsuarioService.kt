@@ -34,7 +34,7 @@ class UsuarioService(
         return try {
             val usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioResponseDTO(
-                id = usuarioSalvo.id!!,
+                id = usuarioSalvo.getId(),
                 nome = usuarioSalvo.nome,
                 email = usuarioSalvo.email
             )
@@ -54,7 +54,7 @@ class UsuarioService(
         return try {
             val usuarioAtualizado = usuarioRepository.save(usuarioExistente)
             UsuarioResponseDTO(
-                id = usuarioAtualizado.id!!,
+                id = usuarioAtualizado.getId(),
                 nome = usuarioAtualizado.nome,
                 email = usuarioAtualizado.email
             )
@@ -67,7 +67,7 @@ class UsuarioService(
         val usuarios = usuarioRepository.findAll()
         return usuarios.map { usuario ->
             UsuarioResponseDTO(
-                id = usuario.id!!,
+                id = usuario.getId(),
                 nome = usuario.nome,
                 email = usuario.email
             )
@@ -121,7 +121,7 @@ class UsuarioService(
         return try {
             val usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioCompletoResponseDTO(
-                id = usuarioSalvo.id!!,
+                id = usuarioSalvo.getId(),
                 nome = usuarioSalvo.nome,
                 email = usuarioSalvo.email,
                 senha = null,
@@ -148,7 +148,7 @@ class UsuarioService(
         return try {
             val usuarioAtualizado = usuarioRepository.save(usuarioExistente)
             UsuarioCompletoResponseDTO(
-                id = usuarioAtualizado.id!!,
+                id = usuarioAtualizado.getId(),
                 nome = usuarioAtualizado.nome,
                 email = usuarioAtualizado.email,
                 senha = usuarioAtualizado.senha,
@@ -165,7 +165,7 @@ class UsuarioService(
         val usuarios = usuarioRepository.findAll()
         return usuarios.map { usuario ->
             UsuarioCompletoResponseDTO(
-                id = usuario.id!!,
+                id = usuario.getId(),
                 nome = usuario.nome,
                 email = usuario.email,
                 senha = null,

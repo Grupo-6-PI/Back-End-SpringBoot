@@ -44,7 +44,7 @@ class AutenticacaoService(
 
         acessoRepository.save(acesso)
 
-        return UsuarioResponseDTO(usuario.id!!, usuario.nome, usuario.email)
+        return UsuarioResponseDTO(usuario.getId(), usuario.nome, usuario.email)
     }
 
     fun logoff(usuarioId: Long) {

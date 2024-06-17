@@ -11,7 +11,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @SQLInsert(sql = "INSERT INTO usuario(email,informacoes_adicionais_id,nivel_acesso_id,nome,senha,situacao_id) VALUES (?,?,?,?,AES_ENCRYPT(?,'chave'),?)" )
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = null,
     @field:NotBlank var nome:String,
     @field:Email var email:String,
     @field:NotBlank var senha:String,
@@ -67,8 +67,8 @@ class Usuario(
         nivelAcesso = paramNivelAcesso
     )
 
-    fun getId(): Long? {
-        return id
+    fun getId():Long{
+        return id!!
     }
 
 }
