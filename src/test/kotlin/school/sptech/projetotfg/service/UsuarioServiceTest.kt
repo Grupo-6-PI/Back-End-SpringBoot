@@ -57,7 +57,7 @@ class UsuarioServiceTest {
         val result = usuarioService.cadastrarUsuario(usuarioInputDTO)
 
         assertNotNull(result)
-        assertEquals(usuario.id, result.id)
+        assertEquals(usuario.getId(), result.id)
         assertEquals(usuario.nome, result.nome)
         assertEquals(usuario.email, result.email)
     }
