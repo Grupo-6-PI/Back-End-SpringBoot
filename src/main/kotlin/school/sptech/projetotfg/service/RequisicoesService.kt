@@ -41,8 +41,21 @@ class RequisicoesService (
     }
 
 
-    fun getRequisicoesTrimestreTipo(): RequisicaoDashDTO? {
-        return requisicaoRepository.buscarDadosDash()
+    fun getRequisicoesTrimestreTipo(): RequisicaoDashDTO {
+        var dto = RequisicaoDashDTO()
+        var dadosReq = requisicaoRepository.buscarDadosReqDash()
+        var dadosCum = requisicaoRepository.buscarDadosCumDash()
+
+        dto.cesta_req = dadosReq!!.cesta_req
+        dto.cesta_cum = dadosCum!!.cesta_cum
+        dto.vestuario_req = dadosReq!!.vestuario_req
+        dto.vestuario_cum = dadosCum!!.vestuario_cum
+        dto.saude_req = dadosReq!!.saude_req
+        dto.saude_cum = dadosCum!!.saude_cum
+        dto.outro_req = dadosReq!!.outro_req
+        dto.saude_cum = dadosCum!!.saude_cum
+
+        return dto
     }
 
     fun validarDtoDash(dto: RequisicaoDashDTO?){
