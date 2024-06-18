@@ -1,6 +1,6 @@
 package school.sptech.projetotfg.dto
 
-data class RequisicaoDashDTO(
+class RequisicaoDashDTO(
     var cesta_req:MutableList<Int> = MutableList(4){0},
     var cesta_cum:MutableList<Int> = MutableList(4){0},
     var vestuario_req:MutableList<Int> = MutableList(4){0},
