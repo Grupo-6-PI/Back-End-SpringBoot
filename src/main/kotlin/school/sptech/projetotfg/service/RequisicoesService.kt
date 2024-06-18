@@ -1,12 +1,16 @@
 package school.sptech.projetotfg.service
 
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
 import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicaoDashDTO
+import school.sptech.projetotfg.dto.RequisicoesCumResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
+import school.sptech.projetotfg.dto.RequisicoesReqResponseDTO
 import school.sptech.projetotfg.repository.RequisicaoRepository
 
 @Service
@@ -40,20 +44,200 @@ class RequisicoesService (
         return true
     }
 
+    @PersistenceContext
+    private lateinit var entityManager: EntityManager
+
+    fun findLimitedCum(): List<RequisicoesCumResponseDTO> {
+        val query = entityManager.createQuery("""
+        SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6)
+        )
+        FROM Requisicoes r WHERE r.calendario.id = 1
+    """, RequisicoesCumResponseDTO::class.java)
+        query.maxResults = 1
+        return query.resultList
+    }
+
+    fun findLimitedReq(): List<RequisicoesReqResponseDTO> {
+        val query = entityManager.createQuery("""
+        SELECT NEW school.sptech.projetotfg.dto.RequisicoesReqResponseDTO(
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+        (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5)
+        ) FROM Requisicoes r WHERE r.id = 1 
+    """, RequisicoesReqResponseDTO::class.java)
+        query.maxResults = 1
+        return query.resultList
+    }
 
     fun getRequisicoesTrimestreTipo(): RequisicaoDashDTO {
         var dto = RequisicaoDashDTO()
-        var dadosReq = requisicaoRepository.buscarDadosReqDash()
-        var dadosCum = requisicaoRepository.buscarDadosCumDash()
+        var dadosReq = findLimitedReq().get(0)
+        var dadosCum = findLimitedCum().get(0)
 
-        dto.cesta_req = dadosReq!!.cesta_req
-        dto.cesta_cum = dadosCum!!.cesta_cum
-        dto.vestuario_req = dadosReq!!.vestuario_req
-        dto.vestuario_cum = dadosCum!!.vestuario_cum
-        dto.saude_req = dadosReq!!.saude_req
-        dto.saude_cum = dadosCum!!.saude_cum
-        dto.outro_req = dadosReq!!.outro_req
-        dto.saude_cum = dadosCum!!.saude_cum
+        dto.cesta_req.add(dadosReq!!.cesta_req01)
+        dto.cesta_req.add(dadosReq!!.cesta_req02)
+        dto.cesta_req.add(dadosReq!!.cesta_req03)
+        dto.cesta_req.add(dadosReq!!.cesta_req04)
+
+        dto.cesta_cum.add(dadosCum!!.cesta_cum01)
+        dto.cesta_cum.add(dadosCum!!.cesta_cum02)
+        dto.cesta_cum.add(dadosCum!!.cesta_cum03)
+        dto.cesta_cum.add(dadosCum!!.cesta_cum04)
+
+        dto.vestuario_req.add(dadosReq!!.vestuario_req01)
+        dto.vestuario_req.add(dadosReq!!.vestuario_req02)
+        dto.vestuario_req.add(dadosReq!!.vestuario_req03)
+        dto.vestuario_req.add(dadosReq!!.vestuario_req04)
+
+        dto.vestuario_cum.add(dadosCum!!.vestuario_cum01)
+        dto.vestuario_cum.add(dadosCum!!.vestuario_cum02)
+        dto.vestuario_cum.add(dadosCum!!.vestuario_cum03)
+        dto.vestuario_cum.add(dadosCum!!.vestuario_cum04)
+
+        dto.saude_req.add(dadosReq!!.saude_req01)
+        dto.saude_req.add(dadosReq!!.saude_req02)
+        dto.saude_req.add(dadosReq!!.saude_req03)
+        dto.saude_req.add(dadosReq!!.saude_req04)
+
+        dto.saude_cum.add(dadosCum!!.saude_cum01)
+        dto.saude_cum.add(dadosCum!!.saude_cum02)
+        dto.saude_cum.add(dadosCum!!.saude_cum03)
+        dto.saude_cum.add(dadosCum!!.saude_cum04)
+
+        dto.outro_req.add(dadosReq!!.outro_req01)
+        dto.outro_req.add(dadosReq!!.outro_req02)
+        dto.outro_req.add(dadosReq!!.outro_req03)
+        dto.outro_req.add(dadosReq!!.outro_req04)
+
+        dto.outro_cum.add(dadosCum!!.outros_cum01)
+        dto.outro_cum.add(dadosCum!!.outros_cum02)
+        dto.outro_cum.add(dadosCum!!.outros_cum03)
+        dto.outro_cum.add(dadosCum!!.outros_cum04)
 
         return dto
     }

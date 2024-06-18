@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.dto.RequisicaoDashDTO
 import school.sptech.projetotfg.dto.RequisicoesCumResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesReqResponseDTO
 
@@ -15,7 +14,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
 
     @Query("""
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesReqResponseDTO(
-        mutableListOf((SELECT COUNT(r) FROM Requisicoes r 
+        (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
                 AND r.calendario.id BETWEEN 1 AND 90
                 AND r.situacao.id = 5),
@@ -30,8 +29,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5)),
-        mutableListOf(
+                AND r.situacao.id = 5),
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 2 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -47,9 +45,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 2 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5)
-        ),
-        mutableListOf(
+                AND r.situacao.id = 5),
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 3 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -65,9 +61,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 3 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5)
-        ),
-        mutableListOf(
+                AND r.situacao.id = 5),
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 4 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -84,10 +78,9 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
                 WHERE r.assuntoRequisicao.id = 4 
                 AND r.calendario.id BETWEEN 274 AND 365
                 AND r.situacao.id = 5)
-        )
-        FROM Requisicoes r
+        ) FROM Requisicoes r WHERE r.id = 1 
     """)
-    fun buscarDadosReqDash():RequisicoesReqResponseDTO?
+    fun findTop1():RequisicoesReqResponseDTO?
 
 
 
@@ -96,7 +89,6 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
 
     @Query("""
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
-        mutableListOf(
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -112,9 +104,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6)
-        ),
-        mutableListOf(
+                AND r.situacao.id = 6),
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 2 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -130,9 +120,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 2 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6)
-        ),
-        mutableListOf(
+                AND r.situacao.id = 6),
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 3 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -148,9 +136,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 3 
                 AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6)
-        ),
-        mutableListOf(
+                AND r.situacao.id = 6),
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 4 
                 AND r.calendario.id BETWEEN 1 AND 90
@@ -167,9 +153,9 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
                 WHERE r.assuntoRequisicao.id = 4 
                 AND r.calendario.id BETWEEN 274 AND 365
                 AND r.situacao.id = 6)
-        ))
-        FROM Requisicoes r
+        )
+        FROM Requisicoes r WHERE r.calendario.id = 1
     """)
-    fun buscarDadosCumDash():RequisicoesCumResponseDTO?
+    fun findFirst():RequisicoesCumResponseDTO?
 
 }
