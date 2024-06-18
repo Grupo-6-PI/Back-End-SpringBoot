@@ -6,4 +6,5 @@ import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 
 interface ReservaAtividadeRepository : JpaRepository<ReservaAtividade, Long> {
     fun findAllByCalendarioId(calendario: Long): List<ReservaAtividade>
+    fun findByAtividadeId(id:Long):ReservaAtividade
 }

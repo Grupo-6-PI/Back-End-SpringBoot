@@ -26,13 +26,6 @@ class CalendarioController(private val calendarioService: CalendarioService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaAtividade)
     }
 
-//    @GetMapping
-//    fun getAllReservas(@RequestParam ano: Int, @RequestParam mesNumeracao: Int, @RequestParam diaNumeracao: Int): ResponseEntity<Map<String, List<ReservaAtividade>>> {
-//        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
-//        val reservas = calendarioService.getAllReservas(filtro)
-//        return ResponseEntity.ok(reservas)
-//    }
-
     @GetMapping
     fun getAllReservasDTO(): ResponseEntity<ReservaAtividadeResponseDTO> {
         val reservas = calendarioService.getAllReserva()
@@ -49,12 +42,11 @@ class CalendarioController(private val calendarioService: CalendarioService) {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     fun updateReserva(
-        @PathVariable id: Long,
-        @RequestBody atividadeDTO: AtividadeDTO
+        @RequestBody atividadeDTO: ReservaAtividade
     ): ResponseEntity<ReservaAtividade> {
-        val updatedReserva = calendarioService.updateReserva(id, atividadeDTO)
+        val updatedReserva = calendarioService.updateReserva(atividadeDTO)
         return if (updatedReserva != null) {
             ResponseEntity.ok(updatedReserva)
         } else {
@@ -66,7 +58,7 @@ class CalendarioController(private val calendarioService: CalendarioService) {
     fun deleteReserva(@PathVariable id: Long): ResponseEntity<Void> {
         return try {
             calendarioService.deleteReserva(id)
-            ResponseEntity(HttpStatus.NO_CONTENT)
+            ResponseEntity.status(200).build()
         } catch (ex: ResponseStatusException) {
             return ResponseEntity.status(404).build()
         }

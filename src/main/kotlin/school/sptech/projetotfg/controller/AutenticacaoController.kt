@@ -24,4 +24,5 @@ class AutenticacaoController(
         autenticacaoService.logoff(usuarioId)
         return ResponseEntity.status(204).body("Usuário deslogado com sucesso")
     }
+
 }

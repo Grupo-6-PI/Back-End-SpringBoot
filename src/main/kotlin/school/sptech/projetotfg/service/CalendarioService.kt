@@ -1,6 +1,7 @@
 package school.sptech.projetotfg.service
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
@@ -9,6 +10,7 @@ import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
+import java.util.Objects
 
 @Service
 class CalendarioService(
@@ -62,7 +64,7 @@ class CalendarioService(
         val reservaAtividade = reservaAtividadeRepository.findAll()
 
         reservaAtividade.map {
-            val calendario = it.getCalendario()
+            val calendario = it.calendario
 
             when(calendario.getDiaNomeacao()){
                 "Domingo" -> {
@@ -116,34 +118,16 @@ class CalendarioService(
 //        }
 //    }
 
-    fun getReservaById(id: Long): ReservaAtividade? = reservaAtividadeRepository.findById(id).orElse(null)
+    fun getReservaById(id: Long): ReservaAtividade?{
+        var resposta = reservaAtividadeRepository.findByAtividadeId(id)
+        return resposta
+    }
 
     fun updateReserva(
-        id: Long,
-        atividadeDTO: AtividadeDTO
+        atividadeDTO: ReservaAtividade
     ): ReservaAtividade? {
-        val reservaAtividade = reservaAtividadeRepository.findById(id).orElse(null) ?: return null
 
-        // Atualizar Atividade
-        val atividade = reservaAtividade.atividade.apply {
-            nome = atividadeDTO.nome
-            horaComeco = atividadeDTO.horaComeco
-            horaFinal = atividadeDTO.horaFinal
-            descricao = atividadeDTO.descricao
-            tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
-                .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
-            emailModificador = atividadeDTO.emailModificador
-            dataUltimaAtualizacao = LocalDateTime.now()
-        }
-        atividadeRepository.save(atividade)
-
-        // Atualizar ReservaAtividade
-        reservaAtividade.apply {
-            this.atividade = atividade
-            this.emailModificador = atividadeDTO.emailModificador
-            this.dataUltimaAtualizacao = LocalDateTime.now()
-        }
-        return reservaAtividadeRepository.save(reservaAtividade)
+        return reservaAtividadeRepository.save(atividadeDTO)
     }
 
     fun deleteReserva(id: Long) {
