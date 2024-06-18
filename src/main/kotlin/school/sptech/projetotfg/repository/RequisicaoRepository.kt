@@ -17,132 +17,132 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
                 WHERE r.assuntoRequisicao.id = 1 
                 AND r.calendario.id BETWEEN 1 AND 90
                 AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 1 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 2 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 3 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 5),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 1 AND 90
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 91 AND 181
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 182 AND 273
-                AND r.situacao_id = 6),
-            (SELECT COUNT(r) FROM requisicoes r 
-                WHERE r.assunto_requisicao_id = 4 
-                AND r.data_id BETWEEN 274 AND 365
-                AND r.situacao_id = 6)
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 1 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 2 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 3 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 5),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 1 AND 90
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 91 AND 181
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 182 AND 273
+                AND r.situacao.id = 6),
+            (SELECT COUNT(r) FROM Requisicoes r 
+                WHERE r.assuntoRequisicao.id = 4 
+                AND r.calendario.id BETWEEN 274 AND 365
+                AND r.situacao.id = 6)
         )
-        FROM requisicoes r
+        FROM Requisicoes r
     """)
     fun buscarDadosDash():RequisicaoDashDTO?
 
