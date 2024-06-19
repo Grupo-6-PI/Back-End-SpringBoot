@@ -130,7 +130,7 @@ class CalendarioService(
         var reserva = reservaAtividadeRepository.findById(atividadeDTO.id!!).get()
 
         reserva.atividade!!.nome = atividadeDTO.atividade!!.nome
-        reserva.atividade!!.tipoAtividade!!.setId(atividadeDTO.atividade!!.tipoAtividade!!.getId())
+        reserva.atividade!!.tipoAtividade = atividadeDTO.atividade!!.tipoAtividade
 
         reserva.atividade!!.descricao = atividadeDTO.atividade!!.descricao
 
