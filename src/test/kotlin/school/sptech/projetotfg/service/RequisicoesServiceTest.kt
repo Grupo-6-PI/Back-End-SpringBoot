@@ -69,29 +69,12 @@ class RequisicoesServiceTest{
 
     @Test
     fun getRequisicoesTrimestreTipo(){
-        //val objVazio = RequisicaoDashDTO()
-        //val casoInvalido = Caso("",1000,1000,1000)
 
-        //`when`(requisicaoService.getRequisicoesTrimestreTipo()).thenReturn(objVazio)
+        `when`(requisicaoService.findLimitedReq().isEmpty()).thenThrow(ResponseStatusException::class.java)
+        `when`(requisicaoService.findLimitedCum().isEmpty()).thenThrow(ResponseStatusException::class.java)
 
-        //val resultado = requisicaoService.getRequisicoesTrimestreTipo()
-
-        //assertEquals(true,resultado is RequisicaoDashDTO)
-
-
-        // Mock the repository responses
-        //`when`(requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
-        //    "cesta", 5, 1, 90)).thenReturn(10)
-        //`when`(requisicaoRepository.countByAssuntoRequisicaoAssuntoAndSituacaoIdAndCalendarioIdBetween(
-        //   "cesta", 6, 1, 90)).thenReturn(20)
-        // Add more mocks for each case...
-
-        //val result = requisicaoService.getRequisicoesTrimestreTipo()
-
-        // Verify the results
-        //assertEquals(10, result.cesta_req[0])
-        //assertEquals(20, result.cesta_cum[0])
-        // Add more assertions for each expected result...
+        assertThrows<ResponseStatusException>{requisicaoService.findLimitedReq()}
+        assertThrows<ResponseStatusException>{requisicaoService.findLimitedCum()}
     }
 
     @DisplayName("Lança erro se algum campo do dto não for preenchido ")
