@@ -66,7 +66,7 @@ class CalendarioService(
         reservaAtividade.map {
             val calendario = it.calendario
 
-            when(calendario.getDiaNomeacao()){
+            when(calendario!!.getDiaNomeacao()){
                 "Domingo" -> {
                     dto.domingo.add(it)
                 }
@@ -127,7 +127,21 @@ class CalendarioService(
         atividadeDTO: ReservaAtividade
     ): ReservaAtividade? {
 
-        return reservaAtividadeRepository.save(atividadeDTO)
+        var reserva = reservaAtividadeRepository.findById(atividadeDTO.id!!).get()
+
+        reserva.atividade!!.nome = atividadeDTO.atividade!!.nome
+        reserva.atividade!!.tipoAtividade!!.setId(atividadeDTO.atividade!!.tipoAtividade!!.getId())
+
+        reserva.atividade!!.descricao = atividadeDTO.atividade!!.descricao
+
+        reserva.calendario!!.setAno(atividadeDTO.calendario!!.getAno())
+        reserva.calendario!!.setMesNumeracao(atividadeDTO.calendario!!.getMesNumeracao())
+        reserva.calendario!!.setDiaNumeracao(atividadeDTO.calendario!!.getDiaNumeracao())
+
+        reserva.atividade!!.horaComeco = atividadeDTO.atividade!!.horaComeco
+        reserva.atividade!!.horaFinal = atividadeDTO.atividade!!.horaFinal
+
+        return reservaAtividadeRepository.save(reserva)
     }
 
     fun deleteReserva(id: Long) {

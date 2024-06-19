@@ -23,6 +23,10 @@ class Calendario(
         return ano
     }
 
+    fun setAno(ano: Long){
+        this.ano = ano
+    }
+
     fun getMesNomeacao(): String {
         return mesNomeacao
     }
@@ -35,8 +39,16 @@ class Calendario(
         return mesNumeracao
     }
 
+    fun setMesNumeracao(numeracao: Int) {
+        this.mesNumeracao = numeracao
+    }
+
     fun getDiaNumeracao(): Int {
         return diaNumeracao
+    }
+
+    fun setDiaNumeracao(diaNumeracao: Int) {
+        this.diaNumeracao = diaNumeracao
     }
 
     fun getId():Long{

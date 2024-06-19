@@ -17,6 +17,10 @@ class TipoAtividade(
         return id
     }
 
+    fun setId(id:Long){
+        this.id = id
+    }
+
     fun getTipo():String{
         return tipo
     }

@@ -12,12 +12,12 @@ import java.time.LocalDateTime
 @Entity
 class ReservaAtividade(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long = 0,
-    @field:ManyToOne var atividade: Atividade,
-    @field:PastOrPresent var dataCriacao: LocalDateTime,
-    @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150) var emailModificador: String,
-    @field:ManyToOne var calendario:Calendario
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = 0,
+    @field:ManyToOne var atividade: Atividade?,
+    @field:PastOrPresent var dataCriacao: LocalDateTime?,
+    @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime?,
+    @field:Email @field:Size(max = 150) var emailModificador: String?,
+    @field:ManyToOne var calendario:Calendario?
 ) {
 
 }

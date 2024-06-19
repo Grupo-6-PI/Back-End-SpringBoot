@@ -42,7 +42,7 @@ class CalendarioController(private val calendarioService: CalendarioService) {
         }
     }
 
-    @PutMapping
+    @PostMapping("/atualizacao")
     fun updateReserva(
         @RequestBody atividadeDTO: ReservaAtividade
     ): ResponseEntity<ReservaAtividade> {

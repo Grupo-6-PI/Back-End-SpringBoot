@@ -12,10 +12,10 @@ import java.time.LocalTime
 class Atividade (
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = 0,
-    @field:NotBlank @field:Max(100) var nome:String?,
-    @field:PastOrPresent var horaComeco: LocalTime?,
-    @field:PastOrPresent var horaFinal:LocalTime?,
-    @field:NotBlank @field:Max(150) var descricao:String?,
+    @field:NotBlank var nome:String?,
+    var horaComeco: LocalTime?,
+    var horaFinal:LocalTime?,
+    @field:NotBlank var descricao:String?,
     @field:ManyToOne var tipoAtividade: TipoAtividade?,
     @field:PastOrPresent var dataCriacao: LocalDateTime?,
     @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime?,
