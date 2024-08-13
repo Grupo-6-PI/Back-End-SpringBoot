@@ -13,13 +13,13 @@ import java.time.LocalDate
 
 @Entity
 class Dependente(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)  var id:Long = 0,
-    @field:Max(60) private var genero:String,
-    @field:Past private var dataNascimento:LocalDate,
-    @field:NotBlank var deficiente: Boolean,
-    @field:ManyToOne private var tamanhoRoupa: TamanhoRoupa,
-    @field:ManyToOne private var tamanhoCalcado: TamanhoCalcado,
-    @field:ManyToOne private var situacao: Situacao,
-    @field:ManyToOne private var familia: Familia
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
+    @field:Max(60) private var genero:String? = null,
+    @field:Past private var dataNascimento:LocalDate? = null,
+    @field:NotBlank private var deficiente: Boolean? = null,
+    @field:ManyToOne private var tamanhoRoupa: TamanhoRoupa? = null,
+    @field:ManyToOne private var tamanhoCalcado: TamanhoCalcado? = null,
+    @field:ManyToOne private var situacao: Situacao? = null,
+    @field:ManyToOne private var familia: Familia? = null
 ) {
 }

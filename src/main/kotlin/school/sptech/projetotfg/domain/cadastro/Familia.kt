@@ -9,12 +9,12 @@ import java.time.LocalDateTime
 
 @Entity
 class Familia(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id:Long = 0,
-    @field:OneToOne private var quantidadePessoas: QuantidadePessoas,
-    @field:OneToOne private var rendaFamiliar: RendaFamiliar,
-    @field:ManyToOne private var situacao: Situacao,
-    @field:PastOrPresent private var dataCriacao: LocalDateTime,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150) private var emailModificador:String
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
+    @field:OneToOne private var quantidadePessoas: QuantidadePessoas? = null,
+    @field:OneToOne private var rendaFamiliar: RendaFamiliar? = null,
+    @field:ManyToOne private var situacao: Situacao? = null,
+    @field:PastOrPresent private var dataCriacao: LocalDateTime? = null,
+    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime? = null,
+    @field:Email @field:Size(max = 150) private var emailModificador:String? = null
 ) {
 }

@@ -82,11 +82,6 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
     """)
     fun findTop1():RequisicoesReqResponseDTO?
 
-
-
-
-
-
     @Query("""
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
             (SELECT COUNT(r) FROM Requisicoes r 
