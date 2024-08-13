@@ -12,12 +12,12 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 class Usuario(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = null,
-    @field:NotBlank var nome:String,
-    @field:Email var email:String,
-    @field:NotBlank var senha:String,
-    @field:OneToOne var informacoesAdicionais: InformacoesAdicionais?,
-    @field:ManyToOne var situacao: Situacao?,
-    @field:ManyToOne var nivelAcesso: NivelAcesso?
+    @field:NotBlank private var nome:String? = null,
+    @field:Email private var email:String? = null,
+    @field:NotBlank private var senha:String? = null,
+    @field:OneToOne private var informacoesAdicionais: InformacoesAdicionais? = null,
+    @field:ManyToOne private var situacao: Situacao? = null,
+    @field:ManyToOne private var nivelAcesso: NivelAcesso? = null
 ) {
 
     constructor(
@@ -69,6 +69,18 @@ class Usuario(
 
     fun getId():Long{
         return id!!
+    }
+
+    fun getNome():String{
+        return nome!!
+    }
+
+    fun getEmail():String{
+        return email!!
+    }
+
+    fun getSenha():String{
+        return senha!!
     }
 
 }

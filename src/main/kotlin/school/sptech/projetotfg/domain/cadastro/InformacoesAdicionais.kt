@@ -12,15 +12,15 @@ import java.time.LocalDateTime
 
 @Entity
 class InformacoesAdicionais (
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long = 0,
-    @field:CPF private var cpf:String,
-    @field:Past private var dataNascimento:LocalDate,
-    @field:OneToOne private var endereco: Endereco,
-    @field:OneToOne private var familia: Familia,
-    @field:OneToOne private var identificador: Identificador,
-    @field:ManyToOne private var situacao: Situacao,
-    @field:PastOrPresent private var dataCriacao:LocalDateTime,
-    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime,
-    @field:Email @field:Size(max = 100) private var emailModificador:String,
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
+    @field:CPF private var cpf:String? = null,
+    @field:Past private var dataNascimento:LocalDate? = null,
+    @field:OneToOne private var endereco: Endereco? = null,
+    @field:OneToOne private var familia: Familia? = null,
+    @field:OneToOne private var identificador: Identificador? = null,
+    @field:ManyToOne private var situacao: Situacao? = null,
+    @field:PastOrPresent private var dataCriacao:LocalDateTime? = null,
+    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime? = null,
+    @field:Email @field:Size(max = 100) private var emailModificador:String? = null,
 ){
 }

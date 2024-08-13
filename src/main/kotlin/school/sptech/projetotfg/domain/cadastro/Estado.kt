@@ -10,8 +10,8 @@ import jakarta.validation.constraints.Size
 
 @Entity
 class Estado(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long = 0,
-    @field:NotBlank @field:NotNull private var nome: String,
-    @field:NotBlank @field:NotNull @field:Size(min = 2, max = 2) private var uf: String
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
+    @field:NotBlank @field:NotNull private var nome: String? = null,
+    @field:NotBlank @field:NotNull @field:Size(min = 2, max = 2) private var uf: String? = null
 ) {
 }

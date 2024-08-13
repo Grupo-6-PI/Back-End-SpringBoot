@@ -23,7 +23,7 @@ class AutenticacaoService(
         val usuario = usuarioRepository.buscarEmail(request.email)
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado")
 
-        if (usuario.senha != request.senha) {
+        if (usuario.getSenha() != request.senha) {
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta")
         }
 
@@ -44,7 +44,7 @@ class AutenticacaoService(
 
         acessoRepository.save(acesso)
 
-        return UsuarioResponseDTO(usuario.getId(), usuario.nome, usuario.email)
+        return UsuarioResponseDTO(usuario.getId(), usuario.getNome(), usuario.getEmail())
     }
 
     fun logoff(usuarioId: Long) {
