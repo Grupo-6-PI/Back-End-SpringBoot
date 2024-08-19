@@ -11,13 +11,13 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @SQLInsert(sql = "INSERT INTO usuario(email,informacoes_adicionais_id,nivel_acesso_id,nome,senha,situacao_id) VALUES (?,?,?,?,AES_ENCRYPT(?,'chave'),?)" )
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = null,
-    @field:NotBlank private var nome:String? = null,
-    @field:Email private var email:String? = null,
-    @field:NotBlank private var senha:String? = null,
-    @field:OneToOne private var informacoesAdicionais: InformacoesAdicionais? = null,
-    @field:ManyToOne private var situacao: Situacao? = null,
-    @field:ManyToOne private var nivelAcesso: NivelAcesso? = null
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:NotBlank private var nome:String?,
+    @field:Email private var email:String?,
+    @field:NotBlank private var senha:String?,
+    @field:OneToOne private var informacoesAdicionais: InformacoesAdicionais?,
+    @field:ManyToOne private var situacao: Situacao?,
+    @field:ManyToOne private var nivelAcesso: NivelAcesso?
 ) {
 
     constructor(

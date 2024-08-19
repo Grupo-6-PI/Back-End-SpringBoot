@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 
 @Entity
 class FaixaEtaria(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
-    @field:NotBlank @field:Max(150) private var faixa:String? = null
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:NotBlank @field:Max(150) private var faixa:String?
 ) {
 }

@@ -8,6 +8,6 @@ import jakarta.persistence.Id
 @Entity
 class TipoMensagem(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
 ) {
 }

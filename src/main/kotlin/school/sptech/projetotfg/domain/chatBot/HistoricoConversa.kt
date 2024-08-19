@@ -5,8 +5,8 @@ import jakarta.persistence.*
 @Entity
 class HistoricoConversa(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:ManyToOne private var entradaUsuario: EntradaUsuario,
-    @field:ManyToOne private var mensagemBot: MensagemBot
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:ManyToOne private var entradaUsuario: EntradaUsuario?,
+    @field:ManyToOne private var mensagemBot: MensagemBot?
 ){
 }

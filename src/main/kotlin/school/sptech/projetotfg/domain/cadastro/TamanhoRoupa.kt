@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class TamanhoRoupa(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
-    @field:Max(10) private var tamanho:String? = null,
-    @ManyToOne private var faixaEtaria: FaixaEtaria? = null
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:Max(10) private var tamanho:String?,
+    @ManyToOne private var faixaEtaria: FaixaEtaria?
 ) {
 }

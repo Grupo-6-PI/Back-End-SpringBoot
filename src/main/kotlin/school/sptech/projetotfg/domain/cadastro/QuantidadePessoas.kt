@@ -7,9 +7,9 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class QuantidadePessoas(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
-    @field:Positive private var minimo: Long? = null,
-    @field:Positive private var maximo: Long? = null,
-    @field:ManyToOne private var situacao: Situacao? = null
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:Positive private var minimo: Long?,
+    @field:Positive private var maximo: Long?,
+    @field:ManyToOne private var situacao: Situacao?
     ) {
 }

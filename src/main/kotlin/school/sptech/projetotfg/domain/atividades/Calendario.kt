@@ -11,16 +11,16 @@ import jakarta.validation.constraints.Positive
 @Entity
 class Calendario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:Positive private var ano: Long,
-    @field:Positive @field:Min(1) @field:Max(2) private var mesNumeracao: Int,
-    @field:NotBlank private var mesNomeacao:String,
-    @field:Positive @field:Min(1) @field:Max(2) private var diaNumeracao: Int,
-    @field:NotBlank private var diaNomeacao: String
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:Positive private var ano: Long?,
+    @field:Positive @field:Min(1) @field:Max(2) private var mesNumeracao: Int?,
+    @field:NotBlank private var mesNomeacao:String?,
+    @field:Positive @field:Min(1) @field:Max(2) private var diaNumeracao: Int?,
+    @field:NotBlank private var diaNomeacao: String?
 ){
 
     fun getAno(): Long {
-        return ano
+        return ano!!
     }
 
     fun setAno(ano: Long){
@@ -28,15 +28,15 @@ class Calendario(
     }
 
     fun getMesNomeacao(): String {
-        return mesNomeacao
+        return mesNomeacao!!
     }
 
     fun getDiaNomeacao(): String {
-        return diaNomeacao
+        return diaNomeacao!!
     }
 
     fun getMesNumeracao(): Int {
-        return mesNumeracao
+        return mesNumeracao!!
     }
 
     fun setMesNumeracao(numeracao: Int) {
@@ -44,7 +44,7 @@ class Calendario(
     }
 
     fun getDiaNumeracao(): Int {
-        return diaNumeracao
+        return diaNumeracao!!
     }
 
     fun setDiaNumeracao(diaNumeracao: Int) {
@@ -52,7 +52,7 @@ class Calendario(
     }
 
     fun getId():Long{
-        return id
+        return id!!
     }
 
 }

@@ -14,12 +14,12 @@ import java.time.LocalDateTime
 
 @Entity
 class Contato(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long = 0,
-    @field: NotBlank @field:NotNull private var informacoesContato:String? = null,
-    @field:PastOrPresent private var dataCriacao:LocalDateTime? = null,
-    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime? = null,
-    @field:Email @field:Size(max = 150) private var emailModificador:String? = null,
-    @ManyToOne @field: NotNull @field:NotBlank var tipoContato:TipoContato? = null,
-    @ManyToOne @field: NotNull @field:NotBlank var informacoesAdicionais: InformacoesAdicionais? = null
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field: NotBlank @field:NotNull private var informacoesContato:String?,
+    @field:PastOrPresent private var dataCriacao:LocalDateTime?,
+    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime?,
+    @field:Email @field:Size(max = 150) private var emailModificador:String?,
+    @ManyToOne @field: NotNull @field:NotBlank var tipoContato:TipoContato?,
+    @ManyToOne @field: NotNull @field:NotBlank var informacoesAdicionais: InformacoesAdicionais?
     ) {
 }
