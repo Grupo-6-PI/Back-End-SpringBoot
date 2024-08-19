@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class RespostasPossiveis(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:NotBlank @field:Max(45) private var resposta:String
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:NotBlank @field:Max(45) private var resposta:String?
 ) {
 }

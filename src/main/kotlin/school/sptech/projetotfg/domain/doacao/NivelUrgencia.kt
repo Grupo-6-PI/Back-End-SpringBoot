@@ -10,8 +10,8 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class NivelUrgencia (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:NotBlank @field:Max(60) private var nivel:String
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:NotBlank @field:Max(60) private var nivel:String?
 )
     {
 }

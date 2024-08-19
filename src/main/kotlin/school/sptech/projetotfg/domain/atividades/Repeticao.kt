@@ -8,9 +8,9 @@ import jakarta.validation.constraints.Positive
 @Entity
 class Repeticao (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:Positive private var quantidade:Long,
-    @field:NotBlank @field:Max(45) private var escolhaRepeticao:String,
-    @field:ManyToOne private var disponibilidadeVoluntario:DisponibilidadeUsuario
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:Positive private var quantidade:Long?,
+    @field:NotBlank @field:Max(45) private var escolhaRepeticao:String?,
+    @field:ManyToOne private var disponibilidadeVoluntario:DisponibilidadeUsuario?
 ){
 }

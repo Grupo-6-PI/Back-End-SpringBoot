@@ -12,14 +12,14 @@ import java.time.LocalDateTime
 @Entity
 class Requisicoes (
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:ManyToOne private var nivelUrgencia: NivelUrgencia,
-    @field:ManyToOne private var assuntoRequisicao: AssuntoRequisicao,
-    @field:PastOrPresent private var dataCriacao:LocalDateTime,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150) private var emailModificador:String,
-    @field:ManyToOne private var usuario: Usuario,
-    @field:ManyToOne private var situacao: Situacao,
-    @field:ManyToOne private var calendario: Calendario
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:ManyToOne private var nivelUrgencia: NivelUrgencia?,
+    @field:ManyToOne private var assuntoRequisicao: AssuntoRequisicao?,
+    @field:PastOrPresent private var dataCriacao:LocalDateTime?,
+    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
+    @field:Email @field:Size(max = 150) private var emailModificador:String?,
+    @field:ManyToOne private var usuario: Usuario?,
+    @field:ManyToOne private var situacao: Situacao?,
+    @field:ManyToOne private var calendario: Calendario?
 ) {
 }

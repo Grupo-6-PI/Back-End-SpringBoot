@@ -10,14 +10,13 @@ import java.time.LocalDateTime
 @Entity
 class DisponibilidadeUsuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:ManyToOne private var requisicoes:Requisicoes,
-    @field:PastOrPresent private var dataCriacao: LocalDateTime,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime,
-    @field:Email @field:Size(max = 150)
-    private var emailModificador:String,
-    @field:PastOrPresent private var horaComeco:LocalDateTime,
-    @field:PastOrPresent private var horaFinal:LocalDateTime,
-    @field:ManyToOne private var calendario:Calendario
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:ManyToOne private var requisicoes:Requisicoes?,
+    @field:PastOrPresent private var dataCriacao: LocalDateTime?,
+    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
+    @field:Email @field:Size(max = 150) private var emailModificador:String?,
+    @field:PastOrPresent private var horaComeco:LocalDateTime?,
+    @field:PastOrPresent private var horaFinal:LocalDateTime?,
+    @field:ManyToOne private var calendario:Calendario?
 ){
 }

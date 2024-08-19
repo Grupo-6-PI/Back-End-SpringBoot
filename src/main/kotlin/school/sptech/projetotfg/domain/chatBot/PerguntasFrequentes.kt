@@ -11,8 +11,8 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 class PerguntasFrequentes(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:NotBlank @field:Max(45) private var pergunta:String,
-    @field:ManyToOne private var opcoesAtendimento: OpcoesAtendimento
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:NotBlank @field:Max(45) private var pergunta:String?,
+    @field:ManyToOne private var opcoesAtendimento: OpcoesAtendimento?
 ) {
 }

@@ -9,8 +9,8 @@ import jakarta.persistence.ManyToOne
 @Entity
 class ApresentacaoResposta(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long = 0,
-    @field:ManyToOne private var respostasPossiveis: RespostasPossiveis,
-    @field:ManyToOne private var perguntasFrequentes: PerguntasFrequentes
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:ManyToOne private var respostasPossiveis: RespostasPossiveis?,
+    @field:ManyToOne private var perguntasFrequentes: PerguntasFrequentes?
 ) {
 }

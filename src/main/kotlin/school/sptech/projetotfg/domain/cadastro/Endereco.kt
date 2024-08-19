@@ -7,11 +7,11 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 
 @Entity
 class Endereco(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long? = null,
-    @field:Max(100) private var logradouro:String? = null,
-    @field:Positive private var numero: Long? = null,
-    @field:Size(min = 8, max = 8) private var cep:String? = null,
-    @field:ManyToOne private var bairro: Bairro? = null,
-    @field:ManyToOne private var situacao: Situacao? = null
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:Max(100) private var logradouro:String?,
+    @field:Positive private var numero: Long?,
+    @field:Size(min = 8, max = 8) private var cep:String?,
+    @field:ManyToOne private var bairro: Bairro?,
+    @field:ManyToOne private var situacao: Situacao?
 ){
 }
