@@ -21,5 +21,54 @@ class Contato(
     @field:Email @field:Size(max = 150) private var emailModificador:String?,
     @ManyToOne @field: NotNull @field:NotBlank var tipoContato:TipoContato?,
     @ManyToOne @field: NotNull @field:NotBlank var informacoesAdicionais: InformacoesAdicionais?
-    ) {
+) {
+
+    fun getId(): Long {
+        return id!!
+    }
+
+    fun setId(new: Long) {
+        this.id = new
+    }
+
+    fun getInformacoesContato(): String {
+        return informacoesContato!!
+    }
+
+    fun setInformacoesContato(new: String) {
+        this.informacoesContato = new
+    }
+
+    fun getDataCriacao(): LocalDateTime {
+        return dataCriacao!!
+    }
+
+    fun setDataCriacao(new: LocalDateTime) {
+        this.dataCriacao = new
+    }
+
+    fun getDataUltimaAtualizacao(): LocalDateTime {
+        return dataUltimaAtualizacao!!
+    }
+
+    fun getEmailModificador(): String {
+        return emailModificador!!
+    }
+
+    fun setEmailModificador(new: String) {
+        this.emailModificador = new
+    }
+
+    fun getTipoContato(): TipoContato {
+        return tipoContato!!
+    }
+
+    fun getInformacoesAdicionais(): InformacoesAdicionais {
+        return informacoesAdicionais!!
+    }
+
+    fun setInformacoesAdicionais(new: InformacoesAdicionais) {
+        this.informacoesAdicionais = new
+    }
+
 }
