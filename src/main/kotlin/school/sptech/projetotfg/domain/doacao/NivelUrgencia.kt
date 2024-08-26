@@ -12,6 +12,22 @@ class NivelUrgencia (
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
     @field:NotBlank @field:Max(60) private var nivel:String?
-)
-    {
+){
+
+    fun getId(): Long{
+        return id!!
+    }
+
+    fun setId(new: Long){
+        this.id = new
+    }
+
+    fun getNivel(): String{
+        return nivel!!
+    }
+
+    fun setNivel(new: String){
+        this.nivel = new
+    }
+
 }
