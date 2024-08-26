@@ -35,6 +35,7 @@ class CalendarioService(
 
         // Criar Atividade
         val atividade = Atividade(
+            id = null,
             nome = atividadeDTO.nome,
             horaComeco = atividadeDTO.horaComeco,
             horaFinal = atividadeDTO.horaFinal,
@@ -48,6 +49,7 @@ class CalendarioService(
 
         // Criar ReservaAtividade com o calendário encontrado
         val reservaAtividade = ReservaAtividade(
+            id = null,
             atividade = savedAtividade,
             calendario = calendario,
             dataCriacao = LocalDateTime.now(),
@@ -138,8 +140,8 @@ class CalendarioService(
         reserva.calendario!!.setMesNumeracao(atividadeDTO.calendario!!.getMesNumeracao())
         reserva.calendario!!.setDiaNumeracao(atividadeDTO.calendario!!.getDiaNumeracao())
 
-        reserva.atividade!!.horaComeco = atividadeDTO.atividade!!.horaComeco
-        reserva.atividade!!.horaFinal = atividadeDTO.atividade!!.horaFinal
+        reserva.atividade!!.setHoraComeco(atividadeDTO.atividade!!.getHoraComeco())
+        reserva.atividade!!.setHoraFinal(atividadeDTO.atividade!!.getHoraFinal())
 
         return reservaAtividadeRepository.save(reserva)
     }

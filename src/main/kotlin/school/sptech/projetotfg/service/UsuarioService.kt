@@ -35,8 +35,8 @@ class UsuarioService(
             val usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioResponseDTO(
                 id = usuarioSalvo.getId(),
-                nome = usuarioSalvo.nome,
-                email = usuarioSalvo.email
+                nome = usuarioSalvo.getNome(),
+                email = usuarioSalvo.getEmail()
             )
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao cadastrar usuário: ${ex.message}")
@@ -47,16 +47,16 @@ class UsuarioService(
         val usuarioExistente = usuarioRepository.findById(id)
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") }
 
-        usuarioExistente.nome = usuarioInputDTO.nome
-        usuarioExistente.email = usuarioInputDTO.email
-        usuarioExistente.senha = usuarioInputDTO.senha
+        usuarioExistente.setNome(usuarioInputDTO.nome)
+        usuarioExistente.setEmail(usuarioInputDTO.email)
+        usuarioExistente.setSenha(usuarioInputDTO.senha)
 
         return try {
             val usuarioAtualizado = usuarioRepository.save(usuarioExistente)
             UsuarioResponseDTO(
                 id = usuarioAtualizado.getId(),
-                nome = usuarioAtualizado.nome,
-                email = usuarioAtualizado.email
+                nome = usuarioAtualizado.getNome(),
+                email = usuarioAtualizado.getEmail()
             )
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar usuário: ${ex.message}")
@@ -68,8 +68,8 @@ class UsuarioService(
         return usuarios.map { usuario ->
             UsuarioResponseDTO(
                 id = usuario.getId(),
-                nome = usuario.nome,
-                email = usuario.email
+                nome = usuario.getNome(),
+                email = usuario.getEmail()
             )
         }
     }
@@ -122,12 +122,12 @@ class UsuarioService(
             val usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioCompletoResponseDTO(
                 id = usuarioSalvo.getId(),
-                nome = usuarioSalvo.nome,
-                email = usuarioSalvo.email,
+                nome = usuarioSalvo.getNome(),
+                email = usuarioSalvo.getEmail(),
                 senha = null,
-                informacoesAdicionais = usuarioSalvo.informacoesAdicionais!!,
-                situacao = usuarioSalvo.situacao!!,
-                nivelAcesso = usuarioSalvo.nivelAcesso!!
+                informacoesAdicionais = usuarioSalvo.getInformacoesAdicionais(),
+                situacao = usuarioSalvo.getSituacao(),
+                nivelAcesso = usuarioSalvo.getNivelAcesso()
             )
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao cadastrar usuário: ${ex.message}")
@@ -138,23 +138,23 @@ class UsuarioService(
         val usuarioExistente = usuarioRepository.findById(id)
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") }
 
-        usuarioExistente.nome = usuarioCompletoInputDTO.nome
-        usuarioExistente.email = usuarioCompletoInputDTO.email
-        usuarioExistente.senha = usuarioCompletoInputDTO.senha
-        usuarioExistente.informacoesAdicionais = usuarioCompletoInputDTO.informacoesAdicionais
-        usuarioExistente.situacao = usuarioCompletoInputDTO.situacao
-        usuarioExistente.nivelAcesso = usuarioCompletoInputDTO.nivelAcesso
+        usuarioExistente.setNome(usuarioCompletoInputDTO.nome)
+        usuarioExistente.setEmail(usuarioCompletoInputDTO.email)
+        usuarioExistente.setSenha(usuarioCompletoInputDTO.senha)
+        usuarioExistente.setInformacoesAdicionais(usuarioCompletoInputDTO.informacoesAdicionais!!)
+        usuarioExistente.setSituacao(usuarioCompletoInputDTO.situacao!!)
+        usuarioExistente.setNivelAcesso(usuarioCompletoInputDTO.nivelAcesso!!)
 
         return try {
             val usuarioAtualizado = usuarioRepository.save(usuarioExistente)
             UsuarioCompletoResponseDTO(
                 id = usuarioAtualizado.getId(),
-                nome = usuarioAtualizado.nome,
-                email = usuarioAtualizado.email,
-                senha = usuarioAtualizado.senha,
-                informacoesAdicionais = usuarioAtualizado.informacoesAdicionais!!,
-                situacao = usuarioAtualizado.situacao!!,
-                nivelAcesso = usuarioAtualizado.nivelAcesso!!
+                nome = usuarioAtualizado.getNome(),
+                email = usuarioAtualizado.getEmail(),
+                senha = usuarioAtualizado.getSenha(),
+                informacoesAdicionais = usuarioAtualizado.getInformacoesAdicionais(),
+                situacao = usuarioAtualizado.getSituacao(),
+                nivelAcesso = usuarioAtualizado.getNivelAcesso()
             )
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar usuário: ${ex.message}")
@@ -166,12 +166,12 @@ class UsuarioService(
         return usuarios.map { usuario ->
             UsuarioCompletoResponseDTO(
                 id = usuario.getId(),
-                nome = usuario.nome,
-                email = usuario.email,
+                nome = usuario.getNome(),
+                email = usuario.getEmail(),
                 senha = null,
-                informacoesAdicionais = usuario.informacoesAdicionais!!,
-                situacao = usuario.situacao!!,
-                nivelAcesso = usuario.nivelAcesso!!
+                informacoesAdicionais = usuario.getInformacoesAdicionais(),
+                situacao = usuario.getSituacao(),
+                nivelAcesso = usuario.getNivelAcesso()
             )
         }
     }

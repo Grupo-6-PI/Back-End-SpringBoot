@@ -83,4 +83,40 @@ class Usuario(
         return senha!!
     }
 
+    fun getInformacoesAdicionais():InformacoesAdicionais{
+        return informacoesAdicionais!!
+    }
+
+    fun getSituacao():Situacao{
+        return situacao!!
+    }
+
+    fun getNivelAcesso():NivelAcesso{
+        return nivelAcesso!!
+    }
+
+    fun setNome(new: String){
+       this.nome = new
+    }
+
+    fun setEmail(new: String){
+        this.email = new
+    }
+
+    fun setSenha(new: String){
+        this.senha = new
+    }
+
+    fun setInformacoesAdicionais(new: InformacoesAdicionais){
+        this.informacoesAdicionais = new
+    }
+
+    fun setSituacao(new: Situacao){
+        this.situacao = new
+    }
+
+    fun setNivelAcesso(new: NivelAcesso){
+        this.nivelAcesso = new
+    }
+
 }
