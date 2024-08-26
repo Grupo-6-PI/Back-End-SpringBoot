@@ -19,8 +19,8 @@ class Contato(
     @field:PastOrPresent private var dataCriacao:LocalDateTime?,
     @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador:String?,
-    @ManyToOne @field: NotNull @field:NotBlank var tipoContato:TipoContato?,
-    @ManyToOne @field: NotNull @field:NotBlank var informacoesAdicionais: InformacoesAdicionais?
+    @ManyToOne @field: NotNull @field:NotBlank private var tipoContato:TipoContato,
+    @ManyToOne @field: NotNull @field:NotBlank private var informacoesAdicionais: InformacoesAdicionais
 ) {
 
     fun getId(): Long {
@@ -60,11 +60,15 @@ class Contato(
     }
 
     fun getTipoContato(): TipoContato {
-        return tipoContato!!
+        return tipoContato
+    }
+
+    fun setTipoContato(new:TipoContato){
+        this.tipoContato = new
     }
 
     fun getInformacoesAdicionais(): InformacoesAdicionais {
-        return informacoesAdicionais!!
+        return informacoesAdicionais
     }
 
     fun setInformacoesAdicionais(new: InformacoesAdicionais) {
