@@ -17,7 +17,7 @@ import school.sptech.projetotfg.repository.RequisicaoRepository
 class RequisicoesService (
     private val requisicaoRepository: RequisicaoRepository,
     private val mapper: ModelMapper,
-){
+):school.sptech.projetotfg.complement.Service(){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
 
         val listaRequisicoes = requisicaoRepository.findAll()

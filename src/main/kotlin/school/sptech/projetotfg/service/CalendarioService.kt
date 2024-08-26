@@ -18,7 +18,7 @@ class CalendarioService(
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository,
     private val calendarioRepository: CalendarioRepository // Novo repositório para Calendario
-) {
+):school.sptech.projetotfg.complement.Service() {
 
     fun createAtividade(
         atividadeDTO: AtividadeDTO,
