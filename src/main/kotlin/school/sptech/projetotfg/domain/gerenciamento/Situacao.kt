@@ -5,13 +5,13 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class Situacao(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long,
-    @field:Max(100) private var situacao:String,
-    @ManyToOne private var tipoSituacao: TipoSituacao
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:Max(100) private var situacao:String?,
+    @ManyToOne private var tipoSituacao: TipoSituacao?
 ){
 
     fun getId():Long{
-        return id
+        return id!!
     }
 
     fun setId(new:Long){
@@ -19,7 +19,7 @@ class Situacao(
     }
 
     fun getSituacao():String{
-        return situacao
+        return situacao!!
     }
 
     fun setSituacao(new: String){
@@ -27,7 +27,7 @@ class Situacao(
     }
 
     fun getTipoSituacao(): TipoSituacao {
-        return tipoSituacao
+        return tipoSituacao!!
     }
 
     fun setTipoSituacao(new: TipoSituacao){
