@@ -17,12 +17,16 @@ class TipoAtividade(
         return id!!
     }
 
-    fun setId(id:Long){
-        this.id = id
+    fun setId(new:Long){
+        this.id = new
     }
 
     fun getTipo():String{
         return tipo!!
+    }
+
+    fun setTipo(new:String){
+        this.tipo = new
     }
 
 }
