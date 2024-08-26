@@ -17,21 +17,20 @@ class AutenticacaoService(
     private val usuarioRepository: UsuarioRepository,
     private val acessoRepository: AcessoRepository,
     private val situacaoRepository: SituacaoRepository
-) {
+):school.sptech.projetotfg.complement.Service() {
 
     fun login(request: LoginRequestDTO): UsuarioResponseDTO {
-        val usuario = usuarioRepository.buscarEmail(request.email)
-            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado")
 
-        if (usuario.getSenha() != request.senha) {
+        val usuario = usuarioRepository.buscarEmail(request.email)
+
+        if (usuario!!.getSenha() != request.senha) {
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta")
         }
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
-        if (ultimoAcesso != null && ultimoAcesso.situacao.getSituacao() == "Logado") {
+        if (ultimoAcesso != null && ultimoAcesso.getSituacao().getSituacao() == "Logado") {
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário já está logado")
         }
-
 
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
             ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Logado' não encontrada")
@@ -54,7 +53,7 @@ class AutenticacaoService(
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
             ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Nenhum acesso encontrado para o usuário")
 
-        if (ultimoAcesso.situacao.getSituacao() != "Logado") {
+        if (ultimoAcesso.getSituacao().getSituacao() != "Logado") {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não está logado")
         }
 

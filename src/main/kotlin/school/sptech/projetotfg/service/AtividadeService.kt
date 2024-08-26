@@ -1,10 +1,7 @@
 package school.sptech.projetotfg.service
 
 import org.modelmapper.ModelMapper
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
-import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.Atividade
 import school.sptech.projetotfg.domain.atividades.TipoAtividade
 import school.sptech.projetotfg.dto.AtividadeResponseDTO
@@ -16,32 +13,38 @@ class AtividadeService(
     private val atividadeRepository: AtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository,
     private val mapper: ModelMapper,
-) {
+): school.sptech.projetotfg.complement.Service() {
+
     fun listarAtivadade():List<Atividade>{
 
             val listaAtividade = atividadeRepository.findAll()
-            if(!listaAtividade.isEmpty()){
-                return listaAtividade
-            }
-            throw ResponseStatusException(HttpStatusCode.valueOf(204))
+
+            super.validarLista(listaAtividade)
+
+            return listaAtividade
+
     }
 
     fun atividadePorId(id:Int):AtividadeResponseDTO{
+
         val atividade = atividadeRepository.findById(id.toLong()).get()
-        if(!atividade.equals(null)){
-            val atividadeDto:AtividadeResponseDTO = mapper.map(atividade, AtividadeResponseDTO::class.java)
-            return atividadeDto
-        }
-        throw ResponseStatusException(HttpStatusCode.valueOf(404))
+
+        super.validarId(atividade.getId(),atividadeRepository)
+
+        val atividadeDto:AtividadeResponseDTO = mapper.map(atividade, AtividadeResponseDTO::class.java)
+
+        return atividadeDto
+
     }
 
     fun listarTipos():List<TipoAtividade>{
+
         var lista = tipoAtividadeRepository.findAll()
-        if(lista.isNotEmpty()){
-            return lista
-        }else{
-            throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        }
+
+        super.validarLista(lista)
+
+        return lista
+
     }
 
 }

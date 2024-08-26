@@ -15,7 +15,7 @@ import school.sptech.projetotfg.dto.UsuarioCompletoResponseDTO
 class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val mapper: ModelMapper
-) {
+) :school.sptech.projetotfg.complement.Service(){
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
         if (usuarioRepository.existsByEmail(usuarioInputDTO.email)) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
