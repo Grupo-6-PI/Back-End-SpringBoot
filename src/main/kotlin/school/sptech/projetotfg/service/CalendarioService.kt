@@ -66,7 +66,7 @@ class CalendarioService(
         val reservaAtividade = reservaAtividadeRepository.findAll()
 
         reservaAtividade.map {
-            val calendario = it.calendario
+            val calendario = it.getCalendario()
 
             when(calendario!!.getDiaNomeacao()){
                 "Domingo" -> {
@@ -129,19 +129,19 @@ class CalendarioService(
         atividadeDTO: ReservaAtividade
     ): ReservaAtividade? {
 
-        var reserva = reservaAtividadeRepository.findById(atividadeDTO.id!!).get()
+        var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()).get()
 
-        reserva.atividade!!.nome = atividadeDTO.atividade!!.nome
-        reserva.atividade!!.tipoAtividade = atividadeDTO.atividade!!.tipoAtividade
+        reserva.getAtividade().setNome(atividadeDTO.getAtividade().getNome())
+        reserva.getAtividade().setTipoAtividade(atividadeDTO.getAtividade().getTipoAtividade())
 
-        reserva.atividade!!.descricao = atividadeDTO.atividade!!.descricao
+        reserva.getAtividade().setDescricao(atividadeDTO.getAtividade().getDescricao())
 
-        reserva.calendario!!.setAno(atividadeDTO.calendario!!.getAno())
-        reserva.calendario!!.setMesNumeracao(atividadeDTO.calendario!!.getMesNumeracao())
-        reserva.calendario!!.setDiaNumeracao(atividadeDTO.calendario!!.getDiaNumeracao())
+        reserva.getCalendario().setAno(atividadeDTO.getCalendario().getAno())
+        reserva.getCalendario().setMesNumeracao(atividadeDTO.getCalendario().getMesNumeracao())
+        reserva.getCalendario().setDiaNumeracao(atividadeDTO.getCalendario().getDiaNumeracao())
 
-        reserva.atividade!!.setHoraComeco(atividadeDTO.atividade!!.getHoraComeco())
-        reserva.atividade!!.setHoraFinal(atividadeDTO.atividade!!.getHoraFinal())
+        reserva.getAtividade().setHoraComeco(atividadeDTO.getAtividade().getHoraComeco())
+        reserva.getAtividade().setHoraFinal(atividadeDTO.getAtividade().getHoraFinal())
 
         return reservaAtividadeRepository.save(reserva)
     }
