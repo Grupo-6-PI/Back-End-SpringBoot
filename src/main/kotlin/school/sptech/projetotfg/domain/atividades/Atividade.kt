@@ -22,6 +22,20 @@ class Atividade (
     @field:Email @field:Size(max = 150) var emailModificador:String?
 ){
 
+    fun getHoraComeco():LocalTime{
+        return horaComeco!!
+    }
 
+    fun getHoraFinal():LocalTime{
+        return horaFinal!!
+    }
+
+    fun setHoraComeco(new: LocalTime){
+        this.horaComeco = new
+    }
+
+    fun setHoraFinal(new: LocalTime){
+        this.horaFinal = new
+    }
 
 }
