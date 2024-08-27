@@ -112,8 +112,13 @@ class CalendarioService(
     }
 
     fun getReservaById(id: Long): ReservaAtividade?{
+
+        super.validarId(id,reservaAtividadeRepository)
+
         var resposta = reservaAtividadeRepository.findByAtividadeId(id)
+
         return resposta
+
     }
 
     fun updateReserva(

@@ -1,6 +1,7 @@
 package school.sptech.projetotfg.controller
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -34,11 +35,7 @@ class CalendarioController(
     @GetMapping("/{id}")
     fun getReservaById(@PathVariable id: Long): ResponseEntity<ReservaAtividade> {
         val reserva = calendarioService.getReservaById(id)
-        return if (reserva != null) {
-            ResponseEntity.ok(reserva)
-        } else {
-            ResponseEntity(HttpStatus.NOT_FOUND)
-        }
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(reserva)
     }
 
     @PostMapping("/atualizacao")
