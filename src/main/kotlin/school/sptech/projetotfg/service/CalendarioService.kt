@@ -11,6 +11,7 @@ import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
 import java.util.Objects
+import kotlin.contracts.contract
 
 @Service
 class CalendarioService(
@@ -21,17 +22,15 @@ class CalendarioService(
 ):school.sptech.projetotfg.complement.Service() {
 
     fun createAtividade(
-        atividadeDTO: AtividadeDTO,
-        calendarioFiltroDTO: CalendarioFiltroDTO
+        atividadeDTO: AtividadeDTO
     ): ReservaAtividade {
 
         val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
 
-        // Buscar o calendário existente
-        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
-            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
-        ).orElseThrow { IllegalArgumentException("Calendário não encontrado para a data fornecida") }
+        val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
+
+        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao,semana!!)!!
 
         // Criar Atividade
         val atividade = Atividade(
@@ -45,13 +44,14 @@ class CalendarioService(
             dataUltimaAtualizacao = LocalDateTime.now(),
             emailModificador = atividadeDTO.emailModificador
         )
+
         val savedAtividade = atividadeRepository.save(atividade)
 
         // Criar ReservaAtividade com o calendário encontrado
         val reservaAtividade = ReservaAtividade(
             id = null,
             atividade = savedAtividade,
-            calendario = calendario,
+            calendario = dia,
             dataCriacao = LocalDateTime.now(),
             dataUltimaAtualizacao = LocalDateTime.now(),
             emailModificador = atividadeDTO.emailModificador
@@ -101,25 +101,6 @@ class CalendarioService(
 
     }
 
-//    fun getAllReservas(calendarioFiltroDTO: CalendarioFiltroDTO): Map<String, List<ReservaAtividade>> {
-//        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
-//            calendarioFiltroDTO.ano, calendarioFiltroDTO.mesNumeracao, calendarioFiltroDTO.diaNumeracao
-//        )
-//
-//        if(Objects.isNull(calendario)) {
-//            throw IllegalArgumentException("Nenhum calendário encontrado para a data fornecida")
-//        }
-//
-//        val reservas:List<ReservaAtividade> = reservaAtividadeRepository.findAll()
-//
-//
-//
-//        return reservas.groupBy {
-//            val data = it.getCalendario()
-//            "${data.getAno()}-${data.getMesNumeracao()}-${data.getDiaNumeracao()}"
-//        }
-//    }
-
     fun getReservaById(id: Long): ReservaAtividade?{
         var resposta = reservaAtividadeRepository.findByAtividadeId(id)
         return resposta
@@ -156,4 +137,67 @@ class CalendarioService(
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao excluir Atividade: ${ex.message}")
         }
     }
+
+    fun getDomingo(calendarioFiltroDTO: CalendarioFiltroDTO):Array<Calendario?>{
+
+        var idDiaAtual:Long = calendarioRepository.getSemana(calendarioFiltroDTO.diaNumeracao,calendarioFiltroDTO.mesNumeracao,calendarioFiltroDTO.ano).get()
+
+        var idDomingo:Long = 0
+
+        var contador = 7
+
+        while (contador >= 1) {
+
+            var dia = calendarioRepository.findById(idDiaAtual-contador).get()
+
+            if (dia.getDiaNomeacao().equals("Domingo")){
+
+                idDomingo = dia.getId()
+
+                break
+
+            }
+
+            contador--
+        }
+
+        var sem = getSemana(idDomingo)
+
+        return sem
+
+    }
+
+    fun getSemana(idDomingo:Long):Array<Calendario?>{
+
+        var semana: Array<Calendario?> = arrayOfNulls<Calendario>(7)
+
+        var contador:Int = 0
+
+        while (contador < 7) {
+
+            semana.set(contador,calendarioRepository.findById(idDomingo+contador).get())
+
+            contador++
+        }
+
+        return semana
+
+    }
+
+    fun getDia(dia:String,semana:Array<Calendario?>):Calendario?{
+
+        for (diaSemana in semana){
+
+            if (diaSemana!!.getDiaNomeacao().equals(dia)){
+
+                return diaSemana
+
+            }
+
+        }
+
+        return null
+
+    }
+
 }
