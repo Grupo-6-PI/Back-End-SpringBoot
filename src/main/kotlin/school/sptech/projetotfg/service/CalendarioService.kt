@@ -11,6 +11,8 @@ import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
+import java.util.Objects
+import kotlin.contracts.contract
 
 @Service
 class CalendarioService(
@@ -30,7 +32,7 @@ class CalendarioService(
 
         val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
-        var dia:Calendario? = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana)
+        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao,semana!!)!!
 
         // Criar Atividade
         val atividade = Atividade(

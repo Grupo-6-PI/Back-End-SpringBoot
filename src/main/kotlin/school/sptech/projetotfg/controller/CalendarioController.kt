@@ -19,7 +19,7 @@ class CalendarioController(
     private val calendarioService: CalendarioService
 ){
 
-    @PostMapping
+    @GetMapping("/semana")
     fun createAtividade(
         @RequestBody atividadeDTO: AtividadeDTO
     ): ResponseEntity<ReservaAtividade> {
