@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import school.sptech.projetotfg.domain.atividades.Calendario
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
@@ -12,17 +13,15 @@ import school.sptech.projetotfg.service.CalendarioService
 
 @RestController
 @RequestMapping("/calendarios")
-class CalendarioController(private val calendarioService: CalendarioService) {
+class CalendarioController(
+    private val calendarioService: CalendarioService
+){
 
-    @PostMapping
+    @GetMapping("/semana")
     fun createAtividade(
-        @RequestBody atividadeDTO: AtividadeDTO,
-        @RequestParam ano: Int,
-        @RequestParam mesNumeracao: Int,
-        @RequestParam diaNumeracao: Int
+        @RequestBody atividadeDTO: AtividadeDTO
     ): ResponseEntity<ReservaAtividade> {
-        val filtro = CalendarioFiltroDTO(ano, mesNumeracao, diaNumeracao)
-        val reservaAtividade = calendarioService.createAtividade(atividadeDTO, filtro)
+        val reservaAtividade = calendarioService.createAtividade(atividadeDTO)
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaAtividade)
     }
 
