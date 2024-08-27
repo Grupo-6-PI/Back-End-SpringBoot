@@ -30,7 +30,7 @@ class CalendarioService(
 
         val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
-        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao,semana!!)!!
+        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana!!)!!
 
         // Criar Atividade
         val atividade = Atividade(
@@ -59,11 +59,21 @@ class CalendarioService(
         return reservaAtividadeRepository.save(reservaAtividade)
     }
 
-    fun getAllReserva():ReservaAtividadeResponseDTO{
+    fun getAllReserva(calendarioFiltro:CalendarioFiltroDTO):ReservaAtividadeResponseDTO{
 
         var dto = ReservaAtividadeResponseDTO()
 
-        val reservaAtividade = reservaAtividadeRepository.findAll()
+        var semana = getDomingo(calendarioFiltro)
+
+        val reservaAtividade:MutableList<ReservaAtividade> = mutableListOf()
+
+        for (dia in semana){
+
+            reservaAtividadeRepository.findAllByCalendarioId(dia!!.getId()).forEach {
+                reservaAtividade.add(it)
+            }
+
+        }
 
         reservaAtividade.map {
             val calendario = it.getCalendario()

@@ -17,7 +17,7 @@ class CalendarioController(
     private val calendarioService: CalendarioService
 ){
 
-    @GetMapping("/semana")
+    @PostMapping
     fun createAtividade(
         @RequestBody atividadeDTO: AtividadeDTO
     ): ResponseEntity<ReservaAtividade> {
@@ -26,8 +26,8 @@ class CalendarioController(
     }
 
     @GetMapping
-    fun getAllReservasDTO(): ResponseEntity<ReservaAtividadeResponseDTO> {
-        val reservas = calendarioService.getAllReserva()
+    fun getAllReservasDTO(@RequestBody filtroDTO: CalendarioFiltroDTO): ResponseEntity<ReservaAtividadeResponseDTO> {
+        val reservas = calendarioService.getAllReserva(filtroDTO)
         return ResponseEntity.ok(reservas)
     }
 
