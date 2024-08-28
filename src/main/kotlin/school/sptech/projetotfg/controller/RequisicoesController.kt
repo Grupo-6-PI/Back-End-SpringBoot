@@ -1,10 +1,10 @@
 package school.sptech.projetotfg.controller
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicaoDashDTO
+import school.sptech.projetotfg.dto.RequisicaoResquestDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
 import school.sptech.projetotfg.service.RequisicoesService
 
@@ -25,4 +25,14 @@ class RequisicoesController (
         val response = requisicoesService.getRequisicoesTrimestreTipo()
         return ResponseEntity.status(200).body(response)
     }
+
+    @PostMapping
+    fun saveRequisicao(@RequestBody requisicao: RequisicaoResquestDTO):ResponseEntity<Requisicoes>{
+
+        var requisicaoSalva = requisicoesService.saveRequisicao(requisicao)
+
+        return ResponseEntity.status(201).body(requisicaoSalva)
+
+    }
+
 }
