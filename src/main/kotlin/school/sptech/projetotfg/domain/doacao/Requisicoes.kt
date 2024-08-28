@@ -13,7 +13,6 @@ import java.time.LocalDateTime
 class Requisicoes (
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
-    @field:ManyToOne private var nivelUrgencia: NivelUrgencia?,
     @field:ManyToOne private var assuntoRequisicao: AssuntoRequisicao?,
     @field:PastOrPresent private var dataCriacao:LocalDateTime?,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
@@ -29,14 +28,6 @@ class Requisicoes (
 
     fun setId(new: Long?){
         this.id = new
-    }
-
-    fun getNivelUrgencia(): NivelUrgencia?{
-        return nivelUrgencia
-    }
-
-    fun setNivelUrgencia(new:NivelUrgencia?){
-        this.nivelUrgencia = new
     }
 
     fun getAssuntoRequisicao(): AssuntoRequisicao?{
