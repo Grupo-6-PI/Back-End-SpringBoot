@@ -6,16 +6,20 @@ import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.dto.RequisicaoDashDTO
-import school.sptech.projetotfg.dto.RequisicoesCumResponseDTO
-import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
-import school.sptech.projetotfg.dto.RequisicoesReqResponseDTO
-import school.sptech.projetotfg.repository.RequisicaoRepository
+import school.sptech.projetotfg.dto.*
+import school.sptech.projetotfg.repository.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 class RequisicoesService (
     private val requisicaoRepository: RequisicaoRepository,
+    private val usuarioRepository: UsuarioRepository,
+    private val situacaoRepository: SituacaoRepository,
+    private val assuntoRequisicaoRepository: AssuntoRequisicaoRepository,
+    private val calendarioRepository: CalendarioRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service(){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
@@ -25,7 +29,7 @@ class RequisicoesService (
         super.validarLista(listaRequisicoes)
 
         return transformarListaEmDto(listaRequisicoes)
-    
+
     }
 
     fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>):List<RequisicoesDoacaoResponseDTO>{
@@ -245,6 +249,39 @@ class RequisicoesService (
         if(dto.saude_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
         if(dto.outro_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
         if(dto.outro_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+    }
+
+    fun saveRequisicao(requisicao: RequisicaoResquestDTO):Requisicoes{
+
+        super.validarId(requisicao.assuntoId,assuntoRequisicaoRepository)
+
+        super.validarId(requisicao.usuarioId,usuarioRepository)
+
+        val assunto = assuntoRequisicaoRepository.findById(requisicao.assuntoId)
+
+        val usuario = usuarioRepository.findById(requisicao.usuarioId)
+
+        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(requisicao.data.ano,requisicao.data.mesNumeracao,requisicao.data.diaNumeracao)
+
+        val situacao = situacaoRepository.findById(5)
+
+        val email = requisicao.emailModificador
+
+        val requisicaoMap = Requisicoes(
+            id = null,
+            assuntoRequisicao = assunto.get(),
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = email,
+            usuario = usuario.get(),
+            situacao = situacao.get(),
+            calendario = calendario.get()
+        )
+
+        val requisicaoSalva = requisicaoRepository.save(requisicaoMap)
+
+        return requisicaoSalva
+
     }
 
 }

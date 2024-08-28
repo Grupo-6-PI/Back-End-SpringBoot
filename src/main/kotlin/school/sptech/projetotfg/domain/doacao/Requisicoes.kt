@@ -78,7 +78,7 @@ class Requisicoes (
         this.situacao = new
     }
 
-    fun getCalendario(): Calendario?{
+    fun getCalendario():Calendario?{
         return calendario
     }
 
