@@ -11,8 +11,6 @@ import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
-import java.util.Objects
-import kotlin.contracts.contract
 
 @Service
 class CalendarioService(
@@ -63,16 +61,15 @@ class CalendarioService(
 
     fun getAllReserva(calendarioFiltro:CalendarioFiltroDTO):ReservaAtividadeResponseDTO{
 
-        var dto = ReservaAtividadeResponseDTO()
+        val dto = ReservaAtividadeResponseDTO()
 
-
-        var semana = getDomingo(calendarioFiltro)
+        val semana = getDomingo(calendarioFiltro)
 
         val reservaAtividade:MutableList<ReservaAtividade> = mutableListOf()
 
         for (dia in semana){
 
-            reservaAtividadeRepository.findAllByCalendarioId(dia!!.getId()).forEach {
+            reservaAtividadeRepository.findAllByCalendarioId(dia!!.getId()!!).forEach {
                 reservaAtividade.add(it)
             }
 
@@ -120,7 +117,7 @@ class CalendarioService(
 
         var resposta = reservaAtividadeRepository.findById(id).get()
 
-        return resposta
+        return resposta!!
 
     }
 
@@ -129,8 +126,10 @@ class CalendarioService(
     ): ReservaAtividade? {
 
         super.validarId(atividadeDTO.getId()!!,reservaAtividadeRepository)
-
         var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()!!).get()
+
+        reserva.getAtividade().setNome(atividadeDTO.getAtividade().getNome())
+        reserva.getAtividade().setTipoAtividade(atividadeDTO.getAtividade().getTipoAtividade())
 
         reserva = atividadeDTO
 
