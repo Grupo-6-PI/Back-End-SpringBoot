@@ -35,13 +35,9 @@ class AutenticacaoService(
         }
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
-<<<<<<< HEAD
-        if (ultimoAcesso != null && ultimoAcesso.getSituacao().getSituacao() == "Logado") {
-            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
-=======
+
         if (ultimoAcesso != null && ultimoAcesso.getSituacao()!!.getSituacao() == "Logado") {
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário já está logado")
->>>>>>> e8d78908724aab207d727be32f9a459f16e4f627
+            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
         }
 
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
