@@ -1,6 +1,7 @@
 package school.sptech.projetotfg.service
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.gerenciamento.Acesso
@@ -21,19 +22,26 @@ class AutenticacaoService(
 
     fun login(request: LoginRequestDTO): UsuarioResponseDTO {
 
+        val autenticacao = usuarioRepository.existsByEmail(request.email)
+
+        if (autenticacao != true){
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário inexistente, por favor realize o cadastro antes do login")
+        }
+
         val usuario = usuarioRepository.buscarEmail(request.email)
 
         if (usuario!!.getSenha() != request.senha) {
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta")
+            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Senha incorreta")
         }
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
-        if (ultimoAcesso != null && ultimoAcesso.getSituacao()!!.getSituacao() == "Logado") {
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário já está logado")
+
+        if (ultimoAcesso != null && ultimoAcesso.getSituacao()?.getSituacao() == "Logado") {
+            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
         }
 
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
-            ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Logado' não encontrada")
+            ?: throw ResponseStatusException(HttpStatusCode.valueOf(500), "Situação 'Logado' não encontrada")
 
         val acesso = Acesso(
             dataAcesso = LocalDate.now(),
