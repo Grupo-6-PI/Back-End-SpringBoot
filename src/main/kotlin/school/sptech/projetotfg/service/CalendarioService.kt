@@ -115,7 +115,7 @@ class CalendarioService(
 
         super.validarId(id,reservaAtividadeRepository)
 
-        var resposta = reservaAtividadeRepository.findByAtividadeId(id)!!
+        var resposta = reservaAtividadeRepository.findById(id).get()
 
         return resposta
 
@@ -138,14 +138,17 @@ class CalendarioService(
     }
 
     fun deleteReserva(id: Long) {
+
         if (!reservaAtividadeRepository.existsById(id)) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Atividade não encontrada")
         }
+
         try {
             reservaAtividadeRepository.deleteById(id)
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao excluir Atividade: ${ex.message}")
         }
+
     }
 
     fun getDomingo(calendarioFiltroDTO: CalendarioFiltroDTO):Array<Calendario?>{

@@ -53,11 +53,10 @@ class CalendarioController(
 
     @DeleteMapping("/{id}")
     fun deleteReserva(@PathVariable id: Long): ResponseEntity<Void> {
-        return try {
-            calendarioService.deleteReserva(id)
-            ResponseEntity.status(200).build()
-        } catch (ex: ResponseStatusException) {
-            return ResponseEntity.status(404).build()
-        }
+
+        calendarioService.deleteReserva(id)
+
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).build()
+
     }
 }
