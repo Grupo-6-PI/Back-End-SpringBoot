@@ -32,6 +32,26 @@ class RequisicoesService (
 
     }
 
+    fun listarRequisicoesCanceladas():List<RequisicoesDoacaoResponseDTO>{
+
+        val listaRequisicoes = requisicaoRepository.findBySituacaoId(7).get()
+
+        super.validarLista(listaRequisicoes)
+
+        return transformarListaEmDto(listaRequisicoes)
+
+    }
+
+    fun listarRequisicoesCumpridas():List<RequisicoesDoacaoResponseDTO>{
+
+        val listaRequisicoes = requisicaoRepository.findBySituacaoId(6).get()
+
+        super.validarLista(listaRequisicoes)
+
+        return transformarListaEmDto(listaRequisicoes)
+
+    }
+
     fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>):List<RequisicoesDoacaoResponseDTO>{
 
         val listaDto:MutableList<RequisicoesDoacaoResponseDTO> = mutableListOf()
@@ -281,6 +301,16 @@ class RequisicoesService (
         val requisicaoSalva = requisicaoRepository.save(requisicaoMap)
 
         return requisicaoSalva
+
+    }
+
+    fun getRequisicao(id:Long):Requisicoes{
+
+        super.validarId(id,requisicaoRepository)
+
+        var requisicao = requisicaoRepository.findById(id)
+
+        return requisicao.get()
 
     }
 
