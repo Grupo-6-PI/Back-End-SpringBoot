@@ -67,32 +67,32 @@ class Usuario(
         nivelAcesso = paramNivelAcesso
     )
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
-    fun getNome():String{
-        return nome!!
+    fun getNome():String?{
+        return nome
     }
 
-    fun getEmail():String{
-        return email!!
+    fun getEmail():String?{
+        return email
     }
 
-    fun getSenha():String{
-        return senha!!
+    fun getSenha():String?{
+        return senha
     }
 
-    fun getInformacoesAdicionais():InformacoesAdicionais{
-        return informacoesAdicionais!!
+    fun getInformacoesAdicionais():InformacoesAdicionais?{
+        return informacoesAdicionais
     }
 
-    fun getSituacao():Situacao{
-        return situacao!!
+    fun getSituacao():Situacao?{
+        return situacao
     }
 
-    fun getNivelAcesso():NivelAcesso{
-        return nivelAcesso!!
+    fun getNivelAcesso():NivelAcesso?{
+        return nivelAcesso
     }
 
     fun setNome(new: String){

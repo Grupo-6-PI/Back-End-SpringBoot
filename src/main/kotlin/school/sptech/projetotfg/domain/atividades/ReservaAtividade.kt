@@ -20,48 +20,48 @@ class ReservaAtividade(
     @field:ManyToOne private var calendario:Calendario?
 ) {
 
-    fun getId(): Long {
-        return id!!
+    fun getId(): Long? {
+        return id
     }
 
     fun setId(new: Long) {
         this.id = new
     }
 
-    fun getAtividade(): Atividade {
-        return atividade!!
+    fun getAtividade(): Atividade? {
+        return atividade
     }
 
     fun setAtividade(new: Atividade) {
         this.atividade = new
     }
 
-    fun getDataCriacao(): LocalDateTime {
-        return dataCriacao!!
+    fun getDataCriacao(): LocalDateTime? {
+        return dataCriacao
     }
 
     fun setDataCriacao(new: LocalDateTime) {
         this.dataCriacao = new
     }
 
-    fun getDataUltimaAtualizacao(): LocalDateTime {
-        return dataUltimaAtualizacao!!
+    fun getDataUltimaAtualizacao(): LocalDateTime? {
+        return dataUltimaAtualizacao
     }
 
     fun setDataUltimaAtualizacao(new: LocalDateTime) {
         this.dataUltimaAtualizacao = new
     }
 
-    fun getEmailModificador(): String {
-        return emailModificador!!
+    fun getEmailModificador(): String? {
+        return emailModificador
     }
 
     fun setEmailModificador(new: String) {
         this.emailModificador = new
     }
 
-    fun getCalendario(): Calendario {
-        return calendario!!
+    fun getCalendario(): Calendario? {
+        return calendario
     }
 
     fun setCalendario(new: Calendario) {

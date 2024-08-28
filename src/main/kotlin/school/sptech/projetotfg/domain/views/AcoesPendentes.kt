@@ -14,40 +14,40 @@ class AcoesPendentes(
     private var ano:Int?,
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getNome():String{
-        return nome!!
+    fun getNome():String?{
+        return nome
     }
 
     fun setNome(new:String){
         this.nome = new
     }
 
-    fun getDiaNumeracao():Int{
-        return dia_numeracao!!
+    fun getDiaNumeracao():Int?{
+        return dia_numeracao
     }
 
     fun setDiaNumeracao(new:Int){
         this.dia_numeracao = new
     }
 
-    fun getMesNumeracao():Int{
-        return mes_numeracao!!
+    fun getMesNumeracao():Int?{
+        return mes_numeracao
     }
 
     fun setMesNumeracao(new:Int){
         this.mes_numeracao = new
     }
 
-    fun getano():Int{
-        return ano!!
+    fun getano():Int?{
+        return ano
     }
 
     fun setano(new:Int){

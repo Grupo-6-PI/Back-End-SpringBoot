@@ -9,6 +9,7 @@ import school.sptech.projetotfg.domain.atividades.Calendario
 import school.sptech.projetotfg.domain.atividades.ReservaAtividade
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
+import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.service.CalendarioService
 
@@ -38,7 +39,7 @@ class CalendarioController(
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(reserva)
     }
 
-    @PostMapping("/atualizacao")
+    @PutMapping("/atualizacao")
     fun updateReserva(
         @RequestBody atividadeDTO: ReservaAtividade
     ): ResponseEntity<ReservaAtividade> {

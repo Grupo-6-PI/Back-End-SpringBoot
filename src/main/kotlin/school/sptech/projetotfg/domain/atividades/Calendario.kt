@@ -18,48 +18,48 @@ class Calendario(
     @field:NotBlank private var diaNomeacao: String?
 ){
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getAno():Int{
-        return ano!!
+    fun getAno():Int?{
+        return ano
     }
 
     fun setAno(new: Int){
         this.ano = new
     }
 
-    fun getMesNumeracao():Int{
-        return mesNumeracao!!
+    fun getMesNumeracao():Int?{
+        return mesNumeracao
     }
 
     fun setMesNumeracao(new: Int){
         this.mesNumeracao = new
     }
 
-    fun getMesNomeacao():String{
-        return mesNomeacao!!
+    fun getMesNomeacao():String?{
+        return mesNomeacao
     }
 
     fun setMesNomeacao(new: String){
         this.mesNomeacao = new
     }
 
-    fun getDiaNumeracao():Int{
-        return diaNumeracao!!
+    fun getDiaNumeracao():Int?{
+        return diaNumeracao
     }
 
     fun setDiaNumeracao(new: Int){
         this.diaNumeracao = new
     }
 
-    fun getDiaNomeacao():String{
-        return diaNomeacao!!
+    fun getDiaNomeacao():String?{
+        return diaNomeacao
     }
 
     fun setDiaNomeacao(new: String){

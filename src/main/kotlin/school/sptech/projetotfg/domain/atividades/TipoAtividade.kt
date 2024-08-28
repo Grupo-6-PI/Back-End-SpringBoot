@@ -13,16 +13,16 @@ class TipoAtividade(
     @field:NotBlank @field:Max(100) private var tipo:String?
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
     fun setId(new:Long){
         this.id = new
     }
 
-    fun getTipo():String{
-        return tipo!!
+    fun getTipo():String?{
+        return tipo
     }
 
     fun setTipo(new:String){

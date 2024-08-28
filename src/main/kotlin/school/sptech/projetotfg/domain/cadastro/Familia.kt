@@ -21,56 +21,56 @@ class Familia(
     @OneToMany(mappedBy = "familia")
     var dependentes:MutableList<Dependente> = mutableListOf()
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getQuantidadePessoas(): QuantidadePessoas{
-        return quantidadePessoas!!
+    fun getQuantidadePessoas(): QuantidadePessoas?{
+        return quantidadePessoas
     }
 
     fun setQuantidadePessoas(new: QuantidadePessoas){
         this.quantidadePessoas = new
     }
 
-    fun getRendaFamiliar(): RendaFamiliar{
-        return rendaFamiliar!!
+    fun getRendaFamiliar(): RendaFamiliar?{
+        return rendaFamiliar
     }
 
     fun setRendaFamiliar(new: RendaFamiliar){
         this.rendaFamiliar = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
     fun setSituacao(new: Situacao){
         this.situacao = new
     }
 
-    fun getDataCriacao(): LocalDateTime{
-        return dataCriacao!!
+    fun getDataCriacao(): LocalDateTime?{
+        return dataCriacao
     }
 
     fun setDataCriacao(new: LocalDateTime){
         this.dataCriacao = new
     }
 
-    fun getDataUltimaAtualizacao(): LocalDateTime{
-        return dataUltimaAtualizacao!!
+    fun getDataUltimaAtualizacao(): LocalDateTime?{
+        return dataUltimaAtualizacao
     }
 
     fun setDataUltimaAtualizacao(new: LocalDateTime){
         this.dataUltimaAtualizacao = new
     }
 
-    fun getEmailModificador(): String{
-        return emailModificador!!
+    fun getEmailModificador(): String?{
+        return emailModificador
     }
 
     fun setEmailModificador(new:String){

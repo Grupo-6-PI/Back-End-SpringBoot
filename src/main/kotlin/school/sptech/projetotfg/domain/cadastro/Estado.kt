@@ -15,16 +15,16 @@ class Estado(
     @field:NotBlank @field:NotNull @field:Size(min = 2, max = 2) private var uf: String?
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
-    fun getNome():String{
-        return nome!!
+    fun getNome():String?{
+        return nome
     }
 
-    fun getUf():String{
-        return uf!!
+    fun getUf():String?{
+        return uf
     }
 
     fun setId(new: Long){

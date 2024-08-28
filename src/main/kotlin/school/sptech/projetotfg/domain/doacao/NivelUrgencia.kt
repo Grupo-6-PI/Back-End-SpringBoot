@@ -14,16 +14,16 @@ class NivelUrgencia (
     @field:NotBlank @field:Max(60) private var nivel:String?
 ){
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getNivel(): String{
-        return nivel!!
+    fun getNivel(): String?{
+        return nivel
     }
 
     fun setNivel(new: String){
