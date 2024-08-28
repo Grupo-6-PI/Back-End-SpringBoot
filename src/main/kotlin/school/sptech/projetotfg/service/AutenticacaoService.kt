@@ -36,7 +36,7 @@ class AutenticacaoService(
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
 
-        if (ultimoAcesso != null && ultimoAcesso.getSituacao()!!.getSituacao() == "Logado") {
+        if (ultimoAcesso != null && ultimoAcesso.getSituacao()?.getSituacao() == "Logado") {
             throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
         }
 
