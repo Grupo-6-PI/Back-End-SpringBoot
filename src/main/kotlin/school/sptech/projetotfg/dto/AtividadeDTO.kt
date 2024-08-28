@@ -10,4 +10,6 @@ data class AtividadeDTO(
     @field:NotBlank @field:Size(max = 150) val descricao: String,
     @field:NotNull val tipoAtividadeId: Long,
     @field:Email @field:Size(max = 150) val emailModificador: String
-)
+) {
+
+}
