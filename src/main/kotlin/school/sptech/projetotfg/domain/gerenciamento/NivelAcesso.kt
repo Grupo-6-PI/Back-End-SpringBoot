@@ -13,7 +13,7 @@ class NivelAcesso (
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -21,7 +21,7 @@ class NivelAcesso (
         return apelido
     }
 
-    fun setApelido(new: String){
+    fun setApelido(new: String?){
         this.apelido = new
     }
 

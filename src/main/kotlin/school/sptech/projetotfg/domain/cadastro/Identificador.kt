@@ -16,7 +16,7 @@ class Identificador (
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -24,7 +24,7 @@ class Identificador (
         return numeracao
     }
 
-    fun setNumeracao(new: String){
+    fun setNumeracao(new: String?){
         this.numeracao = new
     }
 
@@ -32,7 +32,7 @@ class Identificador (
         return tipoIdentificador
     }
 
-    fun setTipoIdentificador(new: TipoIdentificador){
+    fun setTipoIdentificador(new: TipoIdentificador?){
         this.tipoIdentificador = new
     }
 
@@ -40,7 +40,7 @@ class Identificador (
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

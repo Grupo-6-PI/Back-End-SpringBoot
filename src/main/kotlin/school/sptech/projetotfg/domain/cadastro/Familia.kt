@@ -25,7 +25,7 @@ class Familia(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -33,7 +33,7 @@ class Familia(
         return quantidadePessoas
     }
 
-    fun setQuantidadePessoas(new: QuantidadePessoas){
+    fun setQuantidadePessoas(new: QuantidadePessoas?){
         this.quantidadePessoas = new
     }
 
@@ -41,7 +41,7 @@ class Familia(
         return rendaFamiliar
     }
 
-    fun setRendaFamiliar(new: RendaFamiliar){
+    fun setRendaFamiliar(new: RendaFamiliar?){
         this.rendaFamiliar = new
     }
 
@@ -49,7 +49,7 @@ class Familia(
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
@@ -57,7 +57,7 @@ class Familia(
         return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime){
+    fun setDataCriacao(new: LocalDateTime?){
         this.dataCriacao = new
     }
 
@@ -65,7 +65,7 @@ class Familia(
         return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new: LocalDateTime){
+    fun setDataUltimaAtualizacao(new: LocalDateTime?){
         this.dataUltimaAtualizacao = new
     }
 
@@ -73,7 +73,7 @@ class Familia(
         return emailModificador
     }
 
-    fun setEmailModificador(new:String){
+    fun setEmailModificador(new:String?){
         this.emailModificador = new
     }
 

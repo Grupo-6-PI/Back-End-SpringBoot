@@ -13,7 +13,7 @@ class Permissao(
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -21,7 +21,7 @@ class Permissao(
         return permissao
     }
 
-    fun setPermissao(permissao: String){
+    fun setPermissao(permissao: String?){
         this.permissao = permissao
     }
 

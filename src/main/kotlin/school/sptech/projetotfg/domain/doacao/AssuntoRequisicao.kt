@@ -18,7 +18,7 @@ class AssuntoRequisicao(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -26,7 +26,7 @@ class AssuntoRequisicao(
         return assunto
     }
 
-    fun setAssunto(new: String){
+    fun setAssunto(new: String?){
         this.assunto = new
     }
 

@@ -19,7 +19,7 @@ class Endereco(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -27,7 +27,7 @@ class Endereco(
         return logradouro
     }
 
-    fun setLogradouro(new: String){
+    fun setLogradouro(new: String?){
         this.logradouro = new
     }
 
@@ -35,7 +35,7 @@ class Endereco(
         return numero
     }
 
-    fun setNumero(new: Int){
+    fun setNumero(new: Int?){
         this.numero = new
     }
 
@@ -43,7 +43,7 @@ class Endereco(
         return cep
     }
 
-    fun setCep(new: String){
+    fun setCep(new: String?){
         this.cep = new
     }
 
@@ -51,7 +51,7 @@ class Endereco(
         return bairro
     }
 
-    fun setBairro(new: Bairro){
+    fun setBairro(new: Bairro?){
         this.bairro = new
     }
 
@@ -59,7 +59,7 @@ class Endereco(
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

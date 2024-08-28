@@ -17,7 +17,7 @@ class FaixaEtaria(
         return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
@@ -25,7 +25,7 @@ class FaixaEtaria(
         return faixa
     }
 
-    fun setFaixa(new: String) {
+    fun setFaixa(new: String?) {
         this.faixa = new
     }
 

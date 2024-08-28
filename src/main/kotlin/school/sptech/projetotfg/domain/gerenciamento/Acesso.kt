@@ -28,7 +28,7 @@ class Acesso(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -36,7 +36,7 @@ class Acesso(
         return dataAcesso
     }
 
-    fun setDataAcesso(new: LocalDate){
+    fun setDataAcesso(new: LocalDate?){
         this.dataAcesso = new
     }
 
@@ -44,7 +44,7 @@ class Acesso(
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
@@ -52,7 +52,7 @@ class Acesso(
         return usuario
     }
 
-    fun setUsuario(new: Usuario){
+    fun setUsuario(new: Usuario?){
         this.usuario = new
     }
 

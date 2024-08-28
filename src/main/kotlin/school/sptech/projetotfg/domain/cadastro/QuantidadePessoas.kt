@@ -17,7 +17,7 @@ class QuantidadePessoas(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -25,7 +25,7 @@ class QuantidadePessoas(
         return minimo
     }
 
-    fun setMinimo(new: Int){
+    fun setMinimo(new: Int?){
         this.minimo = new
     }
 
@@ -33,7 +33,7 @@ class QuantidadePessoas(
         return maximo
     }
 
-    fun setMaximo(new: Int){
+    fun setMaximo(new: Int?){
         this.maximo = new
     }
 
@@ -41,7 +41,7 @@ class QuantidadePessoas(
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

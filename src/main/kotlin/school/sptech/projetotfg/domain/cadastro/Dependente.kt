@@ -27,7 +27,7 @@ class Dependente(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -35,15 +35,15 @@ class Dependente(
         return genero
     }
 
-    fun setGenero(newGenero: String){
-        this.genero = newGenero
+    fun setGenero(new: String?){
+        this.genero = new
     }
 
     fun getDataNascimento():LocalDate?{
         return dataNascimento
     }
 
-    fun setDataNascimento(new: LocalDate){
+    fun setDataNascimento(new: LocalDate?){
         this.dataNascimento = new
     }
 
@@ -51,7 +51,7 @@ class Dependente(
         return deficiente
     }
 
-    fun setDeficiente(new: Boolean){
+    fun setDeficiente(new: Boolean?){
         this.deficiente = new
     }
 
@@ -59,7 +59,7 @@ class Dependente(
         return tamanhoRoupa
     }
 
-    fun setTamanhoRoupa(new: TamanhoRoupa){
+    fun setTamanhoRoupa(new: TamanhoRoupa?){
         this.tamanhoRoupa = new
     }
 
@@ -67,7 +67,7 @@ class Dependente(
         return tamanhoCalcado
     }
 
-    fun setTamanhoCalcado(new: TamanhoCalcado){
+    fun setTamanhoCalcado(new: TamanhoCalcado?){
         this.tamanhoCalcado = new
     }
 
@@ -75,7 +75,7 @@ class Dependente(
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
@@ -83,7 +83,7 @@ class Dependente(
         return familia
     }
 
-    fun setFamilia(new: Familia){
+    fun setFamilia(new: Familia?){
         this.familia = new
     }
 

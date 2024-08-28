@@ -16,7 +16,7 @@ class TipoContato (
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -24,7 +24,7 @@ class TipoContato (
         return tipo
     }
 
-    fun setTipo(new: String){
+    fun setTipo(new: String?){
         this.tipo = new
     }
 
@@ -32,7 +32,7 @@ class TipoContato (
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

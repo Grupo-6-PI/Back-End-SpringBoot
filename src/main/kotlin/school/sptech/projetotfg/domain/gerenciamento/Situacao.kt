@@ -14,7 +14,7 @@ class Situacao(
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -22,7 +22,7 @@ class Situacao(
         return situacao
     }
 
-    fun setSituacao(new: String){
+    fun setSituacao(new: String?){
         this.situacao = new
     }
 
@@ -30,7 +30,7 @@ class Situacao(
         return tipoSituacao
     }
 
-    fun setTipoSituacao(new: TipoSituacao){
+    fun setTipoSituacao(new: TipoSituacao?){
         this.tipoSituacao = new
     }
 

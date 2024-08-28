@@ -27,7 +27,7 @@ class Contato(
         return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
@@ -35,7 +35,7 @@ class Contato(
         return informacoesContato
     }
 
-    fun setInformacoesContato(new: String) {
+    fun setInformacoesContato(new: String?) {
         this.informacoesContato = new
     }
 
@@ -43,7 +43,7 @@ class Contato(
         return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime) {
+    fun setDataCriacao(new: LocalDateTime?) {
         this.dataCriacao = new
     }
 
@@ -55,7 +55,7 @@ class Contato(
         return emailModificador
     }
 
-    fun setEmailModificador(new: String) {
+    fun setEmailModificador(new: String?) {
         this.emailModificador = new
     }
 
@@ -63,7 +63,7 @@ class Contato(
         return tipoContato
     }
 
-    fun setTipoContato(new:TipoContato){
+    fun setTipoContato(new:TipoContato?){
         this.tipoContato = new
     }
 
@@ -71,7 +71,7 @@ class Contato(
         return informacoesAdicionais
     }
 
-    fun setInformacoesAdicionais(new: InformacoesAdicionais) {
+    fun setInformacoesAdicionais(new: InformacoesAdicionais?) {
         this.informacoesAdicionais = new
     }
 

@@ -18,7 +18,7 @@ class AcoesPendentes(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -26,7 +26,7 @@ class AcoesPendentes(
         return nome
     }
 
-    fun setNome(new:String){
+    fun setNome(new:String?){
         this.nome = new
     }
 
@@ -34,7 +34,7 @@ class AcoesPendentes(
         return dia_numeracao
     }
 
-    fun setDiaNumeracao(new:Int){
+    fun setDiaNumeracao(new:Int?){
         this.dia_numeracao = new
     }
 
@@ -42,7 +42,7 @@ class AcoesPendentes(
         return mes_numeracao
     }
 
-    fun setMesNumeracao(new:Int){
+    fun setMesNumeracao(new:Int?){
         this.mes_numeracao = new
     }
 
@@ -50,7 +50,7 @@ class AcoesPendentes(
         return ano
     }
 
-    fun setano(new:Int){
+    fun setano(new:Int?){
         this.ano = new
     }
 
