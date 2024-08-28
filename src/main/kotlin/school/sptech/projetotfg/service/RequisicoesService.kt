@@ -20,11 +20,12 @@ class RequisicoesService (
 ):school.sptech.projetotfg.complement.Service(){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
 
-        val listaRequisicoes = requisicaoRepository.findAll()
+        val listaRequisicoes = requisicaoRepository.findBySituacaoId(5).get()
 
-        verficarLista(listaRequisicoes)
+        super.validarLista(listaRequisicoes)
 
         return transformarListaEmDto(listaRequisicoes)
+    
     }
 
     fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>):List<RequisicoesDoacaoResponseDTO>{
@@ -34,14 +35,6 @@ class RequisicoesService (
             mapper.map(listaRequisicoes, RequisicoesDoacaoResponseDTO::class.java)
         }
         return listaDto
-    }
-
-    fun verficarLista(listaRequisicoes:List<Requisicoes>):Boolean{
-
-        if(listaRequisicoes.isEmpty()){
-            throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        }
-        return true
     }
 
     @PersistenceContext
