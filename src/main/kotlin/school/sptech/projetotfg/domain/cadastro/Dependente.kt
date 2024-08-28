@@ -23,67 +23,67 @@ class Dependente(
     @field:ManyToOne private var familia: Familia?
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun getGenero():String{
-        return genero!!
+    fun getGenero():String?{
+        return genero
     }
 
-    fun setGenero(newGenero: String){
-        this.genero = newGenero
+    fun setGenero(new: String?){
+        this.genero = new
     }
 
-    fun getDataNascimento():LocalDate{
-        return dataNascimento!!
+    fun getDataNascimento():LocalDate?{
+        return dataNascimento
     }
 
-    fun setDataNascimento(new: LocalDate){
+    fun setDataNascimento(new: LocalDate?){
         this.dataNascimento = new
     }
 
-    fun getDeficiente():Boolean{
-        return deficiente!!
+    fun getDeficiente():Boolean?{
+        return deficiente
     }
 
-    fun setDeficiente(new: Boolean){
+    fun setDeficiente(new: Boolean?){
         this.deficiente = new
     }
 
-    fun getTamanhoRoupa():TamanhoRoupa{
-        return tamanhoRoupa!!
+    fun getTamanhoRoupa():TamanhoRoupa?{
+        return tamanhoRoupa
     }
 
-    fun setTamanhoRoupa(new: TamanhoRoupa){
+    fun setTamanhoRoupa(new: TamanhoRoupa?){
         this.tamanhoRoupa = new
     }
 
-    fun getTamanhoCalcado():TamanhoCalcado{
-        return tamanhoCalcado!!
+    fun getTamanhoCalcado():TamanhoCalcado?{
+        return tamanhoCalcado
     }
 
-    fun setTamanhoCalcado(new: TamanhoCalcado){
+    fun setTamanhoCalcado(new: TamanhoCalcado?){
         this.tamanhoCalcado = new
     }
 
-    fun getSituacao():Situacao{
-        return situacao!!
+    fun getSituacao():Situacao?{
+        return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
-    fun getFamilia():Familia{
-        return familia!!
+    fun getFamilia():Familia?{
+        return familia
     }
 
-    fun setFamilia(new: Familia){
+    fun setFamilia(new: Familia?){
         this.familia = new
     }
 

@@ -9,19 +9,19 @@ class Permissao(
     @field:Max(30) private var permissao:String?
 ){
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
-    fun getPermissao():String{
-        return permissao!!
+    fun getPermissao():String?{
+        return permissao
     }
 
-    fun setPermissao(permissao: String){
+    fun setPermissao(permissao: String?){
         this.permissao = permissao
     }
 

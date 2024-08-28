@@ -20,67 +20,67 @@ class DisponibilidadeVoluntario(
     @field:ManyToOne private var calendario:Calendario?
 ){
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun getRequisicoes():Requisicoes{
-        return requisicoes!!
+    fun getRequisicoes():Requisicoes?{
+        return requisicoes
     }
 
-    fun setRequisicoes(new: Requisicoes){
+    fun setRequisicoes(new: Requisicoes?){
         this.requisicoes = new
     }
 
-    fun getDataCriacao():LocalDateTime{
-        return dataCriacao!!
+    fun getDataCriacao():LocalDateTime?{
+        return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime){
+    fun setDataCriacao(new: LocalDateTime?){
         this.dataCriacao = new
     }
 
-    fun getDataUltimaAtualizacao():LocalDateTime{
-        return dataUltimaAtualizacao!!
+    fun getDataUltimaAtualizacao():LocalDateTime?{
+        return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new: LocalDateTime){
+    fun setDataUltimaAtualizacao(new: LocalDateTime?){
         this.dataUltimaAtualizacao = new
     }
 
-    fun getEmailModificador():String{
-        return emailModificador!!
+    fun getEmailModificador():String?{
+        return emailModificador
     }
 
-    fun setEmailModificador(new:String){
+    fun setEmailModificador(new:String?){
         this.emailModificador = new
     }
 
-    fun getHoraComeco():LocalDateTime{
-        return horaComeco!!
+    fun getHoraComeco():LocalDateTime?{
+        return horaComeco
     }
 
-    fun setHoraComeco(new: LocalDateTime){
+    fun setHoraComeco(new: LocalDateTime?){
         this.horaComeco = new
     }
 
-    fun getHoraFinal():LocalDateTime{
-        return horaFinal!!
+    fun getHoraFinal():LocalDateTime?{
+        return horaFinal
     }
 
-    fun setHoraFinal(new: LocalDateTime){
+    fun setHoraFinal(new: LocalDateTime?){
         this.horaFinal = new
     }
 
-    fun getCalendario():Calendario{
-        return calendario!!
+    fun getCalendario():Calendario?{
+        return calendario
     }
 
-    fun setCalendario(new: Calendario){
+    fun setCalendario(new: Calendario?){
         this.calendario = new
     }
 

@@ -12,27 +12,27 @@ class TipoContato (
     @field:ManyToOne private var situacao: Situacao?
 ){
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
-    fun getTipo(): String{
-        return tipo!!
+    fun getTipo(): String?{
+        return tipo
     }
 
-    fun setTipo(new: String){
+    fun setTipo(new: String?){
         this.tipo = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

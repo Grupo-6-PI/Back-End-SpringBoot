@@ -10,27 +10,27 @@ class TamanhoRoupa(
     @ManyToOne private var faixaEtaria: FaixaEtaria?
 ) {
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun getTamanho(): String{
-        return tamanho!!
+    fun getTamanho(): String?{
+        return tamanho
     }
 
-    fun setTamanho(tamanho: String){
+    fun setTamanho(tamanho: String?){
         this.tamanho = tamanho
     }
 
-    fun getFaixaEtaria(): FaixaEtaria{
-        return faixaEtaria!!
+    fun getFaixaEtaria(): FaixaEtaria?{
+        return faixaEtaria
     }
 
-    fun setFaixaEtaria(new: FaixaEtaria){
+    fun setFaixaEtaria(new: FaixaEtaria?){
         this.faixaEtaria = new
     }
 

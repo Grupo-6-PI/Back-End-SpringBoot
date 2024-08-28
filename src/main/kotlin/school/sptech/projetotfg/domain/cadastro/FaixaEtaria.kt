@@ -13,19 +13,19 @@ class FaixaEtaria(
     @field:NotBlank @field:Max(150) private var faixa:String?
 ) {
 
-    fun getId(): Long {
-        return id!!
+    fun getId(): Long ?{
+        return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
-    fun getFaixa(): String {
-        return faixa!!
+    fun getFaixa(): String ?{
+        return faixa
     }
 
-    fun setFaixa(new: String) {
+    fun setFaixa(new: String?) {
         this.faixa = new
     }
 

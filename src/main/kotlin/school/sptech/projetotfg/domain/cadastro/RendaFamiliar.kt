@@ -11,27 +11,27 @@ class RendaFamiliar(
     @field:ManyToOne private var situacao: Situacao?
 ) {
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun getRenda(): Double{
-        return renda!!
+    fun getRenda(): Double?{
+        return renda
     }
 
-    fun setRenda(new: Double){
+    fun setRenda(new: Double?){
         this.renda = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 

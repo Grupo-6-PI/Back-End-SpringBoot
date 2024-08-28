@@ -10,27 +10,27 @@ class GrupoPermissao (
     @field:ManyToOne private var nivelAcesso: NivelAcesso?
 ){
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
-    fun getPermissao():Permissao{
-        return permissao!!
+    fun getPermissao():Permissao?{
+        return permissao
     }
 
-    fun setPermissao(new: Permissao){
+    fun setPermissao(new: Permissao?){
         this.permissao = new
     }
 
-    fun getNivelAcesso():NivelAcesso{
-        return nivelAcesso!!
+    fun getNivelAcesso():NivelAcesso?{
+        return nivelAcesso
     }
 
-    fun setNivelAcesso(new:NivelAcesso){
+    fun setNivelAcesso(new:NivelAcesso?){
         this.nivelAcesso = new
     }
 

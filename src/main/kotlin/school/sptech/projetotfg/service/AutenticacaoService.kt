@@ -35,8 +35,13 @@ class AutenticacaoService(
         }
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
+<<<<<<< HEAD
         if (ultimoAcesso != null && ultimoAcesso.getSituacao().getSituacao() == "Logado") {
             throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
+=======
+        if (ultimoAcesso != null && ultimoAcesso.getSituacao()!!.getSituacao() == "Logado") {
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário já está logado")
+>>>>>>> e8d78908724aab207d727be32f9a459f16e4f627
         }
 
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
@@ -50,7 +55,7 @@ class AutenticacaoService(
 
         acessoRepository.save(acesso)
 
-        return UsuarioResponseDTO(usuario.getId(), usuario.getNome(), usuario.getEmail())
+        return UsuarioResponseDTO(usuario.getId()!!, usuario.getNome()!!, usuario.getEmail()!!)
     }
 
     fun logoff(usuarioId: Long) {
@@ -60,7 +65,7 @@ class AutenticacaoService(
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
             ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Nenhum acesso encontrado para o usuário")
 
-        if (ultimoAcesso.getSituacao().getSituacao() != "Logado") {
+        if (ultimoAcesso.getSituacao()!!.getSituacao() != "Logado") {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não está logado")
         }
 

@@ -9,27 +9,27 @@ class Cidade(
     @ManyToOne private var estado: Estado?
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun getNome():String{
-        return nome!!
+    fun getNome():String?{
+        return nome
     }
 
-    fun setNome(new:String){
+    fun setNome(new:String?){
         this.nome = new
     }
 
-    fun getEstado(): Estado{
-        return estado!!
+    fun getEstado(): Estado?{
+        return estado
     }
 
-    fun setEstado(new: Estado){
+    fun setEstado(new: Estado?){
         this.estado = new
     }
 

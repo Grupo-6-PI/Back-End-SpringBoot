@@ -1,12 +1,13 @@
 package school.sptech.projetotfg.complement
 
+import org.modelmapper.ModelMapper
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.http.HttpStatusCode
 import org.springframework.web.server.ResponseStatusException
 
-open class Service: IValidacao {
+abstract class Service{
 
-    override fun validarLista(lista: MutableList<*>) {
+    fun validarLista(lista: MutableList<*>) {
 
         if (lista.isEmpty()){
 
@@ -16,7 +17,7 @@ open class Service: IValidacao {
 
     }
 
-    override fun validarId(id: Long, repository: JpaRepository<*,Long>) {
+    fun validarId(id: Long, repository: JpaRepository<*,Long>) {
 
         if(!repository.existsById(id)){
             throw ResponseStatusException(HttpStatusCode.valueOf(404))
