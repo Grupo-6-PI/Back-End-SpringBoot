@@ -30,7 +30,7 @@ class CalendarioService(
 
         val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
-        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana!!)!!
+        var dia:Calendario? = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana)
 
         // Criar Atividade
         val atividade = Atividade(
@@ -117,7 +117,7 @@ class CalendarioService(
 
         var resposta = reservaAtividadeRepository.findById(id).get()
 
-        return resposta!!
+        return resposta
 
     }
 
@@ -127,9 +127,6 @@ class CalendarioService(
 
         super.validarId(atividadeDTO.getId()!!,reservaAtividadeRepository)
         var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()!!).get()
-
-        reserva.getAtividade().setNome(atividadeDTO.getAtividade().getNome())
-        reserva.getAtividade().setTipoAtividade(atividadeDTO.getAtividade().getTipoAtividade())
 
         reserva = atividadeDTO
 
