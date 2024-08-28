@@ -7,6 +7,7 @@ import school.sptech.projetotfg.domain.atividades.TipoAtividade
 import school.sptech.projetotfg.dto.AtividadeResponseDTO
 import school.sptech.projetotfg.repository.AtividadeRepository
 import school.sptech.projetotfg.repository.TipoAtividadeRepository
+import java.time.LocalDate
 
 @Service
 class AtividadeService(
@@ -25,13 +26,19 @@ class AtividadeService(
 
     }
 
-    fun atividadePorId(id:Int):AtividadeResponseDTO{
+    fun atividadePorId(id:Long):AtividadeResponseDTO{
 
-        val atividade = atividadeRepository.findById(id.toLong()).get()
+        val atividade = atividadeRepository.findById(id).get()
 
         super.validarId(atividade.getId()!!,atividadeRepository)
 
-        val atividadeDto:AtividadeResponseDTO = mapper.map(atividade, AtividadeResponseDTO::class.java)
+        val atividadeDto = AtividadeResponseDTO(
+            id = atividade.getId(),
+            nome = atividade.getNome(),
+            tipo = atividade.getTipoAtividade()?.getTipo(),
+            comeco = atividade.getHoraComeco(),
+            descricao = atividade.getDescricao()
+        )
 
         return atividadeDto
 
