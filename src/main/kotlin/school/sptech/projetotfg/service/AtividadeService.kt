@@ -29,7 +29,7 @@ class AtividadeService(
 
         val atividade = atividadeRepository.findById(id.toLong()).get()
 
-        super.validarId(atividade.getId(),atividadeRepository)
+        super.validarId(atividade.getId()!!,atividadeRepository)
 
         val atividadeDto:AtividadeResponseDTO = mapper.map(atividade, AtividadeResponseDTO::class.java)
 

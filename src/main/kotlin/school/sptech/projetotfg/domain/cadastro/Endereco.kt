@@ -15,48 +15,48 @@ class Endereco(
     @field:ManyToOne private var situacao: Situacao?
 ){
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getLogradouro(): String{
-        return logradouro!!
+    fun getLogradouro(): String?{
+        return logradouro
     }
 
     fun setLogradouro(new: String){
         this.logradouro = new
     }
 
-    fun getNumero(): Int{
-        return numero!!
+    fun getNumero(): Int?{
+        return numero
     }
 
     fun setNumero(new: Int){
         this.numero = new
     }
 
-    fun getCep(): String{
-        return cep!!
+    fun getCep(): String?{
+        return cep
     }
 
     fun setCep(new: String){
         this.cep = new
     }
 
-    fun getBairro(): Bairro{
-        return bairro!!
+    fun getBairro(): Bairro?{
+        return bairro
     }
 
     fun setBairro(new: Bairro){
         this.bairro = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
     fun setSituacao(new: Situacao){

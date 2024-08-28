@@ -13,32 +13,32 @@ class login(
     private var senha:String? = null,
 ) {
 
-    fun getId(): Long {
-        return id!!
+    fun getId(): Long? {
+        return id
     }
 
     fun setId(new: Long) {
         this.id = new
     }
 
-    fun getNome(): String {
-        return nome!!
+    fun getNome(): String? {
+        return nome
     }
 
     fun setNome(new: String) {
         this.nome = new
     }
 
-    fun getEmail(): String {
-        return email!!
+    fun getEmail(): String? {
+        return email
     }
 
     fun setEmail(new: String) {
         this.email = new
     }
 
-    fun getSenha(): String {
-        return senha!!
+    fun getSenha(): String? {
+        return senha
     }
 
     fun setSenha(new: String) {

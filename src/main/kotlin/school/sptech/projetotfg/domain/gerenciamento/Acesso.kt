@@ -24,32 +24,32 @@ class Acesso(
         usuario = paramusuario
     )
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getDataAcesso(): LocalDate{
-        return dataAcesso!!
+    fun getDataAcesso(): LocalDate?{
+        return dataAcesso
     }
 
     fun setDataAcesso(new: LocalDate){
         this.dataAcesso = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
     fun setSituacao(new: Situacao){
         this.situacao = new
     }
 
-    fun getUsuario(): Usuario{
-        return usuario!!
+    fun getUsuario(): Usuario?{
+        return usuario
     }
 
     fun setUsuario(new: Usuario){

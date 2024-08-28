@@ -1,5 +1,6 @@
 package school.sptech.projetotfg.complement
 
+import org.modelmapper.ModelMapper
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.http.HttpStatusCode
 import org.springframework.web.server.ResponseStatusException

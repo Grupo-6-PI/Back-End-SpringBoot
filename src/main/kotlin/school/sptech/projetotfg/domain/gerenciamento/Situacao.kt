@@ -10,24 +10,24 @@ class Situacao(
     @ManyToOne private var tipoSituacao: TipoSituacao?
 ){
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
     fun setId(new:Long){
         this.id = new
     }
 
-    fun getSituacao():String{
-        return situacao!!
+    fun getSituacao():String?{
+        return situacao
     }
 
     fun setSituacao(new: String){
         this.situacao = new
     }
 
-    fun getTipoSituacao(): TipoSituacao {
-        return tipoSituacao!!
+    fun getTipoSituacao(): TipoSituacao? {
+        return tipoSituacao
     }
 
     fun setTipoSituacao(new: TipoSituacao){

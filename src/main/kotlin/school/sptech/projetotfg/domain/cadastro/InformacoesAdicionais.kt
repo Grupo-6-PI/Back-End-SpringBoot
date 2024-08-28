@@ -27,80 +27,80 @@ class InformacoesAdicionais (
     @field:OneToMany(mappedBy = "informacoesAdicionais")
     var contatos:MutableList<Contato> = mutableListOf()
 
-    fun getId(): Long{
-        return id!!
+    fun getId(): Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getCpf(): String{
-        return cpf!!
+    fun getCpf(): String?{
+        return cpf
     }
 
     fun setCpf(new: String){
         this.cpf = new
     }
 
-    fun getDataNascimento(): LocalDate{
-        return dataNascimento!!
+    fun getDataNascimento(): LocalDate?{
+        return dataNascimento
     }
 
     fun setDataNascimento(new: LocalDate){
         this.dataNascimento = new
     }
 
-    fun getEndereco(): Endereco{
-        return endereco!!
+    fun getEndereco(): Endereco?{
+        return endereco
     }
 
     fun setEndereco(new: Endereco){
         this.endereco = new
     }
 
-    fun getFamilia(): Familia{
-        return familia!!
+    fun getFamilia(): Familia?{
+        return familia
     }
 
     fun setFamilia(new: Familia){
         this.familia = new
     }
 
-    fun getIdentificador(): Identificador{
-        return identificador!!
+    fun getIdentificador(): Identificador?{
+        return identificador
     }
 
     fun setIdentificador(new: Identificador){
         this.identificador = new
     }
 
-    fun getSituacao(): Situacao{
-        return situacao!!
+    fun getSituacao(): Situacao?{
+        return situacao
     }
 
     fun setSituacao(new: Situacao){
         this.situacao = new
     }
 
-    fun getDataCriacao(): LocalDateTime{
-        return dataCriacao!!
+    fun getDataCriacao(): LocalDateTime?{
+        return dataCriacao
     }
 
     fun setDataCriacao(new: LocalDateTime){
         this.dataCriacao = new
     }
 
-    fun getDataUltimaAtualizacao(): LocalDateTime{
-        return dataUltimaAtualizacao!!
+    fun getDataUltimaAtualizacao(): LocalDateTime?{
+        return dataUltimaAtualizacao
     }
 
     fun setDataUltimaAtualizacao(new: LocalDateTime){
         this.dataUltimaAtualizacao = new
     }
 
-    fun getEmailModificador(): String{
-        return emailModificador!!
+    fun getEmailModificador(): String?{
+        return emailModificador
     }
 
     fun setEmailModificador(new: String){

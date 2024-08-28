@@ -14,16 +14,16 @@ class AssuntoRequisicao(
     @field:NotBlank @field:Max(150) private var assunto:String?
 ) {
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
     }
 
     fun setId(new: Long){
         this.id = new
     }
 
-    fun getAssunto():String{
-        return assunto!!
+    fun getAssunto():String?{
+        return assunto
     }
 
     fun setAssunto(new: String){

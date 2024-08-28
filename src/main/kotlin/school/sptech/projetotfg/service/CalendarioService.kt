@@ -1,24 +1,24 @@
 package school.sptech.projetotfg.service
 
+import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
+import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
-import java.util.Objects
-import kotlin.contracts.contract
 
 @Service
 class CalendarioService(
     private val atividadeRepository: AtividadeRepository,
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository,
-    private val calendarioRepository: CalendarioRepository // Novo repositório para Calendario
+    private val calendarioRepository: CalendarioRepository, // Novo repositório para Calendario
+    private val modelMapper: ModelMapper
 ):school.sptech.projetotfg.complement.Service() {
 
     fun createAtividade(
@@ -61,15 +61,15 @@ class CalendarioService(
 
     fun getAllReserva(calendarioFiltro:CalendarioFiltroDTO):ReservaAtividadeResponseDTO{
 
-        var dto = ReservaAtividadeResponseDTO()
+        val dto = ReservaAtividadeResponseDTO()
 
-        var semana = getDomingo(calendarioFiltro)
+        val semana = getDomingo(calendarioFiltro)
 
         val reservaAtividade:MutableList<ReservaAtividade> = mutableListOf()
 
         for (dia in semana){
 
-            reservaAtividadeRepository.findAllByCalendarioId(dia!!.getId()).forEach {
+            reservaAtividadeRepository.findAllByCalendarioId(dia!!.getId()!!).forEach {
                 reservaAtividade.add(it)
             }
 
@@ -111,13 +111,13 @@ class CalendarioService(
 
     }
 
-    fun getReservaById(id: Long): ReservaAtividade?{
+    fun getReservaById(id: Long): ReservaAtividade{
 
         super.validarId(id,reservaAtividadeRepository)
 
         var resposta = reservaAtividadeRepository.findByAtividadeId(id)
 
-        return resposta
+        return resposta!!
 
     }
 
@@ -125,19 +125,19 @@ class CalendarioService(
         atividadeDTO: ReservaAtividade
     ): ReservaAtividade? {
 
-        var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()).get()
+        var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()!!).get()
 
-        reserva.getAtividade().setNome(atividadeDTO.getAtividade().getNome())
-        reserva.getAtividade().setTipoAtividade(atividadeDTO.getAtividade().getTipoAtividade())
+        reserva.getAtividade()!!.setNome(atividadeDTO.getAtividade()!!.getNome()!!)
+        reserva.getAtividade()!!.setTipoAtividade(atividadeDTO.getAtividade()!!.getTipoAtividade()!!)
 
-        reserva.getAtividade().setDescricao(atividadeDTO.getAtividade().getDescricao())
+        reserva.getAtividade()!!.setDescricao(atividadeDTO.getAtividade()!!.getDescricao()!!)
 
-        reserva.getCalendario().setAno(atividadeDTO.getCalendario().getAno())
-        reserva.getCalendario().setMesNumeracao(atividadeDTO.getCalendario().getMesNumeracao())
-        reserva.getCalendario().setDiaNumeracao(atividadeDTO.getCalendario().getDiaNumeracao())
+        reserva.getCalendario()!!.setAno(atividadeDTO.getCalendario()!!.getAno()!!)
+        reserva.getCalendario()!!.setMesNumeracao(atividadeDTO.getCalendario()!!.getMesNumeracao()!!)
+        reserva.getCalendario()!!.setDiaNumeracao(atividadeDTO.getCalendario()!!.getDiaNumeracao()!!)
 
-        reserva.getAtividade().setHoraComeco(atividadeDTO.getAtividade().getHoraComeco())
-        reserva.getAtividade().setHoraFinal(atividadeDTO.getAtividade().getHoraFinal())
+        reserva.getAtividade()!!.setHoraComeco(atividadeDTO.getAtividade()!!.getHoraComeco()!!)
+        reserva.getAtividade()!!.setHoraFinal(atividadeDTO.getAtividade()!!.getHoraFinal()!!)
 
         return reservaAtividadeRepository.save(reserva)
     }
@@ -167,7 +167,7 @@ class CalendarioService(
 
             if (dia.getDiaNomeacao().equals("Domingo")){
 
-                idDomingo = dia.getId()
+                idDomingo = dia.getId()!!
 
                 break
 

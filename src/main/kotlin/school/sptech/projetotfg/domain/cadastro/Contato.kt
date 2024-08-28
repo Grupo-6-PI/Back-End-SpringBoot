@@ -19,47 +19,47 @@ class Contato(
     @field:PastOrPresent private var dataCriacao:LocalDateTime?,
     @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador:String?,
-    @ManyToOne @field: NotNull @field:NotBlank private var tipoContato:TipoContato,
-    @ManyToOne @field: NotNull @field:NotBlank private var informacoesAdicionais: InformacoesAdicionais
+    @ManyToOne @field: NotNull @field:NotBlank private var tipoContato:TipoContato?,
+    @ManyToOne @field: NotNull @field:NotBlank private var informacoesAdicionais: InformacoesAdicionais?
 ) {
 
-    fun getId(): Long {
-        return id!!
+    fun getId(): Long? {
+        return id
     }
 
     fun setId(new: Long) {
         this.id = new
     }
 
-    fun getInformacoesContato(): String {
-        return informacoesContato!!
+    fun getInformacoesContato(): String? {
+        return informacoesContato
     }
 
     fun setInformacoesContato(new: String) {
         this.informacoesContato = new
     }
 
-    fun getDataCriacao(): LocalDateTime {
-        return dataCriacao!!
+    fun getDataCriacao(): LocalDateTime? {
+        return dataCriacao
     }
 
     fun setDataCriacao(new: LocalDateTime) {
         this.dataCriacao = new
     }
 
-    fun getDataUltimaAtualizacao(): LocalDateTime {
-        return dataUltimaAtualizacao!!
+    fun getDataUltimaAtualizacao(): LocalDateTime? {
+        return dataUltimaAtualizacao
     }
 
-    fun getEmailModificador(): String {
-        return emailModificador!!
+    fun getEmailModificador(): String? {
+        return emailModificador
     }
 
     fun setEmailModificador(new: String) {
         this.emailModificador = new
     }
 
-    fun getTipoContato(): TipoContato {
+    fun getTipoContato(): TipoContato? {
         return tipoContato
     }
 
@@ -67,7 +67,7 @@ class Contato(
         this.tipoContato = new
     }
 
-    fun getInformacoesAdicionais(): InformacoesAdicionais {
+    fun getInformacoesAdicionais(): InformacoesAdicionais? {
         return informacoesAdicionais
     }
 
