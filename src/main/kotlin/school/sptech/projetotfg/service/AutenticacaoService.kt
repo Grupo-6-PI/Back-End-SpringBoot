@@ -25,7 +25,7 @@ class AutenticacaoService(
         val autenticacao = usuarioRepository.existsByEmail(request.email)
 
         if (autenticacao != true){
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário inexistente, por favor realize o cadastro antes do login")
+            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário inexistente, por favor realize o cadastro antes do login")
         }
 
         val usuario = usuarioRepository.buscarEmail(request.email)
@@ -56,17 +56,17 @@ class AutenticacaoService(
 
     fun logoff(usuarioId: Long) {
         val usuario = usuarioRepository.findById(usuarioId)
-            .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") }
+            .orElseThrow { ResponseStatusException(HttpStatusCode.valueOf(404), "Usuário não encontrado") }
 
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Nenhum acesso encontrado para o usuário")
+            ?: throw ResponseStatusException(HttpStatusCode.valueOf(400), "Nenhum acesso encontrado para o usuário")
 
         if (ultimoAcesso.getSituacao()!!.getSituacao() != "Logado") {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não está logado")
+            throw ResponseStatusException(HttpStatusCode.valueOf(400), "Usuário não está logado")
         }
 
         val situacaoDeslogado = situacaoRepository.findBySituacao("Deslogado")
-            ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Situação 'Deslogado' não encontrada")
+            ?: throw ResponseStatusException(HttpStatusCode.valueOf(500), "Situação 'Deslogado' não encontrada")
 
         val novoAcesso = Acesso(
             dataAcesso = LocalDate.now(),
