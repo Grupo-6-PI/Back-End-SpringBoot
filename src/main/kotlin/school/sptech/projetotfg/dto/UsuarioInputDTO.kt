@@ -4,4 +4,6 @@ data class UsuarioInputDTO(
     val nome: String,
     val email: String,
     val senha: String
-)
+) {
+
+}

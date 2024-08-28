@@ -22,13 +22,10 @@ class UsuarioService(
         }
 
         val usuario = Usuario(
-            id = null,
-            nome = usuarioInputDTO.nome,
-            email = usuarioInputDTO.email,
-            senha = usuarioInputDTO.senha,
-            informacoesAdicionais = null,
-            situacao = null,
-            nivelAcesso = null
+            1,
+            usuarioInputDTO.nome,
+            usuarioInputDTO.email,
+            usuarioInputDTO.senha
         )
 
         return try {
@@ -109,7 +106,7 @@ class UsuarioService(
         }
 
         val usuario = Usuario(
-            id = null,
+            id = 1,
             nome = usuarioCompletoInputDTO.nome,
             email = usuarioCompletoInputDTO.email,
             senha = usuarioCompletoInputDTO.senha,

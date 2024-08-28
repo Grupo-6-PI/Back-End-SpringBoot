@@ -63,7 +63,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -101,9 +101,9 @@ class CalendarioServiceTest {
         val result = calendarioService.createAtividade(atividadeDTO, calendarioFiltroDTO)
 
         assertNotNull(result)
-        assertEquals(reservaAtividade.id, result.id)
-        assertEquals(reservaAtividade.atividade?.id , result.atividade?.id)
-        assertEquals(reservaAtividade.calendario?.getId(), result.calendario?.getId())
+        assertEquals(reservaAtividade.getId(), result.getId())
+        assertEquals(reservaAtividade.getAtividade() , result.getAtividade())
+        assertEquals(reservaAtividade.getCalendario(), result.getCalendario())
     }
 
     @Test
@@ -182,7 +182,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -222,7 +222,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -238,12 +238,12 @@ class CalendarioServiceTest {
             emailModificador = "teste@example.com"
         )
 
-        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.id!!)).thenReturn(Optional.of(reservaAtividade))
+        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.getId())).thenReturn(Optional.of(reservaAtividade))
 
-        val result = calendarioService.getReservaById(reservaAtividade.id!!)
+        val result = calendarioService.getReservaById(reservaAtividade.getId())
 
         assertNotNull(result)
-        assertEquals(reservaAtividade.id, result?.id)
+        assertEquals(reservaAtividade.getId(), result?.getId())
     }
 
     @Test
@@ -285,7 +285,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -301,7 +301,7 @@ class CalendarioServiceTest {
             emailModificador = "teste@example.com"
         )
 
-        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.id!!)).thenReturn(Optional.of(reservaAtividade))
+        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.getId())).thenReturn(Optional.of(reservaAtividade))
         Mockito.`when`(tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)).thenReturn(Optional.of(tipoAtividade))
         Mockito.`when`(atividadeRepository.save(Mockito.any(Atividade::class.java))).thenReturn(atividade)
         Mockito.`when`(reservaAtividadeRepository.save(Mockito.any(ReservaAtividade::class.java))).thenReturn(reservaAtividade)
@@ -309,8 +309,8 @@ class CalendarioServiceTest {
         val result = calendarioService.updateReserva(reservaAtividade)
 
         assertNotNull(result)
-        assertEquals(atividadeDTO.nome, result?.atividade?.nome)
-        assertEquals(atividadeDTO.descricao, result?.atividade?.descricao)
+        assertEquals(atividadeDTO.nome, result?.getAtividade()?.getNome())
+        assertEquals(atividadeDTO.descricao, result?.getAtividade()?.getDescricao())
     }
 
     @Test
@@ -338,7 +338,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -354,7 +354,7 @@ class CalendarioServiceTest {
             emailModificador = "teste@example.com"
         )
 
-        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.id!!)).thenReturn(Optional.of(reservaAtividade))
+        Mockito.`when`(reservaAtividadeRepository.findById(reservaAtividade.getId())).thenReturn(Optional.of(reservaAtividade))
         Mockito.`when`(tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)).thenReturn(Optional.empty())
 
         val exception = assertThrows<IllegalArgumentException> {
@@ -380,7 +380,7 @@ class CalendarioServiceTest {
 
         val calendario = Calendario(
             id = 1L,
-            ano = 2024L,
+            ano = 2024,
             mesNumeracao = 6,
             mesNomeacao = "JUNE",
             diaNumeracao = 15,
@@ -396,10 +396,10 @@ class CalendarioServiceTest {
             emailModificador = "teste@example.com"
         )
 
-        Mockito.`when`(reservaAtividadeRepository.existsById(reservaAtividade.id!!)).thenReturn(true)
-        Mockito.doNothing().`when`(reservaAtividadeRepository).deleteById(reservaAtividade.id!!)
+        Mockito.`when`(reservaAtividadeRepository.existsById(reservaAtividade.getId())).thenReturn(true)
+        Mockito.doNothing().`when`(reservaAtividadeRepository).deleteById(reservaAtividade.getId())
 
-        assertDoesNotThrow { calendarioService.deleteReserva(reservaAtividade.id!!) }
+        assertDoesNotThrow { calendarioService.deleteReserva(reservaAtividade.getId()) }
     }
 
     @Test
