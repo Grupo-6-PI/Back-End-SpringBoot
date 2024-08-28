@@ -31,7 +31,7 @@ class InformacoesAdicionais (
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -39,7 +39,7 @@ class InformacoesAdicionais (
         return cpf
     }
 
-    fun setCpf(new: String){
+    fun setCpf(new: String?){
         this.cpf = new
     }
 
@@ -47,7 +47,7 @@ class InformacoesAdicionais (
         return dataNascimento
     }
 
-    fun setDataNascimento(new: LocalDate){
+    fun setDataNascimento(new: LocalDate?){
         this.dataNascimento = new
     }
 
@@ -55,7 +55,7 @@ class InformacoesAdicionais (
         return endereco
     }
 
-    fun setEndereco(new: Endereco){
+    fun setEndereco(new: Endereco?){
         this.endereco = new
     }
 
@@ -63,7 +63,7 @@ class InformacoesAdicionais (
         return familia
     }
 
-    fun setFamilia(new: Familia){
+    fun setFamilia(new: Familia?){
         this.familia = new
     }
 
@@ -71,7 +71,7 @@ class InformacoesAdicionais (
         return identificador
     }
 
-    fun setIdentificador(new: Identificador){
+    fun setIdentificador(new: Identificador?){
         this.identificador = new
     }
 
@@ -79,7 +79,7 @@ class InformacoesAdicionais (
         return situacao
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
@@ -87,7 +87,7 @@ class InformacoesAdicionais (
         return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime){
+    fun setDataCriacao(new: LocalDateTime?){
         this.dataCriacao = new
     }
 
@@ -95,7 +95,7 @@ class InformacoesAdicionais (
         return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new: LocalDateTime){
+    fun setDataUltimaAtualizacao(new: LocalDateTime?){
         this.dataUltimaAtualizacao = new
     }
 
@@ -103,7 +103,7 @@ class InformacoesAdicionais (
         return emailModificador
     }
 
-    fun setEmailModificador(new: String){
+    fun setEmailModificador(new: String?){
         this.emailModificador = new
     }
 

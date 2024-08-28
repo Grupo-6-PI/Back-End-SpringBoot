@@ -30,7 +30,7 @@ class CalendarioService(
 
         val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
-        var dia:Calendario = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana!!)!!
+        var dia:Calendario? = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana)
 
         // Criar Atividade
         val atividade = Atividade(
@@ -78,7 +78,7 @@ class CalendarioService(
         reservaAtividade.map {
             val calendario = it.getCalendario()
 
-            when(calendario!!.getDiaNomeacao()){
+            when(calendario?.getDiaNomeacao()){
                 "Domingo" -> {
                     dto.domingo.add(it)
                 }
@@ -115,9 +115,9 @@ class CalendarioService(
 
         super.validarId(id,reservaAtividadeRepository)
 
-        var resposta = reservaAtividadeRepository.findByAtividadeId(id)
+        var resposta = reservaAtividadeRepository.findByAtividadeId(id)!!
 
-        return resposta!!
+        return resposta
 
     }
 
@@ -125,21 +125,16 @@ class CalendarioService(
         atividadeDTO: ReservaAtividade
     ): ReservaAtividade? {
 
+        super.validarId(atividadeDTO.getId()!!,reservaAtividadeRepository)
+
         var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()!!).get()
 
-        reserva.getAtividade()!!.setNome(atividadeDTO.getAtividade()!!.getNome()!!)
-        reserva.getAtividade()!!.setTipoAtividade(atividadeDTO.getAtividade()!!.getTipoAtividade()!!)
+        reserva = atividadeDTO
 
-        reserva.getAtividade()!!.setDescricao(atividadeDTO.getAtividade()!!.getDescricao()!!)
+        val newAtt = reservaAtividadeRepository.save(reserva)
 
-        reserva.getCalendario()!!.setAno(atividadeDTO.getCalendario()!!.getAno()!!)
-        reserva.getCalendario()!!.setMesNumeracao(atividadeDTO.getCalendario()!!.getMesNumeracao()!!)
-        reserva.getCalendario()!!.setDiaNumeracao(atividadeDTO.getCalendario()!!.getDiaNumeracao()!!)
+        return newAtt
 
-        reserva.getAtividade()!!.setHoraComeco(atividadeDTO.getAtividade()!!.getHoraComeco()!!)
-        reserva.getAtividade()!!.setHoraFinal(atividadeDTO.getAtividade()!!.getHoraFinal()!!)
-
-        return reservaAtividadeRepository.save(reserva)
     }
 
     fun deleteReserva(id: Long) {

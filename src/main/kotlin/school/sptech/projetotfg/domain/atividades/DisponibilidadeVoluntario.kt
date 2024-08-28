@@ -24,7 +24,7 @@ class DisponibilidadeVoluntario(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -32,7 +32,7 @@ class DisponibilidadeVoluntario(
         return requisicoes
     }
 
-    fun setRequisicoes(new: Requisicoes){
+    fun setRequisicoes(new: Requisicoes?){
         this.requisicoes = new
     }
 
@@ -40,7 +40,7 @@ class DisponibilidadeVoluntario(
         return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime){
+    fun setDataCriacao(new: LocalDateTime?){
         this.dataCriacao = new
     }
 
@@ -48,7 +48,7 @@ class DisponibilidadeVoluntario(
         return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new: LocalDateTime){
+    fun setDataUltimaAtualizacao(new: LocalDateTime?){
         this.dataUltimaAtualizacao = new
     }
 
@@ -56,7 +56,7 @@ class DisponibilidadeVoluntario(
         return emailModificador
     }
 
-    fun setEmailModificador(new:String){
+    fun setEmailModificador(new:String?){
         this.emailModificador = new
     }
 
@@ -64,7 +64,7 @@ class DisponibilidadeVoluntario(
         return horaComeco
     }
 
-    fun setHoraComeco(new: LocalDateTime){
+    fun setHoraComeco(new: LocalDateTime?){
         this.horaComeco = new
     }
 
@@ -72,7 +72,7 @@ class DisponibilidadeVoluntario(
         return horaFinal
     }
 
-    fun setHoraFinal(new: LocalDateTime){
+    fun setHoraFinal(new: LocalDateTime?){
         this.horaFinal = new
     }
 
@@ -80,7 +80,7 @@ class DisponibilidadeVoluntario(
         return calendario
     }
 
-    fun setCalendario(new: Calendario){
+    fun setCalendario(new: Calendario?){
         this.calendario = new
     }
 

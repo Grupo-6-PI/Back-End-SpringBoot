@@ -14,7 +14,7 @@ class TamanhoCalcado(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -22,7 +22,7 @@ class TamanhoCalcado(
         return tamanho
     }
 
-    fun setTamanho(tamanho: String){
+    fun setTamanho(tamanho: String?){
         this.tamanho = tamanho
     }
 
@@ -30,7 +30,7 @@ class TamanhoCalcado(
         return faixaEtaria
     }
 
-    fun setFaixaEtaria(new: FaixaEtaria){
+    fun setFaixaEtaria(new: FaixaEtaria?){
         this.faixaEtaria = new
     }
 

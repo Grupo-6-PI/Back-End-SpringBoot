@@ -18,7 +18,7 @@ class Repeticao (
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -26,7 +26,7 @@ class Repeticao (
         return quantidade
     }
 
-    fun setQuantidade(new:Int){
+    fun setQuantidade(new:Int?){
         this.quantidade = new
     }
 
@@ -34,7 +34,7 @@ class Repeticao (
         return escolhaRepeticao
     }
 
-    fun setEscolhaRepeticao(new:String){
+    fun setEscolhaRepeticao(new:String?){
         this.escolhaRepeticao = new
     }
 
@@ -42,7 +42,7 @@ class Repeticao (
         return disponibilidadeVoluntario
     }
 
-    fun setDisponibilidadeVoluntario(new:DisponibilidadeVoluntario){
+    fun setDisponibilidadeVoluntario(new:DisponibilidadeVoluntario?){
         this.disponibilidadeVoluntario = new
     }
 

@@ -22,7 +22,7 @@ class Calendario(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -30,7 +30,7 @@ class Calendario(
         return ano
     }
 
-    fun setAno(new: Int){
+    fun setAno(new: Int?){
         this.ano = new
     }
 
@@ -38,7 +38,7 @@ class Calendario(
         return mesNumeracao
     }
 
-    fun setMesNumeracao(new: Int){
+    fun setMesNumeracao(new: Int?){
         this.mesNumeracao = new
     }
 
@@ -46,7 +46,7 @@ class Calendario(
         return mesNomeacao
     }
 
-    fun setMesNomeacao(new: String){
+    fun setMesNomeacao(new: String?){
         this.mesNomeacao = new
     }
 
@@ -54,7 +54,7 @@ class Calendario(
         return diaNumeracao
     }
 
-    fun setDiaNumeracao(new: Int){
+    fun setDiaNumeracao(new: Int?){
         this.diaNumeracao = new
     }
 

@@ -14,7 +14,7 @@ class GrupoPermissao (
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -22,7 +22,7 @@ class GrupoPermissao (
         return permissao
     }
 
-    fun setPermissao(new: Permissao){
+    fun setPermissao(new: Permissao?){
         this.permissao = new
     }
 
@@ -30,7 +30,7 @@ class GrupoPermissao (
         return nivelAcesso
     }
 
-    fun setNivelAcesso(new:NivelAcesso){
+    fun setNivelAcesso(new:NivelAcesso?){
         this.nivelAcesso = new
     }
 

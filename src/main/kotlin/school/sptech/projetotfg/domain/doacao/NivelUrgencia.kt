@@ -18,7 +18,7 @@ class NivelUrgencia (
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -26,7 +26,7 @@ class NivelUrgencia (
         return nivel
     }
 
-    fun setNivel(new: String){
+    fun setNivel(new: String?){
         this.nivel = new
     }
 

@@ -17,7 +17,7 @@ class login(
         return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
@@ -25,7 +25,7 @@ class login(
         return nome
     }
 
-    fun setNome(new: String) {
+    fun setNome(new: String?) {
         this.nome = new
     }
 
@@ -33,7 +33,7 @@ class login(
         return email
     }
 
-    fun setEmail(new: String) {
+    fun setEmail(new: String?) {
         this.email = new
     }
 
@@ -41,7 +41,7 @@ class login(
         return senha
     }
 
-    fun setSenha(new: String) {
+    fun setSenha(new: String?) {
         this.senha = new
     }
 

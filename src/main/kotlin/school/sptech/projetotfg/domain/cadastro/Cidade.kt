@@ -13,7 +13,7 @@ class Cidade(
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -21,7 +21,7 @@ class Cidade(
         return nome
     }
 
-    fun setNome(new:String){
+    fun setNome(new:String?){
         this.nome = new
     }
 
@@ -29,7 +29,7 @@ class Cidade(
         return estado
     }
 
-    fun setEstado(new: Estado){
+    fun setEstado(new: Estado?){
         this.estado = new
     }
 

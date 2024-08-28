@@ -24,7 +24,7 @@ class ReservaAtividade(
         return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
@@ -32,7 +32,7 @@ class ReservaAtividade(
         return atividade
     }
 
-    fun setAtividade(new: Atividade) {
+    fun setAtividade(new: Atividade?) {
         this.atividade = new
     }
 
@@ -40,7 +40,7 @@ class ReservaAtividade(
         return dataCriacao
     }
 
-    fun setDataCriacao(new: LocalDateTime) {
+    fun setDataCriacao(new: LocalDateTime?) {
         this.dataCriacao = new
     }
 
@@ -48,7 +48,7 @@ class ReservaAtividade(
         return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new: LocalDateTime) {
+    fun setDataUltimaAtualizacao(new: LocalDateTime?) {
         this.dataUltimaAtualizacao = new
     }
 
@@ -56,7 +56,7 @@ class ReservaAtividade(
         return emailModificador
     }
 
-    fun setEmailModificador(new: String) {
+    fun setEmailModificador(new: String?) {
         this.emailModificador = new
     }
 
@@ -64,7 +64,7 @@ class ReservaAtividade(
         return calendario
     }
 
-    fun setCalendario(new: Calendario) {
+    fun setCalendario(new: Calendario?) {
         this.calendario = new
     }
 

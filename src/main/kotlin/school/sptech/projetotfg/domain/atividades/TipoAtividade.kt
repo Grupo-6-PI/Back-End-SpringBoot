@@ -17,7 +17,7 @@ class TipoAtividade(
         return id
     }
 
-    fun setId(new:Long){
+    fun setId(new:Long?){
         this.id = new
     }
 
@@ -25,7 +25,7 @@ class TipoAtividade(
         return tipo
     }
 
-    fun setTipo(new:String){
+    fun setTipo(new:String?){
         this.tipo = new
     }
 

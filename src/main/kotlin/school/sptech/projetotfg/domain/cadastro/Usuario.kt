@@ -95,27 +95,27 @@ class Usuario(
         return nivelAcesso
     }
 
-    fun setNome(new: String){
+    fun setNome(new: String?){
        this.nome = new
     }
 
-    fun setEmail(new: String){
+    fun setEmail(new: String?){
         this.email = new
     }
 
-    fun setSenha(new: String){
+    fun setSenha(new: String?){
         this.senha = new
     }
 
-    fun setInformacoesAdicionais(new: InformacoesAdicionais){
+    fun setInformacoesAdicionais(new: InformacoesAdicionais?){
         this.informacoesAdicionais = new
     }
 
-    fun setSituacao(new: Situacao){
+    fun setSituacao(new: Situacao?){
         this.situacao = new
     }
 
-    fun setNivelAcesso(new: NivelAcesso){
+    fun setNivelAcesso(new: NivelAcesso?){
         this.nivelAcesso = new
     }
 

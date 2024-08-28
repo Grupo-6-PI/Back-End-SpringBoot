@@ -27,7 +27,7 @@ class Requisicoes (
         return id
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
@@ -35,7 +35,7 @@ class Requisicoes (
         return nivelUrgencia
     }
 
-    fun setNivelUrgencia(new:NivelUrgencia){
+    fun setNivelUrgencia(new:NivelUrgencia?){
         this.nivelUrgencia = new
     }
 
@@ -43,7 +43,7 @@ class Requisicoes (
         return assuntoRequisicao
     }
 
-    fun setAssuntoRequisicao(new:AssuntoRequisicao){
+    fun setAssuntoRequisicao(new:AssuntoRequisicao?){
         this.assuntoRequisicao = new
     }
 
@@ -51,7 +51,7 @@ class Requisicoes (
         return dataCriacao
     }
 
-    fun setDataCriacao(new:LocalDateTime){
+    fun setDataCriacao(new:LocalDateTime?){
         this.dataCriacao = new
     }
 
@@ -59,7 +59,7 @@ class Requisicoes (
         return dataUltimaAtualizacao
     }
 
-    fun setDataUltimaAtualizacao(new:LocalDateTime){
+    fun setDataUltimaAtualizacao(new:LocalDateTime?){
         this.dataUltimaAtualizacao = new
     }
 
@@ -67,7 +67,7 @@ class Requisicoes (
         return emailModificador
     }
 
-    fun setEmailModificador(new:String){
+    fun setEmailModificador(new:String?){
         this.emailModificador = new
     }
 
@@ -75,7 +75,7 @@ class Requisicoes (
         return usuario
     }
 
-    fun setUsuario(new:Usuario){
+    fun setUsuario(new:Usuario?){
         this.usuario = new
     }
 
@@ -83,7 +83,7 @@ class Requisicoes (
         return situacao
     }
 
-    fun setSituacao(new:Situacao){
+    fun setSituacao(new:Situacao?){
         this.situacao = new
     }
 
@@ -91,7 +91,7 @@ class Requisicoes (
         return calendario
     }
 
-    fun setCalendario(new:Calendario){
+    fun setCalendario(new:Calendario?){
         this.calendario = new
     }
 

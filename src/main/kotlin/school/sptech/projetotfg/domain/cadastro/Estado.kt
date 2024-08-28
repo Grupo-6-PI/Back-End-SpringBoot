@@ -27,15 +27,15 @@ class Estado(
         return uf
     }
 
-    fun setId(new: Long){
+    fun setId(new: Long?){
         this.id = new
     }
 
-    fun setNome(new: String){
+    fun setNome(new: String?){
         this.nome = new
     }
 
-    fun setUf(new: String){
+    fun setUf(new: String?){
         this.uf = new
     }
 

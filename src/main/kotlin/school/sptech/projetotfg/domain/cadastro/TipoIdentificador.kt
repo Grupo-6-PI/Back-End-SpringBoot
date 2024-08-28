@@ -15,7 +15,7 @@ class TipoIdentificador(
         return id
     }
 
-    fun setId(new: Long) {
+    fun setId(new: Long?) {
         this.id = new
     }
 
@@ -23,7 +23,7 @@ class TipoIdentificador(
         return tipo
     }
 
-    fun setTipo(tipo: String) {
+    fun setTipo(tipo: String?) {
         this.tipo = tipo
     }
 
@@ -31,7 +31,7 @@ class TipoIdentificador(
         return situacao
     }
 
-    fun setSituacao(new: Situacao) {
+    fun setSituacao(new: Situacao?) {
         this.situacao = new
     }
 
