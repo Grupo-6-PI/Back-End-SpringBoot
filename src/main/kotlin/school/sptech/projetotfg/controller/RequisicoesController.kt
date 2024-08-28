@@ -1,5 +1,6 @@
 package school.sptech.projetotfg.controller
 
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.doacao.Requisicoes
@@ -18,6 +19,27 @@ class RequisicoesController (
     fun listarRequisicoes():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
         val requisicoes = requisicoesService.listarRequisicoes()
         return ResponseEntity.status(200).body(requisicoes)
+    }
+
+    @GetMapping("/lista-requisicoes/canceladas")
+    fun listarRequisicoesCanceladas():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
+        val requisicoes = requisicoesService.listarRequisicoesCanceladas()
+        return ResponseEntity.status(200).body(requisicoes)
+    }
+
+    @GetMapping("/lista-requisicoes/cumpridas")
+    fun listarRequisicoesCumpridas():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
+        val requisicoes = requisicoesService.listarRequisicoesCumpridas()
+        return ResponseEntity.status(200).body(requisicoes)
+    }
+
+    @GetMapping("/{id}")
+    fun getRequisicao(@PathVariable id:Long):ResponseEntity<Requisicoes>{
+
+        val req = requisicoesService.getRequisicao(id)
+
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(req)
+
     }
 
     @GetMapping("/dash_requisicao")
