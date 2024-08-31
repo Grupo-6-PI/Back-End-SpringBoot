@@ -21,12 +21,7 @@ class UsuarioService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
         }
 
-        val usuario = Usuario(
-            1,
-            usuarioInputDTO.nome,
-            usuarioInputDTO.email,
-            usuarioInputDTO.senha
-        )
+        val usuario = mapper.map(usuarioInputDTO,Usuario::class.java)
 
         return try {
             val usuarioSalvo = usuarioRepository.save(usuario)
@@ -105,19 +100,11 @@ class UsuarioService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
         }
 
-        val usuario = Usuario(
-            id = 1,
-            nome = usuarioCompletoInputDTO.nome,
-            email = usuarioCompletoInputDTO.email,
-            senha = usuarioCompletoInputDTO.senha,
-            informacoesAdicionais = usuarioCompletoInputDTO.informacoesAdicionais,
-            situacao = usuarioCompletoInputDTO.situacao,
-            nivelAcesso = usuarioCompletoInputDTO.nivelAcesso
-        )
+        val usuario = mapper.map(usuarioCompletoInputDTO,Usuario::class.java)
 
-        return try {
+        try {
             val usuarioSalvo = usuarioRepository.save(usuario)
-            UsuarioCompletoResponseDTO(
+            return UsuarioCompletoResponseDTO(
                 id = usuarioSalvo.getId()!!,
                 nome = usuarioSalvo.getNome()!!,
                 email = usuarioSalvo.getEmail()!!,
