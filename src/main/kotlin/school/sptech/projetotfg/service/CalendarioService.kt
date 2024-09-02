@@ -200,7 +200,7 @@ class CalendarioService(
 
         for (diaSemana in semana){
 
-            if (diaSemana!!.getDiaNomeacao().equals(dia)){
+            if (diaSemana?.getDiaNomeacao().equals(dia)){
 
                 return diaSemana
 
