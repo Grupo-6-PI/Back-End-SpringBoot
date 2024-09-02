@@ -86,6 +86,7 @@ class CalendarioServiceTest {
         val reservaAtividadeAtualizada = ReservaAtividade(1, null, null, LocalDateTime.now(), "teste@teste.com", calendario)
 
         // Mock para o repositório
+        `when`(reservaAtividadeRepository.existsById(1)).thenReturn(true)
         `when`(reservaAtividadeRepository.findById(1)).thenReturn(Optional.of(reservaAtividadeExistente))
         `when`(reservaAtividadeRepository.save(any(ReservaAtividade::class.java))).thenReturn(reservaAtividadeAtualizada)
 
