@@ -1,6 +1,7 @@
 package school.sptech.projetotfg.dto
 
 import jakarta.validation.constraints.*
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 data class AtividadeDTO(

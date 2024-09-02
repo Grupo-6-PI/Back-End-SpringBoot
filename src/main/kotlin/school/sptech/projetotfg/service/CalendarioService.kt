@@ -7,7 +7,6 @@ import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
-import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
@@ -17,8 +16,9 @@ class CalendarioService(
     private val atividadeRepository: AtividadeRepository,
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository,
-    private val calendarioRepository: CalendarioRepository, // Novo repositório para Calendario
+    private val calendarioRepository: CalendarioRepository,
     private val modelMapper: ModelMapper
+
 ):school.sptech.projetotfg.complement.Service() {
 
     fun createAtividade(
