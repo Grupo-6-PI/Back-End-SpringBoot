@@ -11,13 +11,13 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @SQLInsert(sql = "INSERT INTO usuario(email,informacoes_adicionais_id,nivel_acesso_id,nome,senha,situacao_id) VALUES (?,?,?,?,AES_ENCRYPT(?,'chave'),?)" )
 class Usuario(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long? = null,
-    @field:NotBlank var nome:String,
-    @field:Email var email:String,
-    @field:NotBlank var senha:String,
-    @field:OneToOne var informacoesAdicionais: InformacoesAdicionais?,
-    @field:ManyToOne var situacao: Situacao?,
-    @field:ManyToOne var nivelAcesso: NivelAcesso?
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:NotBlank private var nome:String?,
+    @field:Email private var email:String?,
+    @field:NotBlank private var senha:String?,
+    @field:OneToOne private var informacoesAdicionais: InformacoesAdicionais?,
+    @field:ManyToOne private var situacao: Situacao?,
+    @field:ManyToOne private var nivelAcesso: NivelAcesso?
 ) {
 
     constructor(
@@ -67,8 +67,56 @@ class Usuario(
         nivelAcesso = paramNivelAcesso
     )
 
-    fun getId():Long{
-        return id!!
+    fun getId():Long?{
+        return id
+    }
+
+    fun getNome():String?{
+        return nome
+    }
+
+    fun getEmail():String?{
+        return email
+    }
+
+    fun getSenha():String?{
+        return senha
+    }
+
+    fun getInformacoesAdicionais():InformacoesAdicionais?{
+        return informacoesAdicionais
+    }
+
+    fun getSituacao():Situacao?{
+        return situacao
+    }
+
+    fun getNivelAcesso():NivelAcesso?{
+        return nivelAcesso
+    }
+
+    fun setNome(new: String?){
+       this.nome = new
+    }
+
+    fun setEmail(new: String?){
+        this.email = new
+    }
+
+    fun setSenha(new: String?){
+        this.senha = new
+    }
+
+    fun setInformacoesAdicionais(new: InformacoesAdicionais?){
+        this.informacoesAdicionais = new
+    }
+
+    fun setSituacao(new: Situacao?){
+        this.situacao = new
+    }
+
+    fun setNivelAcesso(new: NivelAcesso?){
+        this.nivelAcesso = new
     }
 
 }

@@ -5,26 +5,33 @@ import jakarta.validation.constraints.Max
 
 @Entity
 class Situacao(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long = 0,
-    @field:Max(100) private var situacao:String,
-    @ManyToOne private var tipoSituacao: TipoSituacao
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    @field:Max(100) private var situacao:String?,
+    @ManyToOne private var tipoSituacao: TipoSituacao?
 ){
-    fun getId():Long{
+
+    fun getId():Long?{
         return id
     }
-    fun setId(novoId:Long){
-        id = novoId
+
+    fun setId(new:Long?){
+        this.id = new
     }
-    fun getSituacao():String{
+
+    fun getSituacao():String?{
         return situacao
     }
-    fun setSituacao(novaSituacao: String){
-        situacao = novaSituacao
+
+    fun setSituacao(new: String?){
+        this.situacao = new
     }
-    fun getTipoSituacao(): TipoSituacao {
+
+    fun getTipoSituacao(): TipoSituacao? {
         return tipoSituacao
     }
-    fun setTipoSituacao(novoTipoSituacao: TipoSituacao){
-        tipoSituacao = novoTipoSituacao
+
+    fun setTipoSituacao(new: TipoSituacao?){
+        this.tipoSituacao = new
     }
+
 }

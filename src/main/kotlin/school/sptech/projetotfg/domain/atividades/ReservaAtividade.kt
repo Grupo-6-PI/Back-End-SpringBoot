@@ -12,12 +12,60 @@ import java.time.LocalDateTime
 @Entity
 class ReservaAtividade(
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = 0,
-    @field:ManyToOne var atividade: Atividade?,
-    @field:PastOrPresent var dataCriacao: LocalDateTime?,
-    @field:PastOrPresent var dataUltimaAtualizacao: LocalDateTime?,
-    @field:Email @field:Size(max = 150) var emailModificador: String?,
-    @field:ManyToOne var calendario:Calendario?
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long?,
+    @field:ManyToOne private var atividade: Atividade?,
+    @field:PastOrPresent private var dataCriacao: LocalDateTime?,
+    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
+    @field:Email @field:Size(max = 150) private var emailModificador: String?,
+    @field:ManyToOne private var calendario:Calendario?
 ) {
+
+    fun getId(): Long? {
+        return id
+    }
+
+    fun setId(new: Long?) {
+        this.id = new
+    }
+
+    fun getAtividade(): Atividade? {
+        return atividade
+    }
+
+    fun setAtividade(new: Atividade?) {
+        this.atividade = new
+    }
+
+    fun getDataCriacao(): LocalDateTime? {
+        return dataCriacao
+    }
+
+    fun setDataCriacao(new: LocalDateTime?) {
+        this.dataCriacao = new
+    }
+
+    fun getDataUltimaAtualizacao(): LocalDateTime? {
+        return dataUltimaAtualizacao
+    }
+
+    fun setDataUltimaAtualizacao(new: LocalDateTime?) {
+        this.dataUltimaAtualizacao = new
+    }
+
+    fun getEmailModificador(): String? {
+        return emailModificador
+    }
+
+    fun setEmailModificador(new: String?) {
+        this.emailModificador = new
+    }
+
+    fun getCalendario(): Calendario? {
+        return calendario
+    }
+
+    fun setCalendario(new: Calendario?) {
+        this.calendario = new
+    }
 
 }

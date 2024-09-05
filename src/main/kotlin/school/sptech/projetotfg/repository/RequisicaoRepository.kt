@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicoesCumResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesReqResponseDTO
+import java.util.Optional
 
 @Repository
 interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
@@ -82,11 +83,6 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
     """)
     fun findTop1():RequisicoesReqResponseDTO?
 
-
-
-
-
-
     @Query("""
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
             (SELECT COUNT(r) FROM Requisicoes r 
@@ -157,5 +153,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
         FROM Requisicoes r WHERE r.calendario.id = 1
     """)
     fun findFirst():RequisicoesCumResponseDTO?
+
+    fun findBySituacaoId(id:Long):Optional<MutableList<Requisicoes>>
 
 }
