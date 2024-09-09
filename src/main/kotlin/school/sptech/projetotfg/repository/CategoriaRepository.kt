@@ -6,6 +6,5 @@ import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import java.util.*
 
 interface CategoriaRepository : JpaRepository<Categoria, Long> {
-    fun findById(Id: Long?): Categoria?
 
 }
