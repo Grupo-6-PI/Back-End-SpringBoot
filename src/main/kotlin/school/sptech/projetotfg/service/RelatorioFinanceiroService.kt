@@ -1,5 +1,6 @@
 package school.sptech.projetotfg.service
 
+import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.VendaRegistroDTO
@@ -12,7 +13,7 @@ import java.time.LocalDateTime
 class RelatorioFinanceiroService(
     val vendaRepository: VendaRepository,
     val categoriaRepository: CategoriaRepository,
-    val calendarioService: CalendarioService
+    val calendarioService: ModelMapper
 ) {
 
     fun registrarVenda(vendaDto: VendaRegistroDTO) {
@@ -21,7 +22,7 @@ class RelatorioFinanceiroService(
             quantidade = vendaDto.quantidade,
             valor = vendaDto.valor,
             emailModificador = vendaDto.emailModificador,
-            categoria = vendaDto.cartegoria,
+            categoria = vendaDto.categoria,
             calendario = vendaDto.calendario
 
         )
