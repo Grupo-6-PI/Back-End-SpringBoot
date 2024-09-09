@@ -1,11 +1,12 @@
 package school.sptech.projetotfg.domain.relatoriofinanceiro
 
-import jakarta.persistence.Entity
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import school.sptech.projetotfg.domain.atividades.Calendario
 
 @Entity
 class Venda(
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long?,
     private var quantidade: Int?,
     private var valor: Double?,
