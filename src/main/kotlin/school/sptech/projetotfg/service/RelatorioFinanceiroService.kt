@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
+import school.sptech.projetotfg.repository.CalendarioRepository
 import school.sptech.projetotfg.repository.CategoriaRepository
 import school.sptech.projetotfg.repository.VendaRepository
 import java.time.LocalDateTime
@@ -13,7 +14,8 @@ import java.time.LocalDateTime
 class RelatorioFinanceiroService(
     val vendaRepository: VendaRepository,
     val categoriaRepository: CategoriaRepository,
-    val calendarioService: ModelMapper
+    val calendarioService: CalendarioRepository,
+    val mapper: ModelMapper
 ) {
 
     fun registrarVenda(vendaDto: VendaRegistroDTO) {
