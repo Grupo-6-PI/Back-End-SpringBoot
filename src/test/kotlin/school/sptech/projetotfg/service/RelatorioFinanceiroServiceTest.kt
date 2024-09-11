@@ -27,7 +27,7 @@ class RelatorioFinanceiroServiceTest {
         categoriaRepository = Mockito.mock(CategoriaRepository::class.java)
         vendaRepository = Mockito.mock(VendaRepository::class.java)
         mapper = Mockito.mock(ModelMapper::class.java)
-        relatorioFinanceiroService = RelatorioFinanceiroService(vendaRepository,categoriaRepository, mapper)
+        relatorioFinanceiroService = RelatorioFinanceiroService(vendaRepository,categoriaRepository, calendarioRepository, mapper)
     }
 
     @Test
