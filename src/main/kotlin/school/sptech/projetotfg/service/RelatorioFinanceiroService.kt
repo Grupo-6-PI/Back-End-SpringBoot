@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 class RelatorioFinanceiroService(
     val vendaRepository: VendaRepository,
     val categoriaRepository: CategoriaRepository,
-    val calendarioService: CalendarioRepository,
+    val calendarioRepository: CalendarioRepository,
     val mapper: ModelMapper
 ) {
 
