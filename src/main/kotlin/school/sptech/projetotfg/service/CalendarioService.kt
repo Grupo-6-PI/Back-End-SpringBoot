@@ -134,6 +134,12 @@ class CalendarioService(
         super.validarId(atividadeDTO.getId()!!,reservaAtividadeRepository)
         var reserva = reservaAtividadeRepository.findById(atividadeDTO.getId()!!).get()
 
+        var new_calendario_id = calendarioRepository.getSemana(atividadeDTO.getCalendario()!!.getDiaNumeracao()!!,atividadeDTO.getCalendario()!!.getMesNumeracao()!!,atividadeDTO.getCalendario()!!.getAno()!!).get()
+
+        var new_calendario = calendarioRepository.findById(new_calendario_id)
+
+        atividadeDTO.setCalendario(new_calendario.get())
+
         reserva = atividadeDTO
 
         val newAtt = reservaAtividadeRepository.save(reserva)
