@@ -12,6 +12,7 @@ import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.service.CalendarioService
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/calendarios")
@@ -28,7 +29,13 @@ class CalendarioController(
     }
 
     @GetMapping
-    fun getAllReservasDTO(@RequestBody filtroDTO: CalendarioFiltroDTO): ResponseEntity<ReservaAtividadeResponseDTO> {
+    fun getAllReservasDTO(): ResponseEntity<ReservaAtividadeResponseDTO> {
+        var filtroDTO = CalendarioFiltroDTO(
+            LocalDate.now().year,
+            LocalDate.now().monthValue,
+            LocalDate.now().dayOfMonth,
+            null
+        )
         val reservas = calendarioService.getAllReserva(filtroDTO)
         return ResponseEntity.ok(reservas)
     }
