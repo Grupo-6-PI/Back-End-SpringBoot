@@ -27,6 +27,12 @@ class CalendarioService(
 
         val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
+        
+        var calendarioId = calendarioRepository.getSemana(atividadeDTO.filtrodto.diaNumeracao,atividadeDTO.filtrodto.mesNumeracao,atividadeDTO.filtrodto.ano).get()
+        
+        var calendario = calendarioRepository.findById(calendarioId).get()
+
+        atividadeDTO.filtrodto.diaNomeacao = calendario.getDiaNomeacao()
 
         val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
