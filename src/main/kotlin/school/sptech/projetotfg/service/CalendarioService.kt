@@ -25,18 +25,18 @@ class CalendarioService(
         atividadeDTO: AtividadeDTO
     ): ReservaAtividade {
 
-        val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId!!)
+        val tipoAtividade = tipoAtividadeRepository.findById(atividadeDTO.tipoAtividadeId)
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
         
-        var calendarioId = calendarioRepository.getSemana(atividadeDTO.filtrodto!!.diaNumeracao,atividadeDTO.filtrodto!!.mesNumeracao,atividadeDTO.filtrodto!!.ano).get()
+        var calendarioId = calendarioRepository.getSemana(atividadeDTO.filtrodto.diaNumeracao,atividadeDTO.filtrodto.mesNumeracao,atividadeDTO.filtrodto.ano).get()
         
         var calendario = calendarioRepository.findById(calendarioId).get()
 
-        atividadeDTO.filtrodto!!.diaNomeacao = calendario.getDiaNomeacao()
+        atividadeDTO.filtrodto.diaNomeacao = calendario.getDiaNomeacao()
 
-        val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto!!)
+        val semana:Array<Calendario?> = getDomingo(atividadeDTO.filtrodto)
 
-        var dia:Calendario? = getDia(atividadeDTO.filtrodto!!.diaNomeacao!!,semana)
+        var dia:Calendario? = getDia(atividadeDTO.filtrodto.diaNomeacao!!,semana)
 
         // Criar Atividade
         val atividade = Atividade(
