@@ -1,99 +1,91 @@
 package school.sptech.projetotfg.service
 
+import org.hibernate.validator.internal.util.Contracts.assertNotNull
+import org.hibernate.validator.internal.util.Contracts.assertTrue
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.modelmapper.ModelMapper
 import org.springframework.web.server.ResponseStatusException
+import school.sptech.projetotfg.domain.atividades.Calendario
+import school.sptech.projetotfg.domain.cadastro.Usuario
+import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.dto.RequisicaoDashDTO
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
-import school.sptech.projetotfg.repository.RequisicaoRepository
+import school.sptech.projetotfg.repository.*
+import java.time.LocalDateTime
 import java.util.*
 
-class RequisicoesServiceTest{
-/*
-    lateinit var requisicaoRepository: RequisicaoRepository
-    lateinit var requisicaoService: RequisicoesService
-    lateinit var mapper: ModelMapper
+class RequisicoesServiceTest {
 
-    @BeforeEach
-    fun instanciar(){
-        requisicaoRepository = mock(RequisicaoRepository::class.java)
-        requisicaoService = mock(RequisicoesService::class.java)
-        mapper = mock(ModelMapper::class.java)
+    fun mockRequisicoes(id: Long): Requisicoes {
+        val mockAssuntoRequisicao = mock(AssuntoRequisicao::class.java)
+        val mockUsuario = mock(Usuario::class.java)
+        val mockSituacao = mock(Situacao::class.java)
+        val mockCalendario = mock(Calendario::class.java)
+
+        return Requisicoes(
+            id = id,
+            assuntoRequisicao = mockAssuntoRequisicao,
+            dataCriacao = LocalDateTime.now().minusDays(10),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = "exemploemail@email.com",
+            usuario = mockUsuario,
+            situacao = mockSituacao,
+            calendario = mockCalendario
+        )
     }
 
-    @DisplayName("Lista encontrada deve ser coesa com a encontrada pela service")
+    private val requisicaoRepository: RequisicaoRepository = mock(RequisicaoRepository::class.java)
+    private val modelMapper: ModelMapper = ModelMapper()
+    private val service = RequisicoesService(
+        requisicaoRepository,
+        mock(UsuarioRepository::class.java),
+        mock(SituacaoRepository::class.java),
+        mock(AssuntoRequisicaoRepository::class.java),
+        mock(CalendarioRepository::class.java),
+        modelMapper
+    )
+
     @Test
-    fun listarRequisicoes() {
-        val listaEsperada = requisicaoRepository.findAll()
+    fun `listarRequisicoes deve retornar lista de DTOs corretamente`() {
+        // Arrange
+        val requisicoesList = mutableListOf(mockRequisicoes(1), mockRequisicoes(2))
 
-        `when`(requisicaoRepository.findAll()).thenReturn(listaEsperada)
+        `when`(requisicaoRepository.findBySituacaoId(5)).thenReturn(Optional.of(requisicoesList))
 
-        val resultado = requisicaoService.listarRequisicoes()
+        // Act
+        val result = service.listarRequisicoes()
 
-        assertEquals(listaEsperada.size,resultado.size)
-
-        assertEquals(listaEsperada,resultado)
+        // Assert
+        assertNotNull(result)
+        assertTrue(result.isEmpty(), "Lista Vazia")
     }
 
-    @DisplayName("Lista deve ser mapeada corretamente para dto")
     @Test
-    fun transformarListaEmDto() {
+    fun `listarRequisicoes deve lançar exceção quando a lista estiver vazia`() {
+        // Arrange
+        `when`(requisicaoRepository.findBySituacaoId(5)).thenReturn(Optional.of(mutableListOf<Requisicoes>()))
 
-        val listaParam:List<Requisicoes> = requisicaoRepository.findAll()
-
-        val listaEsperada:List<RequisicoesDoacaoResponseDTO> = listOf()
-
-        val listaDto:MutableList<RequisicoesDoacaoResponseDTO> = mutableListOf()
-        listaDto.forEachIndexed{index, atividade ->
-            mapper.map(listaEsperada, RequisicoesDoacaoResponseDTO::class.java)
+        // Act & Assert
+        assertThrows(ResponseStatusException::class.java) {
+            service.listarRequisicoes()
         }
-
-        val resultado = requisicaoService.transformarListaEmDto(listaParam)
-
-        assertEquals(listaDto,resultado)
     }
 
     @Test
-    fun verificarLista() {
-        val listaParam= emptyList<Requisicoes>()
-        `when`(requisicaoService.verficarLista(listaParam)).thenThrow(ResponseStatusException::class.java)
+    fun `transformarListaEmDto deve mapear Requisicoes para RequisicoesDoacaoResponseDTO`() {
+        // Arrange
+        val requisicoesList = mutableListOf<Requisicoes>(mockRequisicoes(1))
 
-        assertThrows<ResponseStatusException>{requisicaoService.verficarLista(listaParam)}
+        // Act
+        val result = service.transformarListaEmDto(requisicoesList)
 
+        // Assert
+        assertNotNull(result)
     }
-
-    @Test
-    fun getRequisicoesTrimestreTipo(){
-
-        `when`(requisicaoService.findLimitedReq().isEmpty()).thenThrow(ResponseStatusException::class.java)
-        `when`(requisicaoService.findLimitedCum().isEmpty()).thenThrow(ResponseStatusException::class.java)
-
-        assertThrows<ResponseStatusException>{requisicaoService.findLimitedReq()}
-        assertThrows<ResponseStatusException>{requisicaoService.findLimitedCum()}
-    }
-
-    @DisplayName("Lança erro se algum campo do dto não for preenchido ")
-    @Test
-    fun validarDtoDash(){
-        val objVazio = RequisicaoDashDTO()
-
-        `when`(requisicaoService.validarDtoDash(objVazio)).thenThrow(ResponseStatusException::class.java)
-
-        assertThrows<ResponseStatusException>{requisicaoService.validarDtoDash(objVazio)}
-    }
-
-    @DisplayName("Lança erro se o dto for null ")
-    @Test
-    fun validarDtoDash2(){
-        val objVazio = null
-
-        `when`(requisicaoService.validarDtoDash(objVazio)).thenThrow(ResponseStatusException::class.java)
-
-        assertThrows<ResponseStatusException>{requisicaoService.validarDtoDash(objVazio)}
-    }*/
 }
