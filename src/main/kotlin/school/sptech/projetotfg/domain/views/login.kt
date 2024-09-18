@@ -4,6 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import school.sptech.projetotfg.domain.gerenciamento.NivelAcesso
 
 @Entity
 class login(
@@ -11,6 +12,7 @@ class login(
     private var nome:String? = null,
     private var email:String? = null,
     private var senha:String? = null,
+    private var nivelAcessoId:Long? = null
 ) {
 
     fun getId(): Long? {
@@ -43,6 +45,14 @@ class login(
 
     fun setSenha(new: String?) {
         this.senha = new
+    }
+
+    fun getNivelAcesso(): Long? {
+        return nivelAcessoId
+    }
+
+    fun setNivelAcesso(new: Long?) {
+        this.nivelAcessoId = new
     }
 
 }

@@ -5,22 +5,24 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.gerenciamento.Acesso
+import school.sptech.projetotfg.domain.views.login
 import school.sptech.projetotfg.dto.LoginRequestDTO
 
 import school.sptech.projetotfg.dto.UsuarioResponseDTO
-import school.sptech.projetotfg.repository.AcessoRepository
-import school.sptech.projetotfg.repository.SituacaoRepository
-import school.sptech.projetotfg.repository.UsuarioRepository
+import school.sptech.projetotfg.dto.UsuarioResponseLoginDTO
+import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
 
 @Service
 class AutenticacaoService(
     private val usuarioRepository: UsuarioRepository,
     private val acessoRepository: AcessoRepository,
-    private val situacaoRepository: SituacaoRepository
+    private val situacaoRepository: SituacaoRepository,
+    private val loginRepository:LoginRepository,
+    private val nivelAcessoRepository:NivelAcessoRepository
 ):school.sptech.projetotfg.complement.Service() {
 
-    fun login(request: LoginRequestDTO): UsuarioResponseDTO {
+    fun login(request: LoginRequestDTO): UsuarioResponseLoginDTO {
 
         val autenticacao = usuarioRepository.existsByEmail(request.email)
 
@@ -51,7 +53,13 @@ class AutenticacaoService(
 
         acessoRepository.save(acesso)
 
-        return UsuarioResponseDTO(usuario.getId()!!, usuario.getNome()!!, usuario.getEmail()!!)
+        var view = loginRepository.findByEmail(usuario.getEmail()!!).get()
+
+        var nivelAcesso = nivelAcessoRepository.findById(view.getNivelAcesso()!!).get()
+
+        var resposta = UsuarioResponseLoginDTO(view.getId()!!,view.getEmail()!!,view.getNome()!!,nivelAcesso)
+
+        return resposta
     }
 
     fun logoff(usuarioId: Long) {
