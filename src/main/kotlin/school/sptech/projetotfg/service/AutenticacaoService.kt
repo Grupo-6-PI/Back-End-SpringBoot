@@ -57,7 +57,7 @@ class AutenticacaoService(
 
         var nivelAcesso = nivelAcessoRepository.findById(view.getNivelAcesso()!!).get()
 
-        var resposta = UsuarioResponseLoginDTO(view.getId()!!,view.getEmail()!!,view.getNome()!!,nivelAcesso)
+        var resposta = UsuarioResponseLoginDTO(view.getId()!!,view.getNome()!!,view.getEmail()!!,nivelAcesso)
 
         return resposta
     }
