@@ -20,6 +20,7 @@ class RequisicoesService (
     private val situacaoRepository: SituacaoRepository,
     private val assuntoRequisicaoRepository: AssuntoRequisicaoRepository,
     private val calendarioRepository: CalendarioRepository,
+    private val tipoRequisicaoRepository: TipoRequisicaoRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service(){
     fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
@@ -314,4 +315,15 @@ class RequisicoesService (
 
     }
 
-}
+    fun listarTipoRequisicao():List<TipoRequisicaoDTO> {
+            val tipoRequisicao = tipoRequisicaoRepository.findAll()
+            return tipoRequisicao.map { tipoRequisicao ->
+                TipoRequisicaoDTO(
+                    id = tipoRequisicao.getId()!!,
+                    assunto = tipoRequisicao.getAssunto()!!
+                )
+            }
+        }
+
+    }
+

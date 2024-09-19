@@ -7,6 +7,7 @@ import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicaoDashDTO
 import school.sptech.projetotfg.dto.RequisicaoResquestDTO
 import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
+import school.sptech.projetotfg.dto.TipoRequisicaoDTO
 import school.sptech.projetotfg.service.RequisicoesService
 
 @RestController
@@ -55,6 +56,12 @@ class RequisicoesController (
 
         return ResponseEntity.status(201).body(requisicaoSalva)
 
+    }
+
+    @GetMapping("/listar-tipo-requisicao")
+    fun listarTipoRequisicao(): ResponseEntity<List<TipoRequisicaoDTO>> {
+        val response = requisicoesService.listarTipoRequisicao()
+        return ResponseEntity.status(200).body(response)
     }
 
 }
