@@ -21,13 +21,13 @@ class RequisicoesController (
     }
 
     @GetMapping("/lista-requisicoes/canceladas")
-    fun listarRequisicoesCanceladas():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
+    fun listarRequisicoesCanceladas():ResponseEntity<List<Requisicoes>>{
         val requisicoes = requisicoesService.listarRequisicoesCanceladas()
         return ResponseEntity.status(200).body(requisicoes)
     }
 
     @GetMapping("/lista-requisicoes/cumpridas")
-    fun listarRequisicoesCumpridas():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
+    fun listarRequisicoesCumpridas():ResponseEntity<List<Requisicoes>>{
         val requisicoes = requisicoesService.listarRequisicoesCumpridas()
         return ResponseEntity.status(200).body(requisicoes)
     }

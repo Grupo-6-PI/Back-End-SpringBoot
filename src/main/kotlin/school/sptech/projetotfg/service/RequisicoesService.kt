@@ -26,30 +26,60 @@ class RequisicoesService (
     fun listarRequisicoes():List<Requisicoes>{
 
         val listaRequisicoes = requisicaoRepository.findAll()
+        var resposta = mutableListOf<Requisicoes>()
+        var id:Long = 5
 
         super.validarLista(listaRequisicoes)
 
-        return listaRequisicoes
+        for (pedido in listaRequisicoes){
+
+            if (pedido.getSituacao()!!.getId() == id ){
+                resposta.add(pedido)
+            }
+
+        }
+
+        return resposta
 
     }
 
-    fun listarRequisicoesCanceladas():List<RequisicoesDoacaoResponseDTO>{
+    fun listarRequisicoesCanceladas():List<Requisicoes>{
 
         val listaRequisicoes = requisicaoRepository.findAll()
+        var resposta = mutableListOf<Requisicoes>()
+        var id:Long = 7
 
         super.validarLista(listaRequisicoes)
 
-        return transformarListaEmDto(listaRequisicoes)
+        for (pedido in listaRequisicoes){
+
+            if (pedido.getSituacao()!!.getId() == id ){
+                resposta.add(pedido)
+            }
+
+        }
+
+        return resposta
 
     }
 
-    fun listarRequisicoesCumpridas():List<RequisicoesDoacaoResponseDTO>{
+    fun listarRequisicoesCumpridas():List<Requisicoes>{
 
         val listaRequisicoes = requisicaoRepository.findAll()
+        var resposta = mutableListOf<Requisicoes>()
+        var id:Long = 6
 
         super.validarLista(listaRequisicoes)
 
-        return transformarListaEmDto(listaRequisicoes)
+        for (pedido in listaRequisicoes){
+
+            if (pedido.getSituacao()!!.getId() == id ){
+                resposta.add(pedido)
+            }
+
+        }
+
+        return resposta
 
     }
 
