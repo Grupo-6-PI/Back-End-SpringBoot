@@ -19,7 +19,8 @@ class Requisicoes (
     @field:Email @field:Size(max = 150) private var emailModificador:String?,
     @field:ManyToOne private var usuario: Usuario?,
     @field:ManyToOne private var situacao: Situacao?,
-    @field:ManyToOne private var calendario: Calendario?
+    @field:ManyToOne private var calendario: Calendario?,
+    private var descricao:String?
 ) {
 
     fun getId(): Long?{
@@ -86,6 +87,12 @@ class Requisicoes (
         this.calendario = new
     }
 
+    fun getDescricao():String?{
+        return descricao
+    }
 
+    fun setDescricao(new : String?){
+        this.descricao = new
+    }
 
 }

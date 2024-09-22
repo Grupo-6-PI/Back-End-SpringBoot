@@ -326,7 +326,8 @@ class RequisicoesService (
             emailModificador = email,
             usuario = usuario.get(),
             situacao = situacao.get(),
-            calendario = calendario.get()
+            calendario = calendario.get(),
+            descricao = requisicao.descricao
         )
 
         val requisicaoSalva = requisicaoRepository.save(requisicaoMap)
