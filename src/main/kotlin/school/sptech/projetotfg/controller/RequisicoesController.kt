@@ -15,7 +15,7 @@ class RequisicoesController (
 ){
 
     @GetMapping("/lista-requisicoes")
-    fun listarRequisicoes():ResponseEntity<List<RequisicoesDoacaoResponseDTO>>{
+    fun listarRequisicoes():ResponseEntity<List<Requisicoes>>{
         val requisicoes = requisicoesService.listarRequisicoes()
         return ResponseEntity.status(200).body(requisicoes)
     }

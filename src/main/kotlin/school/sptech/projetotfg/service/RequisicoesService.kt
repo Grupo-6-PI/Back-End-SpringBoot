@@ -23,19 +23,19 @@ class RequisicoesService (
     private val tipoRequisicaoRepository: TipoRequisicaoRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service(){
-    fun listarRequisicoes():List<RequisicoesDoacaoResponseDTO>{
+    fun listarRequisicoes():List<Requisicoes>{
 
-        val listaRequisicoes = requisicaoRepository.findBySituacaoId(5).get()
+        val listaRequisicoes = requisicaoRepository.findAll()
 
         super.validarLista(listaRequisicoes)
 
-        return transformarListaEmDto(listaRequisicoes)
+        return listaRequisicoes
 
     }
 
     fun listarRequisicoesCanceladas():List<RequisicoesDoacaoResponseDTO>{
 
-        val listaRequisicoes = requisicaoRepository.findBySituacaoId(7).get()
+        val listaRequisicoes = requisicaoRepository.findAll()
 
         super.validarLista(listaRequisicoes)
 
@@ -45,7 +45,7 @@ class RequisicoesService (
 
     fun listarRequisicoesCumpridas():List<RequisicoesDoacaoResponseDTO>{
 
-        val listaRequisicoes = requisicaoRepository.findBySituacaoId(6).get()
+        val listaRequisicoes = requisicaoRepository.findAll()
 
         super.validarLista(listaRequisicoes)
 
