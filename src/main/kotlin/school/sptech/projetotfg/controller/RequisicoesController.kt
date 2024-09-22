@@ -4,11 +4,9 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.doacao.Requisicoes
-import school.sptech.projetotfg.dto.RequisicaoDashDTO
-import school.sptech.projetotfg.dto.RequisicaoResquestDTO
-import school.sptech.projetotfg.dto.RequisicoesDoacaoResponseDTO
-import school.sptech.projetotfg.dto.TipoRequisicaoDTO
+import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.service.RequisicoesService
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/requisicoes")
@@ -51,6 +49,10 @@ class RequisicoesController (
 
     @PostMapping
     fun saveRequisicao(@RequestBody requisicao: RequisicaoResquestDTO):ResponseEntity<Requisicoes>{
+
+        var data = LocalDate.now()
+
+        requisicao.data = CalendarioFiltroDTO(data.year,data.monthValue,data.dayOfMonth,data.dayOfWeek.name)
 
         var requisicaoSalva = requisicoesService.saveRequisicao(requisicao)
 
