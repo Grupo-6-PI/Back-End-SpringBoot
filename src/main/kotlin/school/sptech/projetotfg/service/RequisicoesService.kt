@@ -282,7 +282,7 @@ class RequisicoesService (
 
         val usuario = usuarioRepository.findById(requisicao.usuarioId)
 
-        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(requisicao.data.ano,requisicao.data.mesNumeracao,requisicao.data.diaNumeracao)
+        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(requisicao.data!!.ano,requisicao.data!!.mesNumeracao,requisicao.data!!.diaNumeracao)
 
         val situacao = situacaoRepository.findById(5)
 
