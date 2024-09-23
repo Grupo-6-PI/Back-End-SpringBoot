@@ -36,7 +36,8 @@ class RequisicoesServiceTest {
             emailModificador = "exemploemail@email.com",
             usuario = mockUsuario,
             situacao = mockSituacao,
-            calendario = mockCalendario
+            calendario = mockCalendario,
+            descricao = ""
         )
     }
 
@@ -48,6 +49,7 @@ class RequisicoesServiceTest {
         mock(SituacaoRepository::class.java),
         mock(AssuntoRequisicaoRepository::class.java),
         mock(CalendarioRepository::class.java),
+        mock(TipoRequisicaoRepository::class.java),
         modelMapper
     )
 
@@ -56,10 +58,10 @@ class RequisicoesServiceTest {
         // Arrange
         val requisicoesList = mutableListOf(mockRequisicoes(1), mockRequisicoes(2))
 
-        `when`(requisicaoRepository.findBySituacaoId(5)).thenReturn(Optional.of(requisicoesList))
+        `when`(requisicaoRepository.findAll()).thenReturn(requisicoesList)
 
         // Act
-        val result = service.listarRequisicoes()
+        val result = service.listarRequisicoes(5)
 
         // Assert
         assertNotNull(result)
@@ -69,11 +71,11 @@ class RequisicoesServiceTest {
     @Test
     fun `listarRequisicoes deve lançar exceção quando a lista estiver vazia`() {
         // Arrange
-        `when`(requisicaoRepository.findBySituacaoId(5)).thenReturn(Optional.of(mutableListOf<Requisicoes>()))
+        `when`(requisicaoRepository.findAll()).thenReturn(mutableListOf<Requisicoes>())
 
         // Act & Assert
         assertThrows(ResponseStatusException::class.java) {
-            service.listarRequisicoes()
+            service.listarRequisicoes(5)
         }
     }
 
