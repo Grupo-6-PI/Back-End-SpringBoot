@@ -3,6 +3,7 @@ package school.sptech.projetotfg.service
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.modelmapper.ModelMapper
+import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -22,17 +23,17 @@ class RequisicoesService (
     private val calendarioRepository: CalendarioRepository,
     private val tipoRequisicaoRepository: TipoRequisicaoRepository,
     private val mapper: ModelMapper,
-):school.sptech.projetotfg.complement.Service(){
-    fun listarRequisicoes(id:Long):List<Requisicoes>{
+):school.sptech.projetotfg.complement.Service() {
+    fun listarRequisicoes(id: Long): List<Requisicoes> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
 
         super.validarLista(listaRequisicoes)
 
-        for (pedido in listaRequisicoes){
+        for (pedido in listaRequisicoes) {
 
-            if (pedido.getUsuario()!!.getId() == id ){
+            if (pedido.getUsuario()!!.getId() == id) {
                 resposta.add(pedido)
             }
 
@@ -42,17 +43,17 @@ class RequisicoesService (
 
     }
 
-    fun listarRequisicoesCanceladas():List<Requisicoes>{
+    fun listarRequisicoesCanceladas(): List<Requisicoes> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
-        var id:Long = 7
+        var id: Long = 7
 
         super.validarLista(listaRequisicoes)
 
-        for (pedido in listaRequisicoes){
+        for (pedido in listaRequisicoes) {
 
-            if (pedido.getSituacao()!!.getId() == id ){
+            if (pedido.getSituacao()!!.getId() == id) {
                 resposta.add(pedido)
             }
 
@@ -62,17 +63,17 @@ class RequisicoesService (
 
     }
 
-    fun listarRequisicoesCumpridas():List<Requisicoes>{
+    fun listarRequisicoesCumpridas(): List<Requisicoes> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
-        var id:Long = 6
+        var id: Long = 6
 
         super.validarLista(listaRequisicoes)
 
-        for (pedido in listaRequisicoes){
+        for (pedido in listaRequisicoes) {
 
-            if (pedido.getSituacao()!!.getId() == id ){
+            if (pedido.getSituacao()!!.getId() == id) {
                 resposta.add(pedido)
             }
 
@@ -82,10 +83,10 @@ class RequisicoesService (
 
     }
 
-    fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>):List<RequisicoesDoacaoResponseDTO>{
+    fun transformarListaEmDto(listaRequisicoes: List<Requisicoes>): List<RequisicoesDoacaoResponseDTO> {
 
-        val listaDto:MutableList<RequisicoesDoacaoResponseDTO> = mutableListOf()
-        listaDto.forEachIndexed{index, atividade ->
+        val listaDto: MutableList<RequisicoesDoacaoResponseDTO> = mutableListOf()
+        listaDto.forEachIndexed { index, atividade ->
             mapper.map(listaRequisicoes, RequisicoesDoacaoResponseDTO::class.java)
         }
         return listaDto
@@ -95,7 +96,8 @@ class RequisicoesService (
     private lateinit var entityManager: EntityManager
 
     fun findLimitedCum(): List<RequisicoesCumResponseDTO> {
-        val query = entityManager.createQuery("""
+        val query = entityManager.createQuery(
+            """
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
             (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
@@ -163,13 +165,15 @@ class RequisicoesService (
                 AND r.situacao.id = 6)
         )
         FROM Requisicoes r WHERE r.calendario.id = 1
-    """, RequisicoesCumResponseDTO::class.java)
+    """, RequisicoesCumResponseDTO::class.java
+        )
         query.maxResults = 1
         return query.resultList
     }
 
     fun findLimitedReq(): List<RequisicoesReqResponseDTO> {
-        val query = entityManager.createQuery("""
+        val query = entityManager.createQuery(
+            """
         SELECT NEW school.sptech.projetotfg.dto.RequisicoesReqResponseDTO(
         (SELECT COUNT(r) FROM Requisicoes r 
                 WHERE r.assuntoRequisicao.id = 1 
@@ -236,7 +240,8 @@ class RequisicoesService (
                 AND r.calendario.id BETWEEN 274 AND 365
                 AND r.situacao.id = 5)
         ) FROM Requisicoes r WHERE r.id = 1 
-    """, RequisicoesReqResponseDTO::class.java)
+    """, RequisicoesReqResponseDTO::class.java
+        )
         query.maxResults = 1
         return query.resultList
     }
@@ -289,29 +294,33 @@ class RequisicoesService (
         return dto
     }
 
-    fun validarDtoDash(dto: RequisicaoDashDTO?){
-        if(dto==null) throw ResponseStatusException(HttpStatusCode.valueOf(404))
-        if(dto.cesta_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.cesta_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.vestuario_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.vestuario_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.saude_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.saude_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.outro_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
-        if(dto.outro_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+    fun validarDtoDash(dto: RequisicaoDashDTO?) {
+        if (dto == null) throw ResponseStatusException(HttpStatusCode.valueOf(404))
+        if (dto.cesta_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.cesta_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.vestuario_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.vestuario_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.saude_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.saude_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.outro_req.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
+        if (dto.outro_cum.isEmpty()) throw ResponseStatusException(HttpStatusCode.valueOf(204))
     }
 
-    fun saveRequisicao(requisicao: RequisicaoResquestDTO):Requisicoes{
+    fun saveRequisicao(requisicao: RequisicaoResquestDTO): Requisicoes {
 
-        super.validarId(requisicao.assuntoId,assuntoRequisicaoRepository)
+        super.validarId(requisicao.assuntoId, assuntoRequisicaoRepository)
 
-        super.validarId(requisicao.usuarioId,usuarioRepository)
+        super.validarId(requisicao.usuarioId, usuarioRepository)
 
         val assunto = assuntoRequisicaoRepository.findById(requisicao.assuntoId)
 
         val usuario = usuarioRepository.findById(requisicao.usuarioId)
 
-        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(requisicao.data!!.ano,requisicao.data!!.mesNumeracao,requisicao.data!!.diaNumeracao)
+        val calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(
+            requisicao.data!!.ano,
+            requisicao.data!!.mesNumeracao,
+            requisicao.data!!.diaNumeracao
+        )
 
         val situacao = situacaoRepository.findById(5)
 
@@ -335,9 +344,9 @@ class RequisicoesService (
 
     }
 
-    fun getRequisicao(id:Long):Requisicoes{
+    fun getRequisicao(id: Long): Requisicoes {
 
-        super.validarId(id,requisicaoRepository)
+        super.validarId(id, requisicaoRepository)
 
         var requisicao = requisicaoRepository.findById(id)
 
@@ -345,15 +354,44 @@ class RequisicoesService (
 
     }
 
-    fun listarTipoRequisicao():List<TipoRequisicaoDTO> {
-            val tipoRequisicao = tipoRequisicaoRepository.findAll()
-            return tipoRequisicao.map { tipoRequisicao ->
-                TipoRequisicaoDTO(
-                    id = tipoRequisicao.getId()!!,
-                    assunto = tipoRequisicao.getAssunto()!!
-                )
-            }
+    fun listarTipoRequisicao(): List<TipoRequisicaoDTO> {
+        val tipoRequisicao = tipoRequisicaoRepository.findAll()
+        return tipoRequisicao.map { tipoRequisicao ->
+            TipoRequisicaoDTO(
+                id = tipoRequisicao.getId()!!,
+                assunto = tipoRequisicao.getAssunto()!!
+            )
+        }
+    }
+
+
+    fun alterarSituacao(id: Long, novaSituacao: String): Requisicoes {
+        val requisicao = requisicaoRepository.findById(id).orElseThrow {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Requisição não encontrada")
         }
 
+        if (requisicao.getSituacao()?.getId() == id) {
+            val situacao = when (novaSituacao) {
+                "ACEITA" -> situacaoRepository.findById(id).orElseThrow {
+                    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Situação 'Aceita' não encontrada")
+                }
+
+                "RECUSADA" -> situacaoRepository.findById(id).orElseThrow {
+                    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Situação 'Recusada' não encontrada")
+                }
+
+                else -> throw IllegalArgumentException("Situação inválida")
+            }
+
+            requisicao.setSituacao(situacao)
+            requisicao.setDataUltimaAtualizacao(LocalDateTime.now())
+            requisicaoRepository.save(requisicao)
+        } else {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Somente requisições abertas podem ser alteradas")
+        }
+
+        return requisicao
     }
+}
+
 
