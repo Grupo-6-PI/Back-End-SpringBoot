@@ -2,6 +2,7 @@ package school.sptech.projetotfg.service
 
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
@@ -47,4 +48,14 @@ class RelatorioFinanceiroService(
     fun apagarVenda(id: Long) {
         vendaRepository.deleteById(id)
     }
+
+    fun listarCategorias(): List<Categoria> {
+        return categoriaRepository.findAll().map {
+            categoria -> Categoria(
+                id=null,
+                nome = categoria.getNome()
+            )
+        }
+    }
+
 }

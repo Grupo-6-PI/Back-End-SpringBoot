@@ -3,6 +3,7 @@ package school.sptech.projetotfg.controller
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.service.RelatorioFinanceiroService
@@ -17,7 +18,7 @@ class RelatorioFinanceiroController(val service: RelatorioFinanceiroService) {
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body("Venda Registrada com Sucesso!")
     }
 
-    @GetMapping
+    @GetMapping("/listar-vendas")
     fun listarVendas(): ResponseEntity<List<VendaResponseDTO>> =
         ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.listarVendas())
 
@@ -26,4 +27,8 @@ class RelatorioFinanceiroController(val service: RelatorioFinanceiroService) {
         service.apagarVenda(id)
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body("Venda apagada com Sucesso!")
     }
+
+    @GetMapping("/listar-categorias")
+    fun listarCategorias(): ResponseEntity<List<Categoria>> =
+        ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.listarCategorias())
 }
