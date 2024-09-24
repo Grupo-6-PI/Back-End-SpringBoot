@@ -7,6 +7,7 @@ import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.service.RequisicoesService
 import java.time.LocalDate
+import java.util.Stack
 
 @RestController
 @RequestMapping("/requisicoes")
@@ -76,6 +77,14 @@ class RequisicoesController (
     fun recusarRequisicao(@PathVariable id: Long): ResponseEntity<Requisicoes> {
         val response = requisicoesService.alterarSituacao(id, "RECUSADA")
         return ResponseEntity.status(200).body(response)
+    }
+
+    @GetMapping("/listar-pedidos-adm")
+    fun listarPedidosADM():ResponseEntity<Stack<RequisicaoResponseDTO>>{
+
+        val response = requisicoesService.listRequisicaoADM()
+        return ResponseEntity.status(200).body(response)
+
     }
 
 }

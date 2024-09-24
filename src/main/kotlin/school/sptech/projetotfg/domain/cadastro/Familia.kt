@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 @Entity
 class Familia(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
+    private var apelido:String?,
     @field:OneToOne private var quantidadePessoas: QuantidadePessoas?,
     @field:OneToOne private var rendaFamiliar: RendaFamiliar?,
     @field:ManyToOne private var situacao: Situacao?,
@@ -27,6 +28,14 @@ class Familia(
 
     fun setId(new: Long?){
         this.id = new
+    }
+
+    fun getApelido(): String?{
+        return apelido
+    }
+
+    fun setApelido(new: String?){
+        this.apelido = new
     }
 
     fun getQuantidadePessoas(): QuantidadePessoas?{

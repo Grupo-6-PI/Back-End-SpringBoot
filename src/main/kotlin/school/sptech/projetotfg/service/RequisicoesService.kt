@@ -7,12 +7,14 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import school.sptech.projetotfg.domain.cadastro.Dependente
 import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.Stack
 
 @Service
 class RequisicoesService (
@@ -392,6 +394,109 @@ class RequisicoesService (
 
         return requisicao
     }
+
+    fun listRequisicaoADM():Stack<RequisicaoResponseDTO>{
+
+        val listaRequisicoes = requisicaoRepository.findAll()
+        var resposta = mutableListOf<Requisicoes>()
+        var id:Long = 5
+
+        super.validarLista(listaRequisicoes)
+
+        for (pedido in listaRequisicoes) {
+
+            if (pedido.getUsuario()!!.getId() == id) {
+                resposta.add(pedido)
+            }
+
+        }
+
+        var pilhaResposta = Stack<RequisicaoResponseDTO>()
+
+        for (pedido in resposta) {
+
+            val numeracao:Int = resposta.indexOf(pedido)
+
+            val solicitante:String = pedido.getUsuario()!!.getNome()!!
+
+            val CPF:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getCpf()!!
+
+            val logradouro:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getLogradouro()!!
+
+            val estado:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!.getEstado()!!.getUf()!!
+
+            val numero:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getNumero()!!;
+
+            val endereco:String = "${logradouro}, ${numero} - ${estado}"
+
+            val familiaOrigem:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getApelido()!!
+
+            val quantidadePessoas:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes.size
+
+            val possuiCrianca:Boolean = validarIdade(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val possuiPCD: Boolean = validarDef(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val rendaFamiliar:Double = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getRendaFamiliar()!!.getRenda()!!
+
+            val tipoRequisicao:String = pedido.getAssuntoRequisicao()!!.getAssunto()!!
+
+            val descricao:String = pedido.getDescricao()!!
+
+            val newPedido = RequisicaoResponseDTO(
+                numeracao = numeracao,
+                solicitante = solicitante,
+                CPF = CPF,
+                endereco = endereco,
+                familiaOrigem = familiaOrigem,
+                quantidadePessoas = quantidadePessoas,
+                possuiCrianca = possuiCrianca,
+                possuiPCD = possuiPCD,
+                rendaFamiliar = rendaFamiliar,
+                tipoRequisicao = tipoRequisicao,
+                descricao = descricao
+            )
+
+            pilhaResposta.push(newPedido)
+
+        }
+
+        return pilhaResposta
+
+    }
+
+    fun validarIdade(dependentes: MutableList<Dependente>):Boolean{
+
+        for (pessoa in dependentes){
+
+            var idade = LocalDate.now().year - pessoa.getDataNascimento()!!.year
+
+            if (idade < 18){
+
+                return true
+
+            }
+
+        }
+
+        return false
+
+    }
+
+    fun validarDef(dependentes: MutableList<Dependente>):Boolean{
+
+        for (pessoa in dependentes){
+
+            if (pessoa.getDeficiente()!!){
+                return true
+            }
+
+        }
+
+        return false
+
+    }
+
 }
 
 
