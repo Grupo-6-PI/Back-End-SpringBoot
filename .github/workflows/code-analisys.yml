@@ -1,7 +1,0 @@
-name: "CodeQL",
-
-on:
-  push:
-    branchs: [main, DEV, ]
-  schedule:
-    - cron: '0 11 * * 3'
