@@ -69,9 +69,9 @@ class AutenticacaoService(
         val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
             ?: throw ResponseStatusException(HttpStatusCode.valueOf(400), "Nenhum acesso encontrado para o usuário")
 
-        if (ultimoAcesso.getSituacao()!!.getSituacao() != "Logado") {
-            throw ResponseStatusException(HttpStatusCode.valueOf(400), "Usuário não está logado")
-        }
+        //if (ultimoAcesso.getSituacao()!!.getSituacao() != "Logado") {
+        //    throw ResponseStatusException(HttpStatusCode.valueOf(400), "Usuário não está logado")
+        //}
 
         val situacaoDeslogado = situacaoRepository.findBySituacao("Deslogado")
             ?: throw ResponseStatusException(HttpStatusCode.valueOf(500), "Situação 'Deslogado' não encontrada")
