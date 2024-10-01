@@ -36,14 +36,14 @@ class AutenticacaoService(
             throw ResponseStatusException(HttpStatusCode.valueOf(401), "Senha incorreta")
         }
 
-        val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
+        //val ultimoAcesso = acessoRepository.findTopByUsuarioOrderByIdDesc(usuario)
 
-        if (ultimoAcesso != null && ultimoAcesso.getSituacao()?.getSituacao() == "Logado") {
-            throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
-        }
+        //if (ultimoAcesso != null && ultimoAcesso.getSituacao()?.getSituacao() == "Logado") {
+        //    throw ResponseStatusException(HttpStatusCode.valueOf(401), "Usuário já está logado em outro dispositivo")
+        //}
 
         val situacaoLogado = situacaoRepository.findBySituacao("Logado")
-            ?: throw ResponseStatusException(HttpStatusCode.valueOf(500), "Situação 'Logado' não encontrada")
+         ?: throw ResponseStatusException(HttpStatusCode.valueOf(500), "Situação 'Logado' não encontrada")
 
         val acesso = Acesso(
             dataAcesso = LocalDate.now(),
