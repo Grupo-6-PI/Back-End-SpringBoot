@@ -52,7 +52,7 @@ class RelatorioFinanceiroService(
     fun listarCategorias(): List<Categoria> {
         return categoriaRepository.findAll().map {
             categoria -> Categoria(
-                id=null,
+                id=categoria.getId(),
                 nome = categoria.getNome()
             )
         }

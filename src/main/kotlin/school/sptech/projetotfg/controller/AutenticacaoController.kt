@@ -1,11 +1,8 @@
 package school.sptech.projetotfg.controller
 
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import school.sptech.projetotfg.domain.views.login
 import school.sptech.projetotfg.dto.LoginRequestDTO
-import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.dto.UsuarioResponseLoginDTO
 import school.sptech.projetotfg.service.AutenticacaoService
 

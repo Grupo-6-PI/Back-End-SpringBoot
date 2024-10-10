@@ -1,14 +1,11 @@
 package school.sptech.projetotfg.service
 
-import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.gerenciamento.Acesso
-import school.sptech.projetotfg.domain.views.login
 import school.sptech.projetotfg.dto.LoginRequestDTO
 
-import school.sptech.projetotfg.dto.UsuarioResponseDTO
 import school.sptech.projetotfg.dto.UsuarioResponseLoginDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
