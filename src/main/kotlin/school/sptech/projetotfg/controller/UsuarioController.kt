@@ -3,10 +3,9 @@ package school.sptech.projetotfg.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.dto.UsuarioCompletoInputDTO
-import school.sptech.projetotfg.dto.UsuarioCompletoResponseDTO
-import school.sptech.projetotfg.dto.UsuarioInputDTO
-import school.sptech.projetotfg.dto.UsuarioResponseDTO
+import school.sptech.projetotfg.domain.cadastro.Bairro
+import school.sptech.projetotfg.domain.cadastro.Cidade
+import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.service.UsuarioService
 
 @RestController
@@ -58,18 +57,28 @@ class UsuarioController(
         }
     }
 
+    @GetMapping("/cidades")
+    fun getCidades():ResponseEntity<MutableList<Cidade>>{
+
+        val cidades = usuarioService.getCidades()
+        return ResponseEntity.status(200).body(cidades)
+
+    }
+
+    @GetMapping("/bairro")
+    fun getBairro():ResponseEntity<MutableList<Bairro>>{
+
+        val bairros = usuarioService.getBairro()
+        return ResponseEntity.status(200).body(bairros)
+
+    }
+
     @PostMapping("/completo/cadastro")
-    fun cadastrarUsuarioCompleto(@RequestBody usuarioCompletoInputDTO: UsuarioCompletoInputDTO): ResponseEntity<UsuarioCompletoResponseDTO> {
-        try {
+    fun cadastrarUsuarioCompleto(@RequestBody usuarioCompletoInputDTO: CadastroCompletoInputDTO?): ResponseEntity<UsuarioCompletoResponseDTO> {
 
-            val usuarioCompletoResponseDTO = usuarioService.cadastrarUsuarioCompleto(usuarioCompletoInputDTO)
-            return ResponseEntity.status(201).body(usuarioCompletoResponseDTO)
+        val usuarioCompletoResponseDTO = usuarioService.separarArqs(usuarioCompletoInputDTO!!)
+        return ResponseEntity.status(201).body(usuarioCompletoResponseDTO)
 
-        } catch (ex: ResponseStatusException) {
-
-            return ResponseEntity.status(500).build()
-
-        }
     }
 
     @PutMapping("/completo/{id}")

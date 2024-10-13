@@ -8,6 +8,7 @@ import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.service.RequisicoesService
 import java.time.LocalDate
 import java.util.Stack
+import java.util.concurrent.ArrayBlockingQueue
 
 @RestController
 @RequestMapping("/requisicoes")
@@ -80,7 +81,7 @@ class RequisicoesController (
     }
 
     @GetMapping("/listar-pedidos-adm")
-    fun listarPedidosADM():ResponseEntity<Stack<RequisicaoResponseDTO>>{
+    fun listarPedidosADM():ResponseEntity<ArrayBlockingQueue<RequisicaoResponseDTO>>{
 
         val response = requisicoesService.listRequisicaoADM()
         return ResponseEntity.status(200).body(response)

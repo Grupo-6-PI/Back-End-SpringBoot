@@ -15,6 +15,7 @@ import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Stack
+import java.util.concurrent.ArrayBlockingQueue
 
 @Service
 class RequisicoesService (
@@ -395,7 +396,7 @@ class RequisicoesService (
         return requisicao
     }
 
-    fun listRequisicaoADM():Stack<RequisicaoResponseDTO>{
+    fun listRequisicaoADM():ArrayBlockingQueue<RequisicaoResponseDTO>{
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
@@ -411,7 +412,7 @@ class RequisicoesService (
 
         }
 
-        var pilhaResposta = Stack<RequisicaoResponseDTO>()
+        var pilhaResposta = ArrayBlockingQueue<RequisicaoResponseDTO>(resposta.size)
 
         for (pedido in resposta) {
 
@@ -443,10 +444,13 @@ class RequisicoesService (
 
             val descricao:String = pedido.getDescricao()!!
 
+            val dataNasc = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getDataNascimento()!!
+
             val newPedido = RequisicaoResponseDTO(
                 numeracao = numeracao,
                 solicitante = solicitante,
                 CPF = CPF,
+                dataNasc = dataNasc,
                 endereco = endereco,
                 familiaOrigem = familiaOrigem,
                 quantidadePessoas = quantidadePessoas,
@@ -457,7 +461,7 @@ class RequisicoesService (
                 descricao = descricao
             )
 
-            pilhaResposta.push(newPedido)
+            pilhaResposta.add(newPedido)
 
         }
 

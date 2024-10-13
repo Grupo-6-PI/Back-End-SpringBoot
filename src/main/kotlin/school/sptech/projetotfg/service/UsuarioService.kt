@@ -4,16 +4,22 @@ import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import school.sptech.projetotfg.dto.UsuarioInputDTO
-import school.sptech.projetotfg.dto.UsuarioResponseDTO
-import school.sptech.projetotfg.repository.UsuarioRepository
-import school.sptech.projetotfg.domain.cadastro.Usuario
-import school.sptech.projetotfg.dto.UsuarioCompletoInputDTO
-import school.sptech.projetotfg.dto.UsuarioCompletoResponseDTO
+import school.sptech.projetotfg.domain.cadastro.*
+import school.sptech.projetotfg.dto.*
+import school.sptech.projetotfg.repository.*
 
 @Service
 class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
+    private val dependenteRepository: DependenteRepository,
+    private val informacoesRepository: InformacoesAdicionaisRepository,
+    private val enderecoRepostiory: EnderecoRepository,
+    private val bairroRepostiory: BairroRepository,
+    private val cidadeRepository: CidadeRepository,
+    private val familiaRepository: FamiliaRepository,
+    private val rendaRepository: RendaFamiliaRepository,
+    private val tamanhoRoupaRepository: TamanhoRoupaRepository,
+    private val tamanhoCalcadoRepository: TamanhoCalcadoRepository,
     private val mapper: ModelMapper
 ) :school.sptech.projetotfg.complement.Service(){
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
@@ -95,27 +101,92 @@ class UsuarioService(
         }
     }
 
+    fun separarArqs(json: CadastroCompletoInputDTO):UsuarioCompletoResponseDTO{
+
+        var usuario = cadastrarUsuarioCompleto(json.usuario!!)
+
+        cadastrarDependentes(json.dependentes!!, usuario.informacoesAdicionais.getFamilia()!!)
+
+        return usuario
+
+    }
+
     fun cadastrarUsuarioCompleto(usuarioCompletoInputDTO: UsuarioCompletoInputDTO): UsuarioCompletoResponseDTO {
-        if (usuarioRepository.existsByEmail(usuarioCompletoInputDTO.email)) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
-        }
+
+//        if (usuarioRepository.existsByEmail(usuarioCompletoInputDTO!!.email!!)) {
+//            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
+//        }
 
         val usuario = mapper.map(usuarioCompletoInputDTO,Usuario::class.java)
 
         try {
+
+            val cidade = cidadeRepository.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!)
+            val bairro = bairroRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!)
+            bairro.setCidade(cidade)
+            val endereco = enderecoRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!)
+            endereco.setBairro(bairro)
+
+            val renda = rendaRepository.save(usuario.getInformacoesAdicionais()!!.getFamilia()!!.getRendaFamiliar()!!)
+
+            usuario.getInformacoesAdicionais()!!.setFamilia(familiaRepository.save(usuario.getInformacoesAdicionais()!!.getFamilia()!!))
+            usuario.getInformacoesAdicionais()!!.getFamilia()!!.setRendaFamiliar(renda)
+            val informacoes = informacoesRepository.save(usuario.getInformacoesAdicionais()!!)
+            informacoes.setEndereco(endereco)
             val usuarioSalvo = usuarioRepository.save(usuario)
             return UsuarioCompletoResponseDTO(
                 id = usuarioSalvo.getId()!!,
                 nome = usuarioSalvo.getNome()!!,
                 email = usuarioSalvo.getEmail()!!,
                 senha = null,
-                informacoesAdicionais = usuarioSalvo.getInformacoesAdicionais()!!,
+                informacoesAdicionais = informacoes,
                 situacao = usuarioSalvo.getSituacao()!!,
                 nivelAcesso = usuarioSalvo.getNivelAcesso()!!
             )
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao cadastrar usuário: ${ex.message}")
         }
+    }
+
+    fun cadastrarDependentes(array:MutableList<DependenteInputDTO>,familia:Familia) {
+
+        for (a in array){
+
+            var depen = mapper.map(a,Dependente::class.java)
+
+            depen.setFamilia(familia)
+
+            var tamanhoRoupa:TamanhoRoupa = tamanhoRoupaRepository.save(depen.getTamanhoRoupa()!!)
+
+            var tamanhoCalcado:TamanhoCalcado = tamanhoCalcadoRepository.save(depen.getTamanhoCalcado()!!)
+
+            depen.setTamanhoRoupa(tamanhoRoupa)
+            depen.setTamanhoCalcado(tamanhoCalcado)
+
+            dependenteRepository.save(depen)
+
+        }
+
+    }
+
+    fun getCidades():MutableList<Cidade>{
+
+        val cidades = cidadeRepository.findAll()
+
+        super.validarLista(cidades)
+
+        return cidades
+
+    }
+
+    fun getBairro():MutableList<Bairro>{
+
+        val bairros = bairroRepostiory.findAll()
+
+        super.validarLista(bairros)
+
+        return bairros
+
     }
 
     fun atualizarUsuarioCompleto(id: Long, usuarioCompletoInputDTO: UsuarioCompletoInputDTO): UsuarioCompletoResponseDTO {

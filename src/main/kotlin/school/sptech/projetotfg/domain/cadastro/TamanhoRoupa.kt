@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Max
 @Entity
 class TamanhoRoupa(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:Max(10) private var tamanho:String?,
-    @ManyToOne private var faixaEtaria: FaixaEtaria?
+    private var tamanho:String?
 ) {
 
     fun getId(): Long?{
@@ -25,14 +24,5 @@ class TamanhoRoupa(
     fun setTamanho(tamanho: String?){
         this.tamanho = tamanho
     }
-
-    fun getFaixaEtaria(): FaixaEtaria?{
-        return faixaEtaria
-    }
-
-    fun setFaixaEtaria(new: FaixaEtaria?){
-        this.faixaEtaria = new
-    }
-
 
 }
