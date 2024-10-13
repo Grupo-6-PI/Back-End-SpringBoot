@@ -13,6 +13,7 @@ class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val dependenteRepository: DependenteRepository,
     private val informacoesRepository: InformacoesAdicionaisRepository,
+    private val contatoRepository: ContatoRepository,
     private val enderecoRepostiory: EnderecoRepository,
     private val bairroRepostiory: BairroRepository,
     private val cidadeRepository: CidadeRepository,
@@ -89,8 +90,8 @@ class UsuarioService(
         }
         try {
 
-            var usuario = usuarioRepository.findById(id)
-            var resposta = mapper.map(
+            val usuario = usuarioRepository.findById(id)
+            val resposta = mapper.map(
                 usuario,
                 UsuarioResponseDTO::class.java
             )
@@ -103,7 +104,7 @@ class UsuarioService(
 
     fun separarArqs(json: CadastroCompletoInputDTO):UsuarioCompletoResponseDTO{
 
-        var usuario = cadastrarUsuarioCompleto(json.usuario!!)
+        val usuario = cadastrarUsuarioCompleto(json.usuario!!)
 
         cadastrarDependentes(json.dependentes!!, usuario.informacoesAdicionais.getFamilia()!!)
 
@@ -133,6 +134,12 @@ class UsuarioService(
             usuario.getInformacoesAdicionais()!!.getFamilia()!!.setRendaFamiliar(renda)
             val informacoes = informacoesRepository.save(usuario.getInformacoesAdicionais()!!)
             informacoes.setEndereco(endereco)
+            val contato = usuarioCompletoInputDTO.contato!!
+
+            contato.setInformacoesAdicionais(informacoes)
+
+            contatoRepository.save(contato)
+
             val usuarioSalvo = usuarioRepository.save(usuario)
             return UsuarioCompletoResponseDTO(
                 id = usuarioSalvo.getId()!!,
@@ -152,13 +159,13 @@ class UsuarioService(
 
         for (a in array){
 
-            var depen = mapper.map(a,Dependente::class.java)
+            val depen = mapper.map(a,Dependente::class.java)
 
             depen.setFamilia(familia)
 
-            var tamanhoRoupa:TamanhoRoupa = tamanhoRoupaRepository.save(depen.getTamanhoRoupa()!!)
+            val tamanhoRoupa:TamanhoRoupa = tamanhoRoupaRepository.save(depen.getTamanhoRoupa()!!)
 
-            var tamanhoCalcado:TamanhoCalcado = tamanhoCalcadoRepository.save(depen.getTamanhoCalcado()!!)
+            val tamanhoCalcado:TamanhoCalcado = tamanhoCalcadoRepository.save(depen.getTamanhoCalcado()!!)
 
             depen.setTamanhoRoupa(tamanhoRoupa)
             depen.setTamanhoCalcado(tamanhoCalcado)
@@ -237,8 +244,8 @@ class UsuarioService(
         }
         try {
 
-            var usuario = usuarioRepository.findById(id)
-            var resposta = mapper.map(
+            val usuario = usuarioRepository.findById(id)
+            val resposta = mapper.map(
                 usuario,
                 UsuarioCompletoResponseDTO::class.java
             )
