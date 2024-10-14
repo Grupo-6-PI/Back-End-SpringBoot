@@ -106,7 +106,9 @@ class UsuarioService(
 
         val usuario = cadastrarUsuarioCompleto(json.usuario!!)
 
-        cadastrarDependentes(json.dependentes!!, usuario.informacoesAdicionais.getFamilia()!!)
+        if(json.dependentes != null){
+            cadastrarDependentes(json.dependentes!!, usuario.informacoesAdicionais.getFamilia()!!)
+        }
 
         return usuario
 
