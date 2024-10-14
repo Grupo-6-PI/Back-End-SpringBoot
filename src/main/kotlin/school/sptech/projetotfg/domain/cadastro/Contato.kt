@@ -16,8 +16,8 @@ import java.time.LocalDateTime
 class Contato(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
     private var informacoesContato:String?,
-    @field:PastOrPresent private var dataCriacao:LocalDateTime?,
-    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime?,
+    private var dataCriacao:LocalDateTime?,
+    private var dataUltimaAtualizacao:LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador:String?,
     @ManyToOne private var tipoContato:TipoContato?,
     @ManyToOne private var informacoesAdicionais: InformacoesAdicionais?

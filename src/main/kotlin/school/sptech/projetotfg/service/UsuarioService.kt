@@ -125,9 +125,9 @@ class UsuarioService(
 
         try {
 
-            val cidade = cidadeRepository.findById(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!.getId()!!).get()
+            val cidade = cidadeRepository.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!)
 
-            val bairro = bairroRepostiory.findById(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getId()!!).get()
+            val bairro = bairroRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!)
 
             bairro.setCidade(cidade)
             val endereco = enderecoRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!)

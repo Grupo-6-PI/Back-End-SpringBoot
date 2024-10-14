@@ -19,8 +19,8 @@ class InformacoesAdicionais (
     @field:OneToOne private var familia: Familia?,
     @field:OneToOne private var identificador: Identificador?,
     @field:ManyToOne private var situacao: Situacao?,
-    @field:PastOrPresent private var dataCriacao:LocalDateTime?,
-    @field:PastOrPresent private var dataUltimaAtualizacao:LocalDateTime?,
+    private var dataCriacao:LocalDateTime?,
+    private var dataUltimaAtualizacao:LocalDateTime?,
     @field:Email @field:Size(max = 100) private var emailModificador:String?
 ){
 
