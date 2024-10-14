@@ -15,6 +15,7 @@ class UsuarioService(
     private val informacoesRepository: InformacoesAdicionaisRepository,
     private val contatoRepository: ContatoRepository,
     private val enderecoRepostiory: EnderecoRepository,
+    private val estadoRepostiory: EstadoRepository,
     private val bairroRepostiory: BairroRepository,
     private val cidadeRepository: CidadeRepository,
     private val familiaRepository: FamiliaRepository,
@@ -124,8 +125,10 @@ class UsuarioService(
 
         try {
 
-            val cidade = cidadeRepository.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!)
-            val bairro = bairroRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!)
+            val cidade = cidadeRepository.findById(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!.getId()!!).get()
+
+            val bairro = bairroRepostiory.findById(usuario.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getId()!!).get()
+
             bairro.setCidade(cidade)
             val endereco = enderecoRepostiory.save(usuario.getInformacoesAdicionais()!!.getEndereco()!!)
             endereco.setBairro(bairro)

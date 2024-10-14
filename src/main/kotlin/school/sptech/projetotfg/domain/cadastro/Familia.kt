@@ -14,8 +14,8 @@ class Familia(
     private var quantidadePessoas: Int?,
     @field:OneToOne private var rendaFamiliar: RendaFamiliar?,
     @field:ManyToOne private var situacao: Situacao?,
-    @field:PastOrPresent private var dataCriacao: LocalDateTime?,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
+    private var dataCriacao: LocalDateTime?,
+    private var dataUltimaAtualizacao: LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador:String?
 ) {
 
