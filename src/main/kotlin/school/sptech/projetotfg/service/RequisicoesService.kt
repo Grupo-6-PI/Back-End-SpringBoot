@@ -487,7 +487,7 @@ class RequisicoesService (
             when (novaSituacao) {
                 1 -> { situacao = situacaoRepository.findById(6).get() }
                 2 -> { situacao = situacaoRepository.findById(7).get() }
-
+                3 -> { situacao = situacaoRepository.findById(5).get() }
                 else -> throw IllegalArgumentException("Situação inválida")
             }
 

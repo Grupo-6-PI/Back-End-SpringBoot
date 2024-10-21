@@ -74,6 +74,12 @@ class RequisicoesController (
         return ResponseEntity.status(200).body(response)
     }
 
+    @PutMapping("/{id}/resetar")
+    fun resetarRequisicao(@PathVariable id: Long): ResponseEntity<Requisicoes> {
+        val response = requisicoesService.alterarSituacao(id, 3)
+        return ResponseEntity.status(200).body(response)
+    }
+
     @PutMapping("/{id}/recusar")
     fun recusarRequisicao(@PathVariable id: Long): ResponseEntity<Requisicoes> {
         val response = requisicoesService.alterarSituacao(id, 2)
