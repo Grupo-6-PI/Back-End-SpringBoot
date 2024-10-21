@@ -23,13 +23,13 @@ class RequisicoesController (
     }
 
     @GetMapping("/lista-requisicoes/canceladas")
-    fun listarRequisicoesCanceladas():ResponseEntity<List<Requisicoes>>{
+    fun listarRequisicoesCanceladas():ResponseEntity<ArrayBlockingQueue<RequisicaoResponseDTO>>{
         val requisicoes = requisicoesService.listarRequisicoesCanceladas()
         return ResponseEntity.status(200).body(requisicoes)
     }
 
     @GetMapping("/lista-requisicoes/cumpridas")
-    fun listarRequisicoesCumpridas():ResponseEntity<List<Requisicoes>>{
+    fun listarRequisicoesCumpridas():ResponseEntity<ArrayBlockingQueue<RequisicaoResponseDTO>>{
         val requisicoes = requisicoesService.listarRequisicoesCumpridas()
         return ResponseEntity.status(200).body(requisicoes)
     }
@@ -70,13 +70,13 @@ class RequisicoesController (
 
     @PutMapping("/{id}/aceitar")
     fun aceitarRequisicao(@PathVariable id: Long): ResponseEntity<Requisicoes> {
-        val response = requisicoesService.alterarSituacao(id, "ACEITA")
+        val response = requisicoesService.alterarSituacao(id, 1)
         return ResponseEntity.status(200).body(response)
     }
 
     @PutMapping("/{id}/recusar")
     fun recusarRequisicao(@PathVariable id: Long): ResponseEntity<Requisicoes> {
-        val response = requisicoesService.alterarSituacao(id, "RECUSADA")
+        val response = requisicoesService.alterarSituacao(id, 2)
         return ResponseEntity.status(200).body(response)
     }
 

@@ -3,6 +3,7 @@ package school.sptech.projetotfg.dto
 import java.time.LocalDate
 
 data class RequisicaoResponseDTO(
+    val id:Long,
     val numeracao:Int,
     val solicitante:String,
     val CPF:String,

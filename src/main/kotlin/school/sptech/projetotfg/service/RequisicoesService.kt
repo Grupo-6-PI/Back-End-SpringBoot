@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.cadastro.Dependente
 import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
@@ -46,11 +47,11 @@ class RequisicoesService (
 
     }
 
-    fun listarRequisicoesCanceladas(): List<Requisicoes> {
+    fun listarRequisicoesCanceladas(): ArrayBlockingQueue<RequisicaoResponseDTO> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
-        var id: Long = 7
+        var id:Long = 7
 
         super.validarLista(listaRequisicoes)
 
@@ -62,15 +63,69 @@ class RequisicoesService (
 
         }
 
-        return resposta
+        var pilhaResposta = ArrayBlockingQueue<RequisicaoResponseDTO>(resposta.size)
+
+        for (pedido in resposta) {
+
+            val numeracao:Int = resposta.indexOf(pedido)
+
+            val solicitante:String = pedido.getUsuario()!!.getNome()!!
+
+            val CPF:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getCpf()!!
+
+            val logradouro:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getLogradouro()!!
+
+            val estado:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!.getEstado()!!.getUf()!!
+
+            val numero:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getNumero()!!;
+
+            val endereco = "${logradouro}, ${numero} - ${estado}"
+
+            val familiaOrigem:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getApelido()!!
+
+            val quantidadePessoas:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes.size
+
+            val possuiCrianca:Boolean = validarIdade(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val possuiPCD: Boolean = validarDef(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val rendaFamiliar:Double = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getRendaFamiliar()!!.getRenda()!!
+
+            val tipoRequisicao:String = pedido.getAssuntoRequisicao()!!.getAssunto()!!
+
+            val descricao:String = pedido.getDescricao()!!
+
+            val dataNasc = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getDataNascimento()!!
+
+            val newPedido = RequisicaoResponseDTO(
+                id = pedido.getId()!!,
+                numeracao = numeracao,
+                solicitante = solicitante,
+                CPF = CPF,
+                dataNasc = dataNasc,
+                endereco = endereco,
+                familiaOrigem = familiaOrigem,
+                quantidadePessoas = quantidadePessoas,
+                possuiCrianca = possuiCrianca,
+                possuiPCD = possuiPCD,
+                rendaFamiliar = rendaFamiliar,
+                tipoRequisicao = tipoRequisicao,
+                descricao = descricao
+            )
+
+            pilhaResposta.add(newPedido)
+
+        }
+
+        return pilhaResposta
 
     }
 
-    fun listarRequisicoesCumpridas(): List<Requisicoes> {
+    fun listarRequisicoesCumpridas(): ArrayBlockingQueue<RequisicaoResponseDTO> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
-        var id: Long = 6
+        var id:Long = 6
 
         super.validarLista(listaRequisicoes)
 
@@ -82,7 +137,61 @@ class RequisicoesService (
 
         }
 
-        return resposta
+        var pilhaResposta = ArrayBlockingQueue<RequisicaoResponseDTO>(resposta.size)
+
+        for (pedido in resposta) {
+
+            val numeracao:Int = resposta.indexOf(pedido)
+
+            val solicitante:String = pedido.getUsuario()!!.getNome()!!
+
+            val CPF:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getCpf()!!
+
+            val logradouro:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getLogradouro()!!
+
+            val estado:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getBairro()!!.getCidade()!!.getEstado()!!.getUf()!!
+
+            val numero:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getNumero()!!;
+
+            val endereco = "${logradouro}, ${numero} - ${estado}"
+
+            val familiaOrigem:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getApelido()!!
+
+            val quantidadePessoas:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes.size
+
+            val possuiCrianca:Boolean = validarIdade(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val possuiPCD: Boolean = validarDef(pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.dependentes)
+
+            val rendaFamiliar:Double = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getRendaFamiliar()!!.getRenda()!!
+
+            val tipoRequisicao:String = pedido.getAssuntoRequisicao()!!.getAssunto()!!
+
+            val descricao:String = pedido.getDescricao()!!
+
+            val dataNasc = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getDataNascimento()!!
+
+            val newPedido = RequisicaoResponseDTO(
+                id = pedido.getId()!!,
+                numeracao = numeracao,
+                solicitante = solicitante,
+                CPF = CPF,
+                dataNasc = dataNasc,
+                endereco = endereco,
+                familiaOrigem = familiaOrigem,
+                quantidadePessoas = quantidadePessoas,
+                possuiCrianca = possuiCrianca,
+                possuiPCD = possuiPCD,
+                rendaFamiliar = rendaFamiliar,
+                tipoRequisicao = tipoRequisicao,
+                descricao = descricao
+            )
+
+            pilhaResposta.add(newPedido)
+
+        }
+
+        return pilhaResposta
 
     }
 
@@ -368,20 +477,16 @@ class RequisicoesService (
     }
 
 
-    fun alterarSituacao(id: Long, novaSituacao: String): Requisicoes {
+    fun alterarSituacao(id: Long, novaSituacao: Int): Requisicoes {
         val requisicao = requisicaoRepository.findById(id).orElseThrow {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Requisição não encontrada")
         }
 
-        if (requisicao.getSituacao()?.getId() == id) {
-            val situacao = when (novaSituacao) {
-                "ACEITA" -> situacaoRepository.findById(id).orElseThrow {
-                    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Situação 'Aceita' não encontrada")
-                }
+        var situacao:Situacao
 
-                "RECUSADA" -> situacaoRepository.findById(id).orElseThrow {
-                    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Situação 'Recusada' não encontrada")
-                }
+            when (novaSituacao) {
+                1 -> { situacao = situacaoRepository.findById(6).get() }
+                2 -> { situacao = situacaoRepository.findById(7).get() }
 
                 else -> throw IllegalArgumentException("Situação inválida")
             }
@@ -389,9 +494,6 @@ class RequisicoesService (
             requisicao.setSituacao(situacao)
             requisicao.setDataUltimaAtualizacao(LocalDateTime.now())
             requisicaoRepository.save(requisicao)
-        } else {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Somente requisições abertas podem ser alteradas")
-        }
 
         return requisicao
     }
@@ -406,7 +508,7 @@ class RequisicoesService (
 
         for (pedido in listaRequisicoes) {
 
-            if (pedido.getUsuario()!!.getId() == id) {
+            if (pedido.getSituacao()!!.getId() == id) {
                 resposta.add(pedido)
             }
 
@@ -428,7 +530,7 @@ class RequisicoesService (
 
             val numero:Int = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getEndereco()!!.getNumero()!!;
 
-            val endereco:String = "${logradouro}, ${numero} - ${estado}"
+            val endereco = "${logradouro}, ${numero} - ${estado}"
 
             val familiaOrigem:String = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getFamilia()!!.getApelido()!!
 
@@ -447,6 +549,7 @@ class RequisicoesService (
             val dataNasc = pedido.getUsuario()!!.getInformacoesAdicionais()!!.getDataNascimento()!!
 
             val newPedido = RequisicaoResponseDTO(
+                id = pedido.getId()!!,
                 numeracao = numeracao,
                 solicitante = solicitante,
                 CPF = CPF,

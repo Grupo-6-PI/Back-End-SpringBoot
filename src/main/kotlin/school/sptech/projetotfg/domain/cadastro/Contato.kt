@@ -31,10 +31,6 @@ class Contato(
         this.id = new
     }
 
-    fun getInformacoesContato(): String? {
-        return informacoesContato
-    }
-
     fun setInformacoesContato(new: String?) {
         this.informacoesContato = new
     }
