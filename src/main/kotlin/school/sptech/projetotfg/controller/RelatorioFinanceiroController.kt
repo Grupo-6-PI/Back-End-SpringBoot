@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
+import school.sptech.projetotfg.dto.CategoriaDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.service.RelatorioFinanceiroService

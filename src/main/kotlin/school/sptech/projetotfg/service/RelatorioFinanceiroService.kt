@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
+import school.sptech.projetotfg.dto.CategoriaDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.repository.CalendarioRepository
@@ -35,10 +36,13 @@ class RelatorioFinanceiroService(
     fun listarVendas(): List<VendaResponseDTO> {
         return vendaRepository.findAll().map { venda ->
             VendaResponseDTO(
-                id = null,
+                id = venda.getId(),
                 quantidade = venda.getQuantidade(),
                 valor = venda.getValor(),
-                categoria = venda.getCategoria(),
+                categoria = CategoriaDTO(
+                    id = venda.getCategoria()!!.getId(),
+                    nome = venda.getCategoria()!!.getNome()
+                ),
                 calendario = venda.getCalendario(),
                 dataModificacao = LocalDateTime.now()
             )
