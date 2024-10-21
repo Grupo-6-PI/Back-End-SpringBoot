@@ -20,8 +20,7 @@ class RelatorioFinanceiroController(val service: RelatorioFinanceiroService) {
     }
 
     @GetMapping("/listar-vendas")
-    fun listarVendas(): ResponseEntity<List<VendaResponseDTO>> =
-        ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.listarVendas())
+    fun listarVendas(): ResponseEntity<List<VendaResponseDTO>> = ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.listarVendas())
 
     @DeleteMapping("/{id}")
     fun apagarVenda(@PathVariable id: Long): ResponseEntity<String> {

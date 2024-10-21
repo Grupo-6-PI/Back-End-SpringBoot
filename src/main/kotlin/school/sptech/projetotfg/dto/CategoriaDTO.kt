@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import jakarta.validation.constraints.Max
 
 class CategoriaDTO(
-    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:Max(60) private var nome:String?
+    var id:Long?,
+    var nome:String?
 ) {
 }

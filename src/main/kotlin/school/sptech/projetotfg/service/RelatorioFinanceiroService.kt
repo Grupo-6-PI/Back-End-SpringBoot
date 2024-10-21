@@ -35,14 +35,15 @@ class RelatorioFinanceiroService(
 
     fun listarVendas(): List<VendaResponseDTO> {
         return vendaRepository.findAll().map { venda ->
+            val categ = CategoriaDTO(
+                id = venda.getCategoria()!!.getId(),
+                nome = venda.getCategoria()!!.getNome()
+            )
             VendaResponseDTO(
                 id = venda.getId(),
                 quantidade = venda.getQuantidade(),
                 valor = venda.getValor(),
-                categoria = CategoriaDTO(
-                    id = venda.getCategoria()!!.getId(),
-                    nome = venda.getCategoria()!!.getNome()
-                ),
+                categoria = categ,
                 calendario = venda.getCalendario(),
                 dataModificacao = LocalDateTime.now()
             )
