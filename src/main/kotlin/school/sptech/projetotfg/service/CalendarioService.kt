@@ -5,11 +5,15 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.atividades.*
+import school.sptech.projetotfg.domain.cadastro.Bairro
+import school.sptech.projetotfg.domain.cadastro.Endereco
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.AtividadeDTO
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.ReservaAtividadeResponseDTO
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDateTime
+import java.util.Optional
 
 @Service
 class CalendarioService(
@@ -17,6 +21,10 @@ class CalendarioService(
     private val reservaAtividadeRepository: ReservaAtividadeRepository,
     private val tipoAtividadeRepository: TipoAtividadeRepository,
     private val calendarioRepository: CalendarioRepository,
+    private val cidadeRepository: CidadeRepository,
+    private val bairroRepository:BairroRepository,
+    private val situacaoRepository: SituacaoRepository,
+    private val enderecoRepository: EnderecoRepository,
     private val modelMapper: ModelMapper
 
 ):school.sptech.projetotfg.complement.Service() {
@@ -29,7 +37,22 @@ class CalendarioService(
             .orElseThrow { IllegalArgumentException("Tipo de Atividade não encontrado") }
         
         var calendarioId = calendarioRepository.getSemana(atividadeDTO.filtrodto.diaNumeracao,atividadeDTO.filtrodto.mesNumeracao,atividadeDTO.filtrodto.ano).get()
-        
+
+        var cidade = cidadeRepository.findByNome(atividadeDTO.endereco.cidade).get()
+
+        val bairro = bairroRepository.findByNomeAndCidadeId(atividadeDTO.endereco.bairro, cidade.getId()!!) ?: bairroRepository.save(Bairro(id = null,nome = atividadeDTO.endereco.bairro, cidade = cidade))
+
+        var endereco = Endereco(
+            id = null,
+            logradouro = atividadeDTO.endereco.logradouro,
+            numero = atividadeDTO.endereco.numero,
+            cep = null,
+            bairro = bairro,
+            situacao = situacaoRepository.findById(1).get()
+        )
+
+        val endeFinal = enderecoRepository.save(endereco)
+
         var calendario = calendarioRepository.findById(calendarioId).get()
 
         atividadeDTO.filtrodto.diaNomeacao = calendario.getDiaNomeacao()
@@ -60,7 +83,8 @@ class CalendarioService(
             calendario = dia,
             dataCriacao = LocalDateTime.now(),
             dataUltimaAtualizacao = LocalDateTime.now(),
-            emailModificador = atividadeDTO.emailModificador
+            emailModificador = atividadeDTO.emailModificador,
+            endereco = endeFinal
         )
         return reservaAtividadeRepository.save(reservaAtividade)
     }
