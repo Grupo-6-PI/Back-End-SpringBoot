@@ -10,6 +10,7 @@ import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.repository.CalendarioRepository
 import school.sptech.projetotfg.repository.CategoriaRepository
 import school.sptech.projetotfg.repository.VendaRepository
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Service
@@ -33,22 +34,32 @@ class RelatorioFinanceiroService(
         vendaRepository.save(venda)
     }
 
-    fun listarVendas(): List<VendaResponseDTO> {
-        return vendaRepository.findAll().map { venda ->
-            val categ = CategoriaDTO(
-                id = venda.getCategoria()!!.getId(),
-                nome = venda.getCategoria()!!.getNome()
-            )
-            VendaResponseDTO(
-                id = venda.getId(),
-                quantidade = venda.getQuantidade(),
-                valor = venda.getValor(),
-                categoria = categ,
-                calendario = venda.getCalendario(),
-                dataModificacao = LocalDateTime.now()
-            )
-        }
+    fun listarVendas(emailUsuario: String): List<VendaResponseDTO> {
+        val hoje = LocalDate.now()
+
+        return vendaRepository.findAll()
+            .filter { venda ->
+                venda.getEmailModificador() == emailUsuario &&
+                        venda.getCalendario()?.getAno() == hoje.year &&
+                        venda.getCalendario()?.getMesNumeracao() == hoje.monthValue &&
+                        venda.getCalendario()?.getDiaNumeracao() == hoje.dayOfMonth
+            }
+            .map { venda ->
+                val categoriaDTO = CategoriaDTO(
+                    id = venda.getCategoria()?.getId(),
+                    nome = venda.getCategoria()?.getNome()
+                )
+                VendaResponseDTO(
+                    id = venda.getId(),
+                    quantidade = venda.getQuantidade(),
+                    valor = venda.getValor(),
+                    categoria = categoriaDTO,
+                    calendario = venda.getCalendario(),
+                    dataModificacao = LocalDateTime.now()
+                )
+            }
     }
+
 
     fun apagarVenda(id: Long) {
         vendaRepository.deleteById(id)
