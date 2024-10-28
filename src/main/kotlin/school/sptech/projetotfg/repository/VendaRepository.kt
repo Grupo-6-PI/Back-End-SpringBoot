@@ -21,11 +21,16 @@ interface VendaRepository : JpaRepository<Venda, Long> {
         @Param("ano") ano: Int,
         @Param("mes") mes: Int,
         @Param("dia") dia: Int
-    ): List<Venda>
+    ): MutableList<Venda>
 
-    @Query("SELECT v.id, v.quantidade, v.valor, v.email_modificador, c.ano, c.mes_numeracao, c.dia_numeracao\n" +
-            "FROM venda v\n" +
-            "JOIN calendario c ON v.calendario_id = c.id\n" +
-            "WHERE DATE(CONCAT(c.ano, '-', c.mes_numeracao, '-', c.dia_numeracao)) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);\n")
-    fun getAllD30(): Optional<List<Venda>>
+    @Query(
+        value = """
+    SELECT * 
+    FROM venda v
+    JOIN calendario c ON v.calendario_id = c.id
+    WHERE STR_TO_DATE(CONCAT(c.ano, '-', c.mes_numeracao, '-', c.dia_numeracao), '%Y-%m-%d') >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    """,
+        nativeQuery = true
+    )
+    fun getAllD30(): List<Venda>
 }

@@ -82,12 +82,14 @@ class RelatorioFinanceiroService(
 
     fun calcularReceitaBazar():KpiVendaResponseDTO{
 
-        if(vendaRepository.getAllD30().isPresent){
-            var listaVendas:List<Venda> = vendaRepository.getAllD30().get()
+        if(vendaRepository.getAllD30().isNotEmpty()){
+            var listaVendas:List<Venda> = vendaRepository.getAllD30()
 
             var valorTotal = 0.0
 
-            for(i in listaVendas) valorTotal += i.getValor()!!
+            listaVendas.map {
+                valorTotal += it.getValor()!!
+            }
 
             var kpi = KpiVendaResponseDTO(valorTotal)
 
