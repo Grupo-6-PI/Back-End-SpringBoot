@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
+import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.CategoriaDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
@@ -18,6 +19,16 @@ class RelatorioFinanceiroController(val service: RelatorioFinanceiroService) {
 
     @PostMapping("/registrarVenda")
     fun registrarVenda(@RequestBody vendaDto: VendaRegistroDTO): ResponseEntity<String> {
+
+        val filtroDTO = CalendarioFiltroDTO(
+            LocalDate.now().year,
+            LocalDate.now().monthValue,
+            LocalDate.now().dayOfMonth,
+            null
+        )
+
+        vendaDto.calendario = filtroDTO
+
         service.registrarVenda(vendaDto)
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body("Venda Registrada com Sucesso!")
     }

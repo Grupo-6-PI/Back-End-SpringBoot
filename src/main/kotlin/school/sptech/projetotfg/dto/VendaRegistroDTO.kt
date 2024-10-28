@@ -9,5 +9,5 @@ data class VendaRegistroDTO(
     var valor: Double?,
     var categoria: Categoria?,
     var emailModificador: String?,
-    var calendario: Calendario?
+    var calendario: CalendarioFiltroDTO?
 )

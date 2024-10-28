@@ -22,14 +22,16 @@ class RelatorioFinanceiroService(
 ) {
 
     fun registrarVenda(vendaDto: VendaRegistroDTO) {
+
+        var calendario = calendarioRepository.findByAnoAndMesNumeracaoAndDiaNumeracao(vendaDto.calendario!!.ano,vendaDto.calendario!!.mesNumeracao,vendaDto.calendario!!.diaNumeracao).get()
+
         val venda = Venda(
             id = null,
             quantidade = vendaDto.quantidade,
             valor = vendaDto.valor,
             emailModificador = vendaDto.emailModificador,
             categoria = vendaDto.categoria,
-            calendario = vendaDto.calendario
-
+            calendario = calendario
         )
         vendaRepository.save(venda)
     }
