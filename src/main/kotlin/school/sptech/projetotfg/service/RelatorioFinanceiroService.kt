@@ -1,10 +1,13 @@
 package school.sptech.projetotfg.service
 
 import org.modelmapper.ModelMapper
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.CategoriaDTO
+import school.sptech.projetotfg.dto.KpiVendaResponseDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.repository.CalendarioRepository
@@ -12,6 +15,7 @@ import school.sptech.projetotfg.repository.CategoriaRepository
 import school.sptech.projetotfg.repository.VendaRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.jvm.optionals.toList
 
 @Service
 class RelatorioFinanceiroService(
@@ -74,6 +78,24 @@ class RelatorioFinanceiroService(
                 nome = categoria.getNome()
             )
         }
+    }
+
+    fun calcularReceitaBazar():KpiVendaResponseDTO{
+
+        if(vendaRepository.getAllD30().isPresent){
+            var listaVendas:List<Venda> = vendaRepository.getAllD30().get()
+
+            var valorTotal = 0.0
+
+            for(i in listaVendas) valorTotal += i.getValor()!!
+
+            var kpi = KpiVendaResponseDTO(valorTotal)
+
+            return kpi
+        }else{
+            throw ResponseStatusException(HttpStatus.NO_CONTENT, "Não foram encontradas Vendas nos últimos 30 dias")
+        }
+
     }
 
 }

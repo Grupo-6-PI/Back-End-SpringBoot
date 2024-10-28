@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import java.time.LocalDate
+import java.util.*
 
 interface VendaRepository : JpaRepository<Venda, Long> {
     @Query("""
@@ -21,4 +22,10 @@ interface VendaRepository : JpaRepository<Venda, Long> {
         @Param("mes") mes: Int,
         @Param("dia") dia: Int
     ): List<Venda>
+
+    @Query("SELECT v.id, v.quantidade, v.valor, v.email_modificador, c.ano, c.mes_numeracao, c.dia_numeracao\n" +
+            "FROM venda v\n" +
+            "JOIN calendario c ON v.calendario_id = c.id\n" +
+            "WHERE DATE(CONCAT(c.ano, '-', c.mes_numeracao, '-', c.dia_numeracao)) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);\n")
+    fun getAllD30(): Optional<List<Venda>>
 }
