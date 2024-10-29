@@ -17,7 +17,7 @@ class RequisicoesController (
 ){
 
     @GetMapping("/lista-requisicoes/{id}")
-    fun listarRequisicoes(@PathVariable id:Long ):ResponseEntity<List<Requisicoes>>{
+    fun listarRequisicoes(@PathVariable id:Long ):ResponseEntity<List<RequisicoesDTO>>{
         val requisicoes = requisicoesService.listarRequisicoes(id)
         return ResponseEntity.status(200).body(requisicoes)
     }

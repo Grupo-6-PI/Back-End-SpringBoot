@@ -28,17 +28,17 @@ class RequisicoesService (
     private val tipoRequisicaoRepository: TipoRequisicaoRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service() {
-    fun listarRequisicoes(id: Long): List<Requisicoes> {
+    fun listarRequisicoes(id: Long): List<RequisicoesDTO> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
-        var resposta = mutableListOf<Requisicoes>()
+        var resposta = mutableListOf<RequisicoesDTO>()
 
         super.validarLista(listaRequisicoes)
 
         for (pedido in listaRequisicoes) {
 
             if (pedido.getUsuario()!!.getId() == id) {
-                resposta.add(pedido)
+                resposta.add(mapper.map(pedido,RequisicoesDTO::class.java))
             }
 
         }
