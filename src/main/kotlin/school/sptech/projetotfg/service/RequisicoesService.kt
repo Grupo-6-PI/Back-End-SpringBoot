@@ -38,7 +38,15 @@ class RequisicoesService (
         for (pedido in listaRequisicoes) {
 
             if (pedido.getUsuario()!!.getId() == id) {
-                resposta.add(mapper.map(pedido,RequisicoesDTO::class.java))
+
+                val rep = RequisicoesDTO(
+                    id = pedido.getId(),
+                    assuntoRequisicao = pedido.getAssuntoRequisicao(),
+                    situacao = pedido.getSituacao(),
+                    descricao = pedido.getDescricao()
+                )
+
+                resposta.add(rep)
             }
 
         }

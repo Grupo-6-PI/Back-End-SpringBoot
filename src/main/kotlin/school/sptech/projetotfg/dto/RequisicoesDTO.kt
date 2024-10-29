@@ -13,10 +13,9 @@ import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import java.time.LocalDateTime
 
-data class RequisicoesDTO(
+class RequisicoesDTO(
     var id: Long?,
     var assuntoRequisicao: AssuntoRequisicao?,
     var situacao: Situacao?,
     var descricao:String?
-) {
-}
+)
