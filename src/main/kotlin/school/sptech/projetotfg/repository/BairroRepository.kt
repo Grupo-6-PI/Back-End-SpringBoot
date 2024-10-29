@@ -8,6 +8,6 @@ import java.util.Optional
 
 interface BairroRepository : JpaRepository<Bairro, Long> {
 
-    fun findByNomeAndCidadeId(nome:String, cidade_id:Long):Bairro?
+    fun findByNomeAndCidadeId(nome:String, cidade_id:Long):Optional<Bairro>
 
 }

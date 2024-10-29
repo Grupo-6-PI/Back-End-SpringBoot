@@ -10,7 +10,7 @@ class Endereco(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
     private var logradouro:String?,
     @field:Positive private var numero: Int?,
-    @field:Size(min = 8, max = 8) private var cep:String?,
+    private var cep:String?,
     @field:ManyToOne private var bairro: Bairro?,
     @field:ManyToOne private var situacao: Situacao?
 ){

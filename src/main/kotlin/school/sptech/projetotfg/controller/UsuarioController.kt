@@ -81,6 +81,20 @@ class UsuarioController(
 
     }
 
+    @PostMapping("/completo/cadastro/massa")
+    fun cadastrarUsuarioCompletoMassa(@RequestBody usuarioCompletoInputDTO:CadastroMassaDTO): ResponseEntity<Void> {
+
+        val resposta:Boolean = usuarioService.cadastrarUsuarioCompletoMassa(usuarioCompletoInputDTO)
+
+        if (resposta){
+            return ResponseEntity.status(200).build()
+        }else{
+            return ResponseEntity.status(500).build()
+        }
+
+
+    }
+
     @PutMapping("/completo/{id}")
     fun atualizarUsuarioCompleto(
         @PathVariable id: Long,

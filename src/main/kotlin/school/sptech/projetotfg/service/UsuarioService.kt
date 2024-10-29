@@ -1,12 +1,20 @@
 package school.sptech.projetotfg.service
 
+import jakarta.persistence.*
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.Past
+import jakarta.validation.constraints.Size
+import org.hibernate.validator.constraints.br.CPF
 import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.cadastro.*
+import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 class UsuarioService(
@@ -22,6 +30,9 @@ class UsuarioService(
     private val rendaRepository: RendaFamiliaRepository,
     private val tamanhoRoupaRepository: TamanhoRoupaRepository,
     private val tamanhoCalcadoRepository: TamanhoCalcadoRepository,
+    private val situacaoRepository: SituacaoRepository,
+    private val nivelAcessoRepository: NivelAcessoRepository,
+    private val identificadorRepository: IdentificadorRepository,
     private val mapper: ModelMapper
 ) :school.sptech.projetotfg.complement.Service(){
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
@@ -259,6 +270,156 @@ class UsuarioService(
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao encontrar o usuário: ${ex.message}")
         }
+    }
+
+    fun cadastrarUsuarioCompletoMassa(usuarioCompletoInputDTO:CadastroMassaDTO):Boolean{
+
+//        if (usuarioRepository.existsByEmail(usuarioCompletoInputDTO!!.email!!)) {
+//            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
+//        }
+
+        val busca_estado = estadoRepostiory.findByNome(usuarioCompletoInputDTO.estado_nome)
+
+        var estado:Estado;
+
+        if (busca_estado.isEmpty){
+
+            val new_estado = Estado(
+                id = null,
+                nome = usuarioCompletoInputDTO.estado_nome,
+                uf = usuarioCompletoInputDTO.estado_uf
+            )
+
+            estado = estadoRepostiory.save(new_estado)
+
+        }else{
+
+            estado = busca_estado.get()
+
+        }
+
+        val busca_cidade = cidadeRepository.findByNome(usuarioCompletoInputDTO.cidade_nome)
+
+        var cidade:Cidade;
+
+        if (busca_cidade.isEmpty){
+
+            val new_cidade = Cidade(
+                id = null,
+                nome = usuarioCompletoInputDTO.cidade_nome,
+                estado = estado
+            )
+
+            cidade = cidadeRepository.save(new_cidade)
+
+        }else{
+
+            cidade = busca_cidade.get()
+
+        }
+
+        var busca_bairro = bairroRepostiory.findByNomeAndCidadeId(usuarioCompletoInputDTO.bairro_nome,cidade.getId()!!)
+
+        var bairro:Bairro;
+
+        if (busca_bairro.isEmpty){
+
+            var new_bairro = Bairro(
+                id = null,
+                nome = usuarioCompletoInputDTO.bairro_nome,
+                cidade = cidade
+            )
+
+            bairro = bairroRepostiory.save(new_bairro)
+
+        }else{
+
+            bairro = busca_bairro.get()
+
+        }
+
+        val new_endereco = Endereco(
+            id = null,
+            logradouro = usuarioCompletoInputDTO.logradouro,
+            numero = usuarioCompletoInputDTO.numero,
+            cep = usuarioCompletoInputDTO.cep,
+            bairro = bairro,
+            situacao = situacaoRepository.findById(1).get()
+            )
+
+        val endereco = enderecoRepostiory.save(new_endereco)
+
+        val busca_rendaFamiliar = rendaRepository.findByRenda(usuarioCompletoInputDTO.rendaFamiliar_renda)
+
+        var rendaFamiliar:RendaFamiliar;
+
+        if (busca_rendaFamiliar.isEmpty){
+
+            val new_renda = RendaFamiliar(
+                id = null,
+                renda = usuarioCompletoInputDTO.rendaFamiliar_renda,
+                situacao = situacaoRepository.findById(1).get()
+            )
+
+            rendaFamiliar = rendaRepository.save(new_renda)
+
+        }else{
+
+            rendaFamiliar = busca_rendaFamiliar.get()
+
+        }
+
+        val new_familia = Familia(
+            id = null,
+            apelido = usuarioCompletoInputDTO.familia_apelido,
+            quantidadePessoas = usuarioCompletoInputDTO.familia_quantidadePessoas,
+            rendaFamiliar = rendaFamiliar,
+            situacao = situacaoRepository.findById(1).get(),
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = usuarioCompletoInputDTO.email
+        )
+
+        val familia = familiaRepository.save(new_familia)
+
+        val new_identificador = Identificador(
+            id = null,
+            numeracao = usuarioCompletoInputDTO.identificador_numeracao,
+            tipoIdentificador = null,
+            situacao = situacaoRepository.findById(1).get()
+        )
+
+        val identificador = identificadorRepository.save(new_identificador)
+
+        val new_info_adicionais = InformacoesAdicionais(
+            id = null,
+            cpf = usuarioCompletoInputDTO.cpf,
+            dataNascimento = usuarioCompletoInputDTO.dataNascimento,
+            endereco = endereco,
+            familia = familia,
+            identificador = identificador,
+            situacao = situacaoRepository.findById(1).get(),
+            dataCriacao = LocalDateTime.now(),
+            dataUltimaAtualizacao = LocalDateTime.now(),
+            emailModificador = usuarioCompletoInputDTO.email
+        )
+
+        val informacoesAdicionais = informacoesRepository.save(new_info_adicionais)
+
+        val new_user = Usuario(
+            id = null,
+            nome = usuarioCompletoInputDTO.nome,
+            email = usuarioCompletoInputDTO.email,
+            senha = usuarioCompletoInputDTO.senha,
+            informacoesAdicionais = informacoesAdicionais,
+            situacao = situacaoRepository.findById(1).get(),
+            nivelAcesso = nivelAcessoRepository.findById(3).get()
+        )
+
+        val user = usuarioRepository.save(new_user)
+
+        return user != null
+
     }
 
 }

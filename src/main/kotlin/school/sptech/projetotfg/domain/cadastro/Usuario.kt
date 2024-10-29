@@ -49,24 +49,6 @@ class Usuario(
         nivelAcesso = null
     )
 
-    constructor(
-        paramId: Long,
-        paramNome:String,
-        paramEmail:String,
-        paramSenha:String,
-        paramInformacoesAdicionais: InformacoesAdicionais,
-        paramSituacao: Situacao,
-        paramNivelAcesso: NivelAcesso
-    ):this(
-        id = paramId,
-        nome = paramNome,
-        email = paramEmail,
-        senha = paramSenha,
-        informacoesAdicionais = paramInformacoesAdicionais,
-        situacao = paramSituacao,
-        nivelAcesso = paramNivelAcesso
-    )
-
     fun getId():Long?{
         return id
     }

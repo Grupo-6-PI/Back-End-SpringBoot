@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 @Entity
 class InformacoesAdicionais (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:CPF private var cpf:String?,
+    private var cpf:String?,
     @field:Past private var dataNascimento:LocalDate?,
     @field:OneToOne private var endereco: Endereco?,
     @field:OneToOne private var familia: Familia?,

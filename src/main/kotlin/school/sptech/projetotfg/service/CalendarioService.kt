@@ -40,7 +40,7 @@ class CalendarioService(
 
         var cidade = cidadeRepository.findByNome(atividadeDTO.endereco.cidade).get()
 
-        val bairro = bairroRepository.findByNomeAndCidadeId(atividadeDTO.endereco.bairro, cidade.getId()!!) ?: bairroRepository.save(Bairro(id = null,nome = atividadeDTO.endereco.bairro, cidade = cidade))
+        val bairro = bairroRepository.findByNomeAndCidadeId(atividadeDTO.endereco.bairro, cidade.getId()!!).get()
 
         var endereco = Endereco(
             id = null,
