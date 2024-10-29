@@ -10,11 +10,12 @@ import java.time.LocalDateTime
 @Entity
 class Familia(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:OneToOne private var quantidadePessoas: QuantidadePessoas?,
+    private var apelido:String?,
+    private var quantidadePessoas: Int?,
     @field:OneToOne private var rendaFamiliar: RendaFamiliar?,
     @field:ManyToOne private var situacao: Situacao?,
-    @field:PastOrPresent private var dataCriacao: LocalDateTime?,
-    @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
+    private var dataCriacao: LocalDateTime?,
+    private var dataUltimaAtualizacao: LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador:String?
 ) {
 
@@ -29,11 +30,19 @@ class Familia(
         this.id = new
     }
 
-    fun getQuantidadePessoas(): QuantidadePessoas?{
+    fun getApelido(): String?{
+        return apelido
+    }
+
+    fun setApelido(new: String?){
+        this.apelido = new
+    }
+
+    fun getQuantidadePessoas(): Int?{
         return quantidadePessoas
     }
 
-    fun setQuantidadePessoas(new: QuantidadePessoas?){
+    fun setQuantidadePessoas(new: Int?){
         this.quantidadePessoas = new
     }
 

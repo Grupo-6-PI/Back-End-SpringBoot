@@ -7,7 +7,7 @@ import school.sptech.projetotfg.domain.gerenciamento.Situacao
 @Entity
 class Identificador (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:Max(40) private var numeracao:String?,
+    private var numeracao:String?,
     @field:ManyToOne private var tipoIdentificador: TipoIdentificador?,
     @field:ManyToOne private var situacao: Situacao?
 ){

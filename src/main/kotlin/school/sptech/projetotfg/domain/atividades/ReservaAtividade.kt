@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.PastOrPresent
 import jakarta.validation.constraints.Size
+import school.sptech.projetotfg.domain.cadastro.Endereco
 import java.time.LocalDateTime
 
 @Entity
@@ -17,7 +18,8 @@ class ReservaAtividade(
     @field:PastOrPresent private var dataCriacao: LocalDateTime?,
     @field:PastOrPresent private var dataUltimaAtualizacao: LocalDateTime?,
     @field:Email @field:Size(max = 150) private var emailModificador: String?,
-    @field:ManyToOne private var calendario:Calendario?
+    @field:ManyToOne private var calendario:Calendario?,
+    @field:ManyToOne private var endereco:Endereco?
 ) {
 
     fun getId(): Long? {
@@ -66,6 +68,14 @@ class ReservaAtividade(
 
     fun setCalendario(new: Calendario?) {
         this.calendario = new
+    }
+
+    fun getEndereco():Endereco?{
+        return endereco
+    }
+
+    fun setEndereco(new:Endereco?){
+        this.endereco = new
     }
 
 }

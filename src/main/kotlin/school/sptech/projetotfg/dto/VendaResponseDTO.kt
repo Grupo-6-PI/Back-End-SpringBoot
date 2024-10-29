@@ -8,7 +8,7 @@ data class VendaResponseDTO(
     var id: Long?,
     var quantidade: Int?,
     var valor: Double?,
-    var categoria: Categoria?,
+    var categoria: CategoriaDTO,
     var calendario: Calendario?,
     var dataModificacao: LocalDateTime?
 )

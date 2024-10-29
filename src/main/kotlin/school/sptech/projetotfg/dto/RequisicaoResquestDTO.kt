@@ -5,5 +5,5 @@ data class RequisicaoResquestDTO(
     var descricao:String,
     var usuarioId:Long,
     var emailModificador:String,
-    var data: CalendarioFiltroDTO
+    var data: CalendarioFiltroDTO?
 )

@@ -14,9 +14,8 @@ import java.time.LocalDate
 @Entity
 class Dependente(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:Max(60) private var genero:String?,
     @field:Past private var dataNascimento:LocalDate?,
-    @field:NotBlank private var deficiente: Boolean?,
+    private var deficiente: Boolean?,
     @field:ManyToOne private var tamanhoRoupa: TamanhoRoupa?,
     @field:ManyToOne private var tamanhoCalcado: TamanhoCalcado?,
     @field:ManyToOne private var situacao: Situacao?,
@@ -29,14 +28,6 @@ class Dependente(
 
     fun setId(new: Long?){
         this.id = new
-    }
-
-    fun getGenero():String?{
-        return genero
-    }
-
-    fun setGenero(new: String?){
-        this.genero = new
     }
 
     fun getDataNascimento():LocalDate?{

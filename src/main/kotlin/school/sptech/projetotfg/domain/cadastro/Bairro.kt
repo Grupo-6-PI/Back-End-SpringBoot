@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*
 @Entity
 class Bairro(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) private var id:Long?,
-    @field:NotBlank @field:Max(100) private var nome:String?,
+    private var nome:String?,
     @field:ManyToOne private var cidade: Cidade?
 ) {
 

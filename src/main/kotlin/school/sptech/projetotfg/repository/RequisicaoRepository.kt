@@ -154,6 +154,4 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
     """)
     fun findFirst():RequisicoesCumResponseDTO?
 
-    fun findBySituacaoId(id:Long):Optional<MutableList<Requisicoes>>
-
 }
