@@ -34,7 +34,12 @@ interface VendaRepository : JpaRepository<Venda, Long> {
     )
     fun getAllD30(): List<Venda>
 
-    @Query("SELECT v FROM Venda v WHERE v.calendario.ano = :ano AND v.calendario.mesNumeracao BETWEEN :mesInicio AND :mesFim AND v.calendario.diaNumeracao BETWEEN :diaInicio AND :diaFim")
+    @Query("""
+        SELECT v FROM Venda v
+        WHERE v.calendario.ano = :ano
+          AND v.calendario.mesNumeracao BETWEEN :mesInicio AND :mesFim
+          AND v.calendario.diaNumeracao BETWEEN :diaInicio AND :diaFim
+    """)
     fun findVendasByDataInterval(
         @Param("ano") ano: Int,
         @Param("mesInicio") mesInicio: Int,

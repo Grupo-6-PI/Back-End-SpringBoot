@@ -16,6 +16,7 @@ import school.sptech.projetotfg.repository.VendaRepository
 import java.io.FileWriter
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.jvm.optionals.toList
 
@@ -109,11 +110,12 @@ class RelatorioFinanceiroService(
         val diaInicio = dataInicio.dayOfMonth
         val diaFim = dataFim.dayOfMonth
 
-
+        // Busca as vendas de acordo com o intervalo de data
         val vendas = vendaRepository.findVendasByDataInterval(ano, mesInicio, mesFim, diaInicio, diaFim)
 
-        // Nome do arquivo
-        val nomeArquivo = "relatorio_vendas.csv"
+        // Nome do arquivo com data e hora no formato "relatorio_vendas_yyyyMMdd_HHmmss.csv"
+        val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+        val nomeArquivo = "relatorio_vendas_$timestamp.csv"
 
         FileWriter(nomeArquivo).use { writer ->
             Formatter(writer).use { saida ->
@@ -122,10 +124,10 @@ class RelatorioFinanceiroService(
                     saida.format(
                         "%d;%02d/%02d/%04d;%s;%d;%.2f\n",
                         venda.getId(),
-                        venda.getCalendario()!!.getDiaNumeracao(),
-                        venda.getCalendario()!!.getMesNumeracao(),
-                        venda.getCalendario()!!.getAno(),
-                        venda.getCategoria()!!.getNome(),
+                        venda.getCalendario()?.getDiaNumeracao() ?: 0,
+                        venda.getCalendario()?.getMesNumeracao() ?: 0,
+                        venda.getCalendario()?.getAno() ?: 0,
+                        venda.getCategoria()?.getNome() ?: "Sem Categoria",
                         venda.getQuantidade(),
                         venda.getValor()
                     )
