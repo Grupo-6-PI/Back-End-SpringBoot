@@ -114,15 +114,15 @@ class RelatorioFinanceiroService(
         val vendas = vendaRepository.findVendasByDataInterval(ano, mesInicio, mesFim, diaInicio, diaFim)
 
         // Nome do arquivo com data e hora no formato "relatorio_vendas_yyyyMMdd_HHmmss.csv"
-        val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
-        val nomeArquivo = "relatorio_vendas_$timestamp.csv"
+        val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val nomeArquivo = "relatorio_vendas${timestamp}.csv"
 
         FileWriter(nomeArquivo).use { writer ->
             Formatter(writer).use { saida ->
-                saida.format("ID;Data;Categoria;Quantidade;Valor\n") // Cabeçalho do CSV
+                saida.format("ID;Data;Categoria;Quantidade;Valor\n")
                 vendas.forEach { venda ->
                     saida.format(
-                        "%d;%02d/%02d/%04d;%s;%d;%.2f\n",
+                        "%d;%02d/%02d/%04d;%s;%d;%,2f\n",
                         venda.getId(),
                         venda.getCalendario()?.getDiaNumeracao() ?: 0,
                         venda.getCalendario()?.getMesNumeracao() ?: 0,
