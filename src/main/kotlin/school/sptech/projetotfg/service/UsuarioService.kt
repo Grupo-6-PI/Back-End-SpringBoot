@@ -43,7 +43,10 @@ class UsuarioService(
         val usuario = mapper.map(usuarioInputDTO,Usuario::class.java)
 
         return try {
-            val usuarioSalvo = usuarioRepository.save(usuario)
+            var usuarioSalvo = usuarioRepository.save(usuario)
+            val nivelAcesso = nivelAcessoRepository.findById(1)
+            usuarioSalvo.setNivelAcesso(nivelAcesso.get())
+            usuarioSalvo = usuarioRepository.save(usuarioSalvo)
             UsuarioResponseDTO(
                 id = usuarioSalvo.getId()!!,
                 nome = usuarioSalvo.getNome()!!,
