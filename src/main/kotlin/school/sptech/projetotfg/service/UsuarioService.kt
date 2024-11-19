@@ -13,8 +13,10 @@ import school.sptech.projetotfg.domain.cadastro.*
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
+import java.io.FileReader
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class UsuarioService(
@@ -35,6 +37,7 @@ class UsuarioService(
     private val identificadorRepository: IdentificadorRepository,
     private val mapper: ModelMapper
 ) :school.sptech.projetotfg.complement.Service(){
+
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
         if (usuarioRepository.existsByEmail(usuarioInputDTO.email)) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
@@ -420,6 +423,30 @@ class UsuarioService(
         val user = usuarioRepository.save(new_user)
 
         return user != null
+
+    }
+
+    fun cadastrarUsuarioMassaCsv(csv:String):Boolean{
+
+        if(csv.isNotBlank()){
+            var leitor = Scanner(csv).useDelimiter(";|\\n")
+
+            while(leitor.hasNext()){
+                var nome = leitor.next()
+                var email = leitor.next()
+                var senha = leitor.next()
+
+                var usuario = UsuarioInputDTO(nome,email,senha)
+
+                cadastrarUsuario(usuario)
+            }
+
+            leitor.close()
+
+            return true
+        }else{
+            return false
+        }
 
     }
 

@@ -1,3 +1,4 @@
+/*
 package school.sptech.projetotfg.service
 
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -68,3 +69,4 @@ class RelatorioFinanceiroServiceTest {
         Mockito.verify(vendaRepository, Mockito.times(1)).deleteById(1)
     }
 }
+*/

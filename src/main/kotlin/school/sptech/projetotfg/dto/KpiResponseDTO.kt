@@ -1,5 +1,5 @@
 package school.sptech.projetotfg.dto
 
-data class KpiVendaResponseDTO(
+data class KpiResponseDTO(
     var valor:Double?
 )

@@ -7,7 +7,7 @@ import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.CategoriaDTO
-import school.sptech.projetotfg.dto.KpiVendaResponseDTO
+import school.sptech.projetotfg.dto.KpiResponseDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.repository.CalendarioRepository
@@ -83,10 +83,11 @@ class RelatorioFinanceiroService(
         }
     }
 
-    fun calcularReceitaBazar():KpiVendaResponseDTO{
+    fun calcularKpiBazar():KpiResponseDTO{
 
-        if(vendaRepository.getAllD30().isNotEmpty()){
-            var listaVendas:List<Venda> = vendaRepository.getAllD30()
+        var listaVendas:List<Venda> = vendaRepository.getAllD30()
+
+        if(listaVendas.isNotEmpty()){
 
             var valorTotal = 0.0
 
@@ -94,7 +95,7 @@ class RelatorioFinanceiroService(
                 valorTotal += it.getValor()!!
             }
 
-            var kpi = KpiVendaResponseDTO(valorTotal)
+            var kpi = KpiResponseDTO(valorTotal)
 
             return kpi
         }else{

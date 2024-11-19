@@ -612,6 +612,17 @@ class RequisicoesService (
 
     }
 
+    fun calcularKpi():KpiResponseDTO{
+        var lista = requisicaoRepository.findAll()
+        var kpi=0.0
+        for(i in lista){
+            if(i.getSituacao()?.getSituacao() == "5"){
+                kpi += 1.0
+            }
+        }
+        return KpiResponseDTO(kpi)
+    }
+
 }
 
 

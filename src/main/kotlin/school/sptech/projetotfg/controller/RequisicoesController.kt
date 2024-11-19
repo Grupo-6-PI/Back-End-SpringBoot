@@ -94,4 +94,9 @@ class RequisicoesController (
 
     }
 
+    @GetMapping("/kpi/requisicoes")
+    fun kpiRequisicoes():ResponseEntity<KpiResponseDTO>{
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(requisicoesService.calcularKpi())
+    }
+
 }

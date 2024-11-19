@@ -25,10 +25,10 @@ interface VendaRepository : JpaRepository<Venda, Long> {
 
     @Query(
         value = """
-    SELECT * 
-    FROM venda v
-    JOIN calendario c ON v.calendario_id = c.id
-    WHERE STR_TO_DATE(CONCAT(c.ano, '-', c.mes_numeracao, '-', c.dia_numeracao), '%Y-%m-%d') >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        SELECT v.id,v.quantidade,v.valor,v.categoria_id,v.calendario_id,v.email_modificador
+        FROM venda AS v
+        JOIN calendario AS c ON v.calendario_id = c.id
+        WHERE DATE(CONCAT(c.ano, '-', LPAD(c.mes_numeracao, 2, '0'), '-', LPAD(c.dia_numeracao, 2, '0'))) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
     """,
         nativeQuery = true
     )

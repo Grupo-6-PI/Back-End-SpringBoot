@@ -9,7 +9,7 @@ import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
 import school.sptech.projetotfg.dto.CalendarioFiltroDTO
 import school.sptech.projetotfg.dto.CategoriaDTO
-import school.sptech.projetotfg.dto.KpiVendaResponseDTO
+import school.sptech.projetotfg.dto.KpiResponseDTO
 import school.sptech.projetotfg.dto.VendaRegistroDTO
 import school.sptech.projetotfg.dto.VendaResponseDTO
 import school.sptech.projetotfg.repository.VendaRepository
@@ -54,8 +54,8 @@ class RelatorioFinanceiroController(val service: RelatorioFinanceiroService) {
         ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.listarCategorias())
 
     @GetMapping("/kpi/receita")
-    fun receitaBazar(): ResponseEntity<KpiVendaResponseDTO>{
-        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.calcularReceitaBazar())
+    fun receitaBazar(): ResponseEntity<KpiResponseDTO>{
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.calcularKpiBazar())
     }
 
     @GetMapping("/exportar")
