@@ -426,19 +426,28 @@ class UsuarioService(
 
     }
 
-    fun cadastrarUsuarioMassaCsv(csv:String):Boolean{
+    fun cadastrarUsuarioMassaCsv(txt:String):Boolean{
 
-        if(csv.isNotBlank()){
-            var leitor = Scanner(csv).useDelimiter(";|\\n")
+        if(txt.isNotBlank()){
+            val leitor = Scanner(txt)
 
             while(leitor.hasNext()){
-                var nome = leitor.next()
-                var email = leitor.next()
-                var senha = leitor.next()
 
-                var usuario = UsuarioInputDTO(nome,email,senha)
+                val linha = leitor.nextLine()
 
-                cadastrarUsuario(usuario)
+                val registro = linha.substring(0,2)
+
+                if(registro == "02"){
+
+                    var nome = linha.substring(3,32)
+                    var email = linha.substring(33,62)
+                    var senha = linha.substring(63,70)
+
+                    var usuario = UsuarioInputDTO(nome,email,senha)
+
+                    cadastrarUsuario(usuario)
+                }
+
             }
 
             leitor.close()
