@@ -8,14 +8,16 @@ import java.time.LocalDate
 import java.util.*
 
 interface VendaRepository : JpaRepository<Venda, Long> {
-    @Query("""
+    @Query(
+        """
         SELECT v FROM Venda v
         JOIN v.calendario c
         WHERE v.emailModificador = :email
         AND c.ano = :ano
         AND c.mesNumeracao = :mes
         AND c.diaNumeracao = :dia
-    """)
+    """
+    )
     fun findByEmailAndData(
         @Param("email") email: String,
         @Param("ano") ano: Int,
@@ -34,12 +36,14 @@ interface VendaRepository : JpaRepository<Venda, Long> {
     )
     fun getAllD30(): List<Venda>
 
-    @Query("""
+    @Query(
+        """
         SELECT v FROM Venda v
         WHERE v.calendario.ano = :ano
           AND v.calendario.mesNumeracao BETWEEN :mesInicio AND :mesFim
           AND v.calendario.diaNumeracao BETWEEN :diaInicio AND :diaFim
-    """)
+    """
+    )
     fun findVendasByDataInterval(
         @Param("ano") ano: Int,
         @Param("mesInicio") mesInicio: Int,
@@ -47,4 +51,28 @@ interface VendaRepository : JpaRepository<Venda, Long> {
         @Param("diaInicio") diaInicio: Int,
         @Param("diaFim") diaFim: Int
     ): List<Venda>
+
+    @Query(
+        """
+        SELECT v
+        FROM Venda v
+        JOIN v.calendario c
+        WHERE 
+            (c.ano > :anoInicio OR (c.ano = :anoInicio AND c.mesNumeracao > :mesInicio) 
+             OR (c.ano = :anoInicio AND c.mesNumeracao = :mesInicio AND c.diaNumeracao >= :diaInicio))
+            AND 
+            (c.ano < :anoFim OR (c.ano = :anoFim AND c.mesNumeracao < :mesFim) 
+             OR (c.ano = :anoFim AND c.mesNumeracao = :mesFim AND c.diaNumeracao <= :diaFim))
+        """
+    )
+    fun findVendasUltimos30Dias(
+        @Param("anoInicio") anoInicio: Int,
+        @Param("mesInicio") mesInicio: Int,
+        @Param("diaInicio") diaInicio: Int,
+        @Param("anoFim") anoFim: Int,
+        @Param("mesFim") mesFim: Int,
+        @Param("diaFim") diaFim: Int
+    ): List<Venda>
+
+
 }

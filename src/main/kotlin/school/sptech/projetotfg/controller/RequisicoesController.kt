@@ -94,9 +94,16 @@ class RequisicoesController (
 
     }
 
-    @GetMapping("/kpi/requisicoes")
-    fun kpiRequisicoes():ResponseEntity<KpiResponseDTO>{
-        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(requisicoesService.calcularKpi())
+    @GetMapping("/negadas")
+    fun getRequisicoesNegadasUltimos30Dias(): ResponseEntity<Long> {
+        val totalNegadas = requisicoesService.getQuantidadeRequisicoesNegadasUltimos30Dias()
+        return ResponseEntity.ok(totalNegadas)
+    }
+
+    @GetMapping("/totais")
+    fun getTotalRequisicoesUltimos30Dias(): ResponseEntity<Long> {
+        val totalRequisicoes = requisicoesService.getQuantidadeTotalRequisicoesUltimos30Dias()
+        return ResponseEntity.ok(totalRequisicoes)
     }
 
 }

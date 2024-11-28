@@ -2,11 +2,13 @@ package school.sptech.projetotfg.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.dto.RequisicoesCumResponseDTO
 import school.sptech.projetotfg.dto.RequisicoesReqResponseDTO
-import java.util.Optional
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Repository
 interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
@@ -153,5 +155,12 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
         FROM Requisicoes r WHERE r.calendario.id = 1
     """)
     fun findFirst():RequisicoesCumResponseDTO?
+
+    @Query("SELECT COUNT(r) FROM Requisicoes r WHERE r.situacao.id = 5 AND r.dataCriacao >= :dataLimite")
+    fun getQuantidadeRequisicoesNegadasUltimos30Dias(@Param("dataLimite") dataLimite: LocalDateTime): Long?
+
+
+    @Query("SELECT COUNT(r) FROM Requisicoes r WHERE r.dataCriacao >= :dataLimite")
+    fun getQuantidadeTotalRequisicoesUltimos30Dias(@Param("dataLimite") dataLimite: LocalDateTime): Long?
 
 }

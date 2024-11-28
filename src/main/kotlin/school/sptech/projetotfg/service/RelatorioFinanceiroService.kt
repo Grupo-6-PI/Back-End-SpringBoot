@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Categoria
 import school.sptech.projetotfg.domain.relatoriofinanceiro.Venda
-import school.sptech.projetotfg.dto.CategoriaDTO
-import school.sptech.projetotfg.dto.KpiResponseDTO
-import school.sptech.projetotfg.dto.VendaRegistroDTO
-import school.sptech.projetotfg.dto.VendaResponseDTO
+import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.CalendarioRepository
 import school.sptech.projetotfg.repository.CategoriaRepository
 import school.sptech.projetotfg.repository.VendaRepository
@@ -18,7 +15,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.jvm.optionals.toList
 
 @Service
 class RelatorioFinanceiroService(
@@ -83,26 +79,32 @@ class RelatorioFinanceiroService(
         }
     }
 
-    fun calcularKpiBazar():KpiResponseDTO{
+    fun buscarVendasUltimos30Dias(): List<Venda> {
+        val hoje = LocalDate.now()
+        val trintaDiasAtras = hoje.minusDays(30)
 
-        var listaVendas:List<Venda> = vendaRepository.getAllD30()
+        return vendaRepository.findVendasUltimos30Dias(
+            anoInicio = trintaDiasAtras.year,
+            mesInicio = trintaDiasAtras.monthValue,
+            diaInicio = trintaDiasAtras.dayOfMonth,
+            anoFim = hoje.year,
+            mesFim = hoje.monthValue,
+            diaFim = hoje.dayOfMonth
+        )
+    }
 
-        if(listaVendas.isNotEmpty()){
+    fun calcularKpiUltimos30Dias(): KpiVendaResponseDTO {
+        val vendasUltimos30Dias = buscarVendasUltimos30Dias()
 
-            var valorTotal = 0.0
-
-            listaVendas.map {
-                valorTotal += it.getValor()!!
-            }
-
-            var kpi = KpiResponseDTO(valorTotal)
-
-            return kpi
-        }else{
-            throw ResponseStatusException(HttpStatus.NO_CONTENT, "Não foram encontradas Vendas nos últimos 30 dias")
+        if (vendasUltimos30Dias.isEmpty()) {
+            throw ResponseStatusException(HttpStatus.NO_CONTENT, "Não foram encontradas vendas nos últimos 30 dias")
         }
 
+        val valorTotal = vendasUltimos30Dias.sumOf { it.valor ?: 0.0 }
+
+        return KpiVendaResponseDTO(valorTotal)
     }
+
 
     fun gerarCsvVendasPorData(dataInicio: LocalDate, dataFim: LocalDate): String {
         val ano = dataInicio.year

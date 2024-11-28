@@ -8,14 +8,12 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.cadastro.Dependente
-import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Stack
 import java.util.concurrent.ArrayBlockingQueue
 
 @Service
@@ -611,18 +609,15 @@ class RequisicoesService (
         return false
 
     }
-
-    fun calcularKpi():KpiResponseDTO{
-        var lista = requisicaoRepository.findAll()
-        var kpi=0.0
-        for(i in lista){
-            if(i.getSituacao()?.getSituacao() == "5"){
-                kpi += 1.0
-            }
-        }
-        return KpiResponseDTO(kpi)
+    fun getQuantidadeRequisicoesNegadasUltimos30Dias(): Long?{
+        val dataLimite = LocalDateTime.now().minusDays(30)
+        return requisicaoRepository.getQuantidadeRequisicoesNegadasUltimos30Dias(dataLimite)
     }
 
+    fun getQuantidadeTotalRequisicoesUltimos30Dias(): Long?{
+        val dataLimite = LocalDateTime.now().minusDays(30)
+        return requisicaoRepository.getQuantidadeTotalRequisicoesUltimos30Dias(dataLimite)
+    }
 }
 
 
