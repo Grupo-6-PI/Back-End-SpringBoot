@@ -26,10 +26,10 @@ class RequisicoesService (
     private val tipoRequisicaoRepository: TipoRequisicaoRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service() {
-    fun listarRequisicoes(id: Long): List<RequisicoesDTO> {
+    fun listarRequisicoes(id: Long): ArrayBlockingQueue<RequisicoesDTO> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
-        var resposta = mutableListOf<RequisicoesDTO>()
+        var resposta = mutableListOf<Requisicoes>()
 
         super.validarLista(listaRequisicoes)
 
@@ -37,19 +37,27 @@ class RequisicoesService (
 
             if (pedido.getUsuario()!!.getId() == id) {
 
-                val rep = RequisicoesDTO(
-                    id = pedido.getId(),
-                    assuntoRequisicao = pedido.getAssuntoRequisicao(),
-                    situacao = pedido.getSituacao(),
-                    descricao = pedido.getDescricao()
-                )
-
-                resposta.add(rep)
+                resposta.add(pedido)
             }
 
         }
 
-        return resposta
+        var pilhaResposta = ArrayBlockingQueue<RequisicoesDTO>(resposta.size)
+
+        for (pedido in resposta.reversed()) {
+
+            val rep = RequisicoesDTO(
+                id = pedido.getId(),
+                assuntoRequisicao = pedido.getAssuntoRequisicao(),
+                situacao = pedido.getSituacao(),
+                descricao = pedido.getDescricao()
+            )
+
+            pilhaResposta.add(rep)
+
+        }
+
+        return pilhaResposta
 
     }
 
