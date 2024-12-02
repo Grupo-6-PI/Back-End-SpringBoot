@@ -18,7 +18,7 @@ interface RequisicaoRepository:JpaRepository<Requisicoes, Long> {
 
     @Query("SELECT COUNT(r) FROM Requisicoes r WHERE r.situacao.id = 5 AND r.dataCriacao >= :dataLimite")
     fun getQuantidadeRequisicoesNegadasUltimos30Dias(@Param("dataLimite") dataLimite: LocalDateTime): Long?
-    
+
     @Query("SELECT COUNT(r) FROM Requisicoes r WHERE r.dataCriacao >= :dataLimite")
     fun getQuantidadeTotalRequisicoesUltimos30Dias(@Param("dataLimite") dataLimite: LocalDateTime): Long?
 
