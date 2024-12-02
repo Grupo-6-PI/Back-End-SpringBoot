@@ -49,6 +49,18 @@ class RequisicoesController (
         return ResponseEntity.status(200).body(response)
     }
 
+    @GetMapping("/dash_requisicao/semanal")
+    fun getRequisicaoDashSemana():ResponseEntity<RequisicoesGraficoSemanalDTO>{
+        val response = requisicoesService.getRequisicoesSemanal()
+        return ResponseEntity.status(200).body(response)
+    }
+
+    @GetMapping("/dash_requisicao/diario")
+    fun getRequisicaoDashDiario():ResponseEntity<List<RequisicoesGraficoDiarioDTO>>{
+        val response = requisicoesService.getRequisicoesDiario()
+        return ResponseEntity.status(200).body(response)
+    }
+
     @PostMapping
     fun saveRequisicao(@RequestBody requisicao: RequisicaoResquestDTO):ResponseEntity<Requisicoes>{
 
