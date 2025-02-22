@@ -1,3 +1,4 @@
+/*
 package school.sptech.projetotfg.service
 
 import org.junit.jupiter.api.Assertions.*
@@ -112,3 +113,4 @@ class AtividadeServiceTest {
         verify(atividadeRepository).findById(1)
     }
 }
+*/

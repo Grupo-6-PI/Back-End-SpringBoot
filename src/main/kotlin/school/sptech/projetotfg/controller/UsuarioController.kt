@@ -114,4 +114,17 @@ class UsuarioController(
         return ResponseEntity.ok(usuarios)
     }
 
+    @PostMapping("/cadastro/massa/csv")
+    fun cadastrarUsuarioMassaCsv(@RequestBody csv:String): ResponseEntity<Void>{
+
+        val resposta:Boolean = usuarioService.cadastrarUsuarioMassaCsv(csv)
+
+        if (resposta){
+            return ResponseEntity.status(201).build()
+        }else{
+            return ResponseEntity.status(500).build()
+        }
+
+    }
+
 }

@@ -8,14 +8,14 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import school.sptech.projetotfg.domain.cadastro.Dependente
-import school.sptech.projetotfg.domain.doacao.AssuntoRequisicao
 import school.sptech.projetotfg.domain.doacao.Requisicoes
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
+import java.math.BigInteger
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Stack
+import java.time.temporal.WeekFields
 import java.util.concurrent.ArrayBlockingQueue
 
 @Service
@@ -26,9 +26,10 @@ class RequisicoesService (
     private val assuntoRequisicaoRepository: AssuntoRequisicaoRepository,
     private val calendarioRepository: CalendarioRepository,
     private val tipoRequisicaoRepository: TipoRequisicaoRepository,
+    private val requisicoesGraficoRepository: RequisicoesGraficoRepository,
     private val mapper: ModelMapper,
 ):school.sptech.projetotfg.complement.Service() {
-    fun listarRequisicoes(id: Long): List<Requisicoes> {
+    fun listarRequisicoes(id: Long): ArrayBlockingQueue<RequisicoesDTO> {
 
         val listaRequisicoes = requisicaoRepository.findAll()
         var resposta = mutableListOf<Requisicoes>()
@@ -38,12 +39,28 @@ class RequisicoesService (
         for (pedido in listaRequisicoes) {
 
             if (pedido.getUsuario()!!.getId() == id) {
+
                 resposta.add(pedido)
             }
 
         }
 
-        return resposta
+        var pilhaResposta = ArrayBlockingQueue<RequisicoesDTO>(resposta.size)
+
+        for (pedido in resposta.reversed()) {
+
+            val rep = RequisicoesDTO(
+                id = pedido.getId(),
+                assuntoRequisicao = pedido.getAssuntoRequisicao(),
+                situacao = pedido.getSituacao(),
+                descricao = pedido.getDescricao()
+            )
+
+            pilhaResposta.add(rep)
+
+        }
+
+        return pilhaResposta
 
     }
 
@@ -204,206 +221,136 @@ class RequisicoesService (
         return listaDto
     }
 
-    @PersistenceContext
-    private lateinit var entityManager: EntityManager
-
-    fun findLimitedCum(): List<RequisicoesCumResponseDTO> {
-        val query = entityManager.createQuery(
-            """
-        SELECT NEW school.sptech.projetotfg.dto.RequisicoesCumResponseDTO(
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6),
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6),
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6),
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 6),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 6)
-        )
-        FROM Requisicoes r WHERE r.calendario.id = 1
-    """, RequisicoesCumResponseDTO::class.java
-        )
-        query.maxResults = 1
-        return query.resultList
-    }
-
-    fun findLimitedReq(): List<RequisicoesReqResponseDTO> {
-        val query = entityManager.createQuery(
-            """
-        SELECT NEW school.sptech.projetotfg.dto.RequisicoesReqResponseDTO(
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 1 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 2 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5),
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 3 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5),
-        (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 1 AND 90
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 91 AND 181
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 182 AND 273
-                AND r.situacao.id = 5),
-            (SELECT COUNT(r) FROM Requisicoes r 
-                WHERE r.assuntoRequisicao.id = 4 
-                AND r.calendario.id BETWEEN 274 AND 365
-                AND r.situacao.id = 5)
-        ) FROM Requisicoes r WHERE r.id = 1 
-    """, RequisicoesReqResponseDTO::class.java
-        )
-        query.maxResults = 1
-        return query.resultList
-    }
-
     fun getRequisicoesTrimestreTipo(): RequisicaoDashDTO {
         var dto = RequisicaoDashDTO()
-        var dadosReq = findLimitedReq().get(0)
-        var dadosCum = findLimitedCum().get(0)
+        
+        val data = requisicoesGraficoRepository.findAll().get(0)
 
-        dto.cesta_req.add(dadosReq!!.cesta_req01)
-        dto.cesta_req.add(dadosReq!!.cesta_req02)
-        dto.cesta_req.add(dadosReq!!.cesta_req03)
-        dto.cesta_req.add(dadosReq!!.cesta_req04)
+        dto.cesta_req.add(data.cestas_T1_pedidas)
+        dto.cesta_req.add(data.cestas_T2_pedidas)
+        dto.cesta_req.add(data.cestas_T3_pedidas)
+        dto.cesta_req.add(data.cestas_T4_pedidas)
 
-        dto.cesta_cum.add(dadosCum!!.cesta_cum01)
-        dto.cesta_cum.add(dadosCum!!.cesta_cum02)
-        dto.cesta_cum.add(dadosCum!!.cesta_cum03)
-        dto.cesta_cum.add(dadosCum!!.cesta_cum04)
+        dto.cesta_cum.add(data.cestas_T1_cumpridas)
+        dto.cesta_cum.add(data.cestas_T2_cumpridas)
+        dto.cesta_cum.add(data.cestas_T3_cumpridas)
+        dto.cesta_cum.add(data.cestas_T4_cumpridas)
 
-        dto.vestuario_req.add(dadosReq!!.vestuario_req01)
-        dto.vestuario_req.add(dadosReq!!.vestuario_req02)
-        dto.vestuario_req.add(dadosReq!!.vestuario_req03)
-        dto.vestuario_req.add(dadosReq!!.vestuario_req04)
+        dto.vestuario_req.add(data.vestuario_T1_pedidas)
+        dto.vestuario_req.add(data.vestuario_T2_pedidas)
+        dto.vestuario_req.add(data.vestuario_T3_pedidas)
+        dto.vestuario_req.add(data.vestuario_T4_pedidas)
 
-        dto.vestuario_cum.add(dadosCum!!.vestuario_cum01)
-        dto.vestuario_cum.add(dadosCum!!.vestuario_cum02)
-        dto.vestuario_cum.add(dadosCum!!.vestuario_cum03)
-        dto.vestuario_cum.add(dadosCum!!.vestuario_cum04)
+        dto.vestuario_cum.add(data.vestuario_T1_cumpridas)
+        dto.vestuario_cum.add(data.vestuario_T2_cumpridas)
+        dto.vestuario_cum.add(data.vestuario_T3_cumpridas)
+        dto.vestuario_cum.add(data.vestuario_T4_cumpridas)
 
-        dto.saude_req.add(dadosReq!!.saude_req01)
-        dto.saude_req.add(dadosReq!!.saude_req02)
-        dto.saude_req.add(dadosReq!!.saude_req03)
-        dto.saude_req.add(dadosReq!!.saude_req04)
+        dto.saude_req.add(data.saude_T1_pedidas)
+        dto.saude_req.add(data.saude_T2_pedidas)
+        dto.saude_req.add(data.saude_T3_pedidas)
+        dto.saude_req.add(data.saude_T4_pedidas)
 
-        dto.saude_cum.add(dadosCum!!.saude_cum01)
-        dto.saude_cum.add(dadosCum!!.saude_cum02)
-        dto.saude_cum.add(dadosCum!!.saude_cum03)
-        dto.saude_cum.add(dadosCum!!.saude_cum04)
+        dto.saude_cum.add(data.saude_T1_cumpridas)
+        dto.saude_cum.add(data.saude_T2_cumpridas)
+        dto.saude_cum.add(data.saude_T3_cumpridas)
+        dto.saude_cum.add(data.saude_T4_cumpridas)
 
-        dto.outro_req.add(dadosReq!!.outro_req01)
-        dto.outro_req.add(dadosReq!!.outro_req02)
-        dto.outro_req.add(dadosReq!!.outro_req03)
-        dto.outro_req.add(dadosReq!!.outro_req04)
+        dto.outro_req.add(data.outros_T1_pedidas)
+        dto.outro_req.add(data.outros_T2_pedidas)
+        dto.outro_req.add(data.outros_T3_pedidas)
+        dto.outro_req.add(data.outros_T4_pedidas)
 
-        dto.outro_cum.add(dadosCum!!.outros_cum01)
-        dto.outro_cum.add(dadosCum!!.outros_cum02)
-        dto.outro_cum.add(dadosCum!!.outros_cum03)
-        dto.outro_cum.add(dadosCum!!.outros_cum04)
+        dto.outro_cum.add(data.outros_T1_cumpridas)
+        dto.outro_cum.add(data.outros_T2_cumpridas)
+        dto.outro_cum.add(data.outros_T3_cumpridas)
+        dto.outro_cum.add(data.outros_T4_cumpridas)
 
         return dto
+    }
+
+    fun getRequisicoesSemanal(): RequisicoesGraficoSemanalDTO?{
+
+        val data = LocalDateTime.now()
+
+        val result = requisicaoRepository.getGraficoSemanal(data.monthValue, data.year)
+
+        if (result != null && result.isNotEmpty()) {
+            val row = result[0]
+            return RequisicoesGraficoSemanalDTO(
+                Cestas_S1_pedidas = (row[0] as? Number)?.toInt() ?: 0,
+                Cestas_S1_cumpridas = (row[1] as? Number)?.toInt() ?: 0,
+                Cestas_S2_pedidas = (row[2] as? Number)?.toInt() ?: 0,
+                Cestas_S2_cumpridas = (row[3] as? Number)?.toInt() ?: 0,
+                Cestas_S3_pedidas = (row[4] as? Number)?.toInt() ?: 0,
+                Cestas_S3_cumpridas = (row[5] as? Number)?.toInt() ?: 0,
+                Cestas_S4_pedidas = (row[6] as? Number)?.toInt() ?: 0,
+                Cestas_S4_cumpridas = (row[7] as? Number)?.toInt() ?: 0,
+                Cestas_S5_pedidas = (row[8] as? Number)?.toInt() ?: 0,
+                Cestas_S5_cumpridas = (row[9] as? Number)?.toInt() ?: 0,
+                Vestuario_S1_pedidas = (row[10] as? Number)?.toInt() ?: 0,
+                Vestuario_S1_cumpridas = (row[11] as? Number)?.toInt() ?: 0,
+                Vestuario_S2_pedidas = (row[12] as? Number)?.toInt() ?: 0,
+                Vestuario_S2_cumpridas = (row[13] as? Number)?.toInt() ?: 0,
+                Vestuario_S3_pedidas = (row[14] as? Number)?.toInt() ?: 0,
+                Vestuario_S3_cumpridas = (row[15] as? Number)?.toInt() ?: 0,
+                Vestuario_S4_pedidas = (row[16] as? Number)?.toInt() ?: 0,
+                Vestuario_S4_cumpridas = (row[17] as? Number)?.toInt() ?: 0,
+                Vestuario_S5_pedidas = (row[18] as? Number)?.toInt() ?: 0,
+                Vestuario_S5_cumpridas = (row[19] as? Number)?.toInt() ?: 0,
+                Saude_S1_pedidas = (row[20] as? Number)?.toInt() ?: 0,
+                Saude_S1_cumpridas = (row[21] as? Number)?.toInt() ?: 0,
+                Saude_S2_pedidas = (row[22] as? Number)?.toInt() ?: 0,
+                Saude_S2_cumpridas = (row[23] as? Number)?.toInt() ?: 0,
+                Saude_S3_pedidas = (row[24] as? Number)?.toInt() ?: 0,
+                Saude_S3_cumpridas = (row[25] as? Number)?.toInt() ?: 0,
+                Saude_S4_pedidas = (row[26] as? Number)?.toInt() ?: 0,
+                Saude_S4_cumpridas = (row[27] as? Number)?.toInt() ?: 0,
+                Saude_S5_pedidas = (row[28] as? Number)?.toInt() ?: 0,
+                Saude_S5_cumpridas = (row[29] as? Number)?.toInt() ?: 0,
+                Outros_S1_pedidas = (row[30] as? Number)?.toInt() ?: 0,
+                Outros_S1_cumpridas = (row[31] as? Number)?.toInt() ?: 0,
+                Outros_S2_pedidas = (row[32] as? Number)?.toInt() ?: 0,
+                Outros_S2_cumpridas = (row[33] as? Number)?.toInt() ?: 0,
+                Outros_S3_pedidas = (row[34] as? Number)?.toInt() ?: 0,
+                Outros_S3_cumpridas = (row[35] as? Number)?.toInt() ?: 0,
+                Outros_S4_pedidas = (row[36] as? Number)?.toInt() ?: 0,
+                Outros_S4_cumpridas = (row[37] as? Number)?.toInt() ?: 0,
+                Outros_S5_pedidas = (row[38] as? Number)?.toInt() ?: 0,
+                Outros_S5_cumpridas = (row[39] as? Number)?.toInt() ?: 0
+            )
+        }
+
+        return null
+
+    }
+
+    fun getRequisicoesDiario(): List<RequisicoesGraficoDiarioDTO>{
+
+        val data = LocalDateTime.now()
+        val semana = data.get(WeekFields.ISO.weekOfMonth())
+
+        val result = requisicaoRepository.getGraficoDiarioPorSemana(data.monthValue, data.year, semana)
+
+        return if (result != null && result.isNotEmpty()) {
+            result.map { row ->
+                RequisicoesGraficoDiarioDTO(
+                    diaNumeracao = (row[0] as? Number)?.toInt() ?: 0,
+                    diaNomeacao = row[1] as? String ?: "",
+                    cestasPedidas = (row[2] as? Number)?.toInt() ?: 0,
+                    cestasCumpridas = (row[3] as? Number)?.toInt() ?: 0,
+                    vestuarioPedidas = (row[4] as? Number)?.toInt() ?: 0,
+                    vestuarioCumpridas = (row[5] as? Number)?.toInt() ?: 0,
+                    saudePedidas = (row[6] as? Number)?.toInt() ?: 0,
+                    saudeCumpridas = (row[7] as? Number)?.toInt() ?: 0,
+                    outrosPedidas = (row[8] as? Number)?.toInt() ?: 0,
+                    outrosCumpridas = (row[9] as? Number)?.toInt() ?: 0
+                )
+            }
+        } else {
+            emptyList()
+        }
+
     }
 
     fun validarDtoDash(dto: RequisicaoDashDTO?) {
@@ -603,7 +550,15 @@ class RequisicoesService (
         return false
 
     }
+    fun getQuantidadeRequisicoesNegadasUltimos30Dias(): Long?{
+        val dataLimite = LocalDateTime.now().minusDays(30)
+        return requisicaoRepository.getQuantidadeRequisicoesNegadasUltimos30Dias(dataLimite)
+    }
 
+    fun getQuantidadeTotalRequisicoesUltimos30Dias(): Long?{
+        val dataLimite = LocalDateTime.now().minusDays(30)
+        return requisicaoRepository.getQuantidadeTotalRequisicoesUltimos30Dias(dataLimite)
+    }
 }
 
 

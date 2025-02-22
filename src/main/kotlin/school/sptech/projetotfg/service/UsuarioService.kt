@@ -13,8 +13,10 @@ import school.sptech.projetotfg.domain.cadastro.*
 import school.sptech.projetotfg.domain.gerenciamento.Situacao
 import school.sptech.projetotfg.dto.*
 import school.sptech.projetotfg.repository.*
+import java.io.FileReader
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class UsuarioService(
@@ -35,6 +37,7 @@ class UsuarioService(
     private val identificadorRepository: IdentificadorRepository,
     private val mapper: ModelMapper
 ) :school.sptech.projetotfg.complement.Service(){
+
     fun cadastrarUsuario(usuarioInputDTO: UsuarioInputDTO): UsuarioResponseDTO {
         if (usuarioRepository.existsByEmail(usuarioInputDTO.email)) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado")
@@ -43,7 +46,8 @@ class UsuarioService(
         val usuario = mapper.map(usuarioInputDTO,Usuario::class.java)
 
         return try {
-            val usuarioSalvo = usuarioRepository.save(usuario)
+            usuario.setNivelAcesso(nivelAcessoRepository.findById(1).get())
+            var usuarioSalvo = usuarioRepository.save(usuario)
             UsuarioResponseDTO(
                 id = usuarioSalvo.getId()!!,
                 nome = usuarioSalvo.getNome()!!,
@@ -419,6 +423,39 @@ class UsuarioService(
         val user = usuarioRepository.save(new_user)
 
         return user != null
+
+    }
+
+    fun cadastrarUsuarioMassaCsv(txt:String):Boolean{
+
+        if(txt.isNotBlank()){
+            val leitor = Scanner(txt)
+
+            while(leitor.hasNext()){
+
+                val linha = leitor.nextLine()
+
+                val registro = linha.substring(0,2)
+
+                if(registro == "02"){
+
+                    var nome = linha.substring(3,32)
+                    var email = linha.substring(33,62)
+                    var senha = linha.substring(63,70)
+
+                    var usuario = UsuarioInputDTO(nome,email,senha)
+
+                    cadastrarUsuario(usuario)
+                }
+
+            }
+
+            leitor.close()
+
+            return true
+        }else{
+            return false
+        }
 
     }
 

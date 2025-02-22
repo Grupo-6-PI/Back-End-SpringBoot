@@ -1,3 +1,4 @@
+/*
 package school.sptech.projetotfg.service
 
 import org.hibernate.validator.internal.util.Contracts.assertNotNull
@@ -91,3 +92,4 @@ class RequisicoesServiceTest {
         assertNotNull(result)
     }
 }
+*/

@@ -9,7 +9,7 @@ class Venda(
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long?,
     private var quantidade: Int?,
-    private var valor: Double?,
+    internal var valor: Double?,
     private var emailModificador: String?,
     @field:ManyToOne
     private var categoria: Categoria?,

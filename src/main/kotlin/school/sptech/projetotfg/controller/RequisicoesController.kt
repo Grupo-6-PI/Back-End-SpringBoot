@@ -17,7 +17,7 @@ class RequisicoesController (
 ){
 
     @GetMapping("/lista-requisicoes/{id}")
-    fun listarRequisicoes(@PathVariable id:Long ):ResponseEntity<List<Requisicoes>>{
+    fun listarRequisicoes(@PathVariable id:Long ):ResponseEntity<ArrayBlockingQueue<RequisicoesDTO>>{
         val requisicoes = requisicoesService.listarRequisicoes(id)
         return ResponseEntity.status(200).body(requisicoes)
     }
@@ -46,6 +46,18 @@ class RequisicoesController (
     @GetMapping("/dash_requisicao")
     fun getRequisicaoDashPorTrimestreTipoESituacao():ResponseEntity<RequisicaoDashDTO>{
         val response = requisicoesService.getRequisicoesTrimestreTipo()
+        return ResponseEntity.status(200).body(response)
+    }
+
+    @GetMapping("/dash_requisicao/semanal")
+    fun getRequisicaoDashSemana():ResponseEntity<RequisicoesGraficoSemanalDTO>{
+        val response = requisicoesService.getRequisicoesSemanal()
+        return ResponseEntity.status(200).body(response)
+    }
+
+    @GetMapping("/dash_requisicao/diario")
+    fun getRequisicaoDashDiario():ResponseEntity<List<RequisicoesGraficoDiarioDTO>>{
+        val response = requisicoesService.getRequisicoesDiario()
         return ResponseEntity.status(200).body(response)
     }
 
@@ -92,6 +104,18 @@ class RequisicoesController (
         val response = requisicoesService.listRequisicaoADM()
         return ResponseEntity.status(200).body(response)
 
+    }
+
+    @GetMapping("/negadas")
+    fun getRequisicoesNegadasUltimos30Dias(): ResponseEntity<Long> {
+        val totalNegadas = requisicoesService.getQuantidadeRequisicoesNegadasUltimos30Dias()
+        return ResponseEntity.ok(totalNegadas)
+    }
+
+    @GetMapping("/totais")
+    fun getTotalRequisicoesUltimos30Dias(): ResponseEntity<Long> {
+        val totalRequisicoes = requisicoesService.getQuantidadeTotalRequisicoesUltimos30Dias()
+        return ResponseEntity.ok(totalRequisicoes)
     }
 
 }

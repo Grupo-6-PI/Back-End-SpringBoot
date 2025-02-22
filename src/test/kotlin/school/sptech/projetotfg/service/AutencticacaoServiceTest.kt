@@ -1,4 +1,5 @@
-/*import org.junit.jupiter.api.Assertions.*
+package school.sptech.projetotfg.service
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -24,9 +25,20 @@ class AutenticacaoServiceTest {
     private lateinit var situacaoRepository: SituacaoRepository
     private lateinit var loginRepository: LoginRepository
     private lateinit var nivelAcessoRepository: NivelAcessoRepository
-    private lateinit var autenticacaoService: AutenticacaoService
-    private lateinit var usuarioService: UsuarioService
+    private lateinit var bairroRepository: BairroRepository
+    private lateinit var cidadeRepository: CidadeRepository
+    private lateinit var contatoRepository: ContatoRepository
+    private lateinit var enderecoRepository: EnderecoRepository
+    private lateinit var estadoRepository: EstadoRepository
+    private lateinit var familiaRepository: FamiliaRepository
+    private lateinit var identificadorRepository: IdentificadorRepository
+    private lateinit var informacoesRepository: InformacoesAdicionaisRepository
+    private lateinit var rendaRepository: RendaFamiliaRepository
+    private lateinit var tamanhoCalcadoRepository: TamanhoCalcadoRepository
+    private lateinit var tamanhoRoupaRepository: TamanhoRoupaRepository
     private lateinit var mapper: ModelMapper
+    private lateinit var usuarioService: UsuarioService
+    private lateinit var autenticacaoService: AutenticacaoService
 
     @BeforeEach
     fun instanciar() {
@@ -35,6 +47,20 @@ class AutenticacaoServiceTest {
         situacaoRepository = mock(SituacaoRepository::class.java)
         loginRepository = mock(LoginRepository::class.java)
         nivelAcessoRepository = mock(NivelAcessoRepository::class.java)
+        bairroRepository = mock(BairroRepository::class.java)
+        cidadeRepository = mock(CidadeRepository::class.java)
+        contatoRepository = mock(ContatoRepository::class.java)
+        enderecoRepository = mock(EnderecoRepository::class.java)
+        estadoRepository = mock(EstadoRepository::class.java)
+        familiaRepository = mock(FamiliaRepository::class.java)
+        identificadorRepository = mock(IdentificadorRepository::class.java)
+        informacoesRepository = mock(InformacoesAdicionaisRepository::class.java)
+        rendaRepository = mock(RendaFamiliaRepository::class.java)
+        tamanhoCalcadoRepository = mock(TamanhoCalcadoRepository::class.java)
+        tamanhoRoupaRepository = mock(TamanhoRoupaRepository::class.java)
+        val dependenteRepository = mock(DependenteRepository::class.java)
+
+        mapper = mock(ModelMapper::class.java)
 
         autenticacaoService = AutenticacaoService(
             usuarioRepository,
@@ -43,8 +69,26 @@ class AutenticacaoServiceTest {
             loginRepository,
             nivelAcessoRepository
         )
-        usuarioService = UsuarioService(usuarioRepository, mapper)
+        usuarioService = UsuarioService(
+            usuarioRepository,
+            dependenteRepository,
+            informacoesRepository,
+            contatoRepository,
+            enderecoRepository,
+            estadoRepository,
+            bairroRepository,
+            cidadeRepository,
+            familiaRepository,
+            rendaRepository,
+            tamanhoRoupaRepository,
+            tamanhoCalcadoRepository,
+            situacaoRepository,
+            nivelAcessoRepository,
+            identificadorRepository,
+            mapper
+        )
     }
+
 
     @Test
     fun `login - usuario inexistente deve lançar exceção`() {
@@ -77,5 +121,3 @@ class AutenticacaoServiceTest {
     }
 
 }
-
-*/
